@@ -2,62 +2,79 @@
 
 	class MY_Controller extends CI_Controller {
 		protected $user; 
+		protected $logged_in;
 		protected $requires_login = false;
+		protected $view_data;
 
 		public function __construct() {
 			parent::__construct();
 
 			$this->load->helper('form');
 
+			$this->logged_in = $this->session->userdata('is_logged_in');
+
+			//check if user is logged in and redirect if not
 			if ($this->requires_login) {
-				$logged_in = $this->session->userdata('is_logged_in');
-				if (!$logged_in) {
-					echo "CRAP";
-					redirect('auth');
+				if (!$this->logged_in) {
+					redirect('/');
 				}
 			}
 
-			//get the user object
-			$this->user = $this->authentication_model->get_user_object($this->session->userdata('user_id'));
+			//here we will get the user object if it exists
+			if ($this->session->userdata('user_id')) {
+				$this->user = $this->authentication_model->get_user_object($this->session->userdata('user_id'));
+			}
+
+			$this->view_data = array(
+				'metas' => array(),
+				'stylesheets' => array(
+					'<link rel="stylesheet" href="/bower_components/semantic-ui/dist/semantic.css">'
+				),
+				'scripts' => array(
+					'<script src="/bower_components/jquery/dist/jquery.js"></script>',
+					'<script src="/bower_components/semantic-ui/dist/semantic.js"></script>'
+				),
+				'logged_in' => $this->session->userdata('is_logged_in')
+			);
+
+			if ($this->logged_in) {
+				$this->view_data['user'] = $this->user;
+			}
 		}
 
 
 		/*---------------------------------------------------------------------------
 		 *
-		 * BASIC CRUD 
+		 * BASIC CRUD
 		 * 
 		 *---------------------------------------------------------------------------*/
 
-		public function add($table) {
+		protected function add($table, $row) {
 			if (!$this->user->permissions[$table]['create']) {
 				exit("You don't have permission.");
+			} else {
+				$this->master_model->insert($table, $row);
 			}
-
-			$post = $this->input->post();
-			$this->generic_model->insert($table, $post);
-			redirect("/generic");
 		}
 
-		public function del($table, $id) {
-			if (!$this->user->permissions[$table]['delete_all']) {
+		protected function del($table, $id) {
+			if (!$this->user->permissions[$table]['delete']) {
 				exit("You don't have permission.");
 			}
 			$this->generic_model->del($table, $id);
 			redirect("/generic");
 		}
 
-		public function update($table, $id) {
-			if (!$this->user->permissions[$table]['update_all']) {
+		protected function update($table, $id, $data) {
+			if (!$this->user->permissions[$table]['update']) {
 				exit("You don't have permission.");
+			} else {
+				$this->master_model->update($table, $id, $data);
 			}
-			$post = $this->input->post();
-			//get the ids from the post
-			$this->generic_model->update($table, $id, $post);
-			redirect("/generic");
 		}
 
 		//this will return json for ajax or whatever
-		public function get($table, $id) {
+		protected function get($table, $id) {
 			return;
 		}
 
@@ -65,7 +82,7 @@
 		/*
 		 * PRIVATE UTILITY FUNCTIONS
 		 * -------------------------
-		 * Some of this stuff should probably end up in a helper
+		 * ALL OF THIS NEEDS TO BE REWRITTEN TO WORK WITH SEMANTIC UI, BUT IT'S PRETTY CLEVER I GUESS
 		 */
 
 
@@ -125,7 +142,7 @@
 		 *---------------------------------------------------------------------------*/
 		private function _create_form_from_table($table, $include=false, $col_mods='') {
 			//our db columns
-			$db_cols = $this->generic_model->get_cols_from_table($table);
+			$db_cols = $this->master->get_cols_from_table($table);
 
 			//see what should be in our cols array
 			if (is_array($col_mods)) {
@@ -174,7 +191,7 @@
 		 *---------------------------------------------------------------------------*/
 		private function _create_table_from_table($table, $include=false, $col_mods='') {
 			//our db columns
-			$db_cols = $this->generic_model->get_cols_from_table($table);
+			$db_cols = $this->master_model->get_cols_from_table($table);
 
 			//see what should be in our cols array
 			if (is_array($col_mods)) {
@@ -212,11 +229,11 @@
 			}
 			$html .= "</tr></thead>";
 			$html .= "<tbody>";
-			foreach ($this->generic_model->get_all($table) as $record) {
+			foreach ($this->master_model->get_all($table) as $record) {
 				$html .= "<tr>";
 
 
-				foreach ($this->generic_model->get($table, $record->id, $cols) as $value) {
+				foreach ($this->master_model->get($table, $record->id, $cols) as $value) {
 					$html .= "<td>$value</td>";
 				}
 

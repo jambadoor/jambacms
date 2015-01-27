@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteBase /
+
+# Codeigniter Stuff
+RewriteCond $1 !^(index\.php|assets|bower_components|robots\.txt)
+RewriteRule ^(.*)$ index.php?/$1 [L]

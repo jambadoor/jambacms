@@ -10,15 +10,15 @@
 		foreach ($stylesheets as $stylesheet) {
 			echo $stylesheet;
 		}
+
+		foreach ($scripts as $script) {
+			echo $script;
+		}
 	?>
 </head>
 <body>
 	<?php 
 		$this->load->view("layouts/$layout");
-
-		foreach ($scripts as $script) {
-			echo $script;
-		}
 	?>
 </body>
 </html>

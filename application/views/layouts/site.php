@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="ui page grid">
 
 <?php $this->load->view('sections/top_bar'); ?>
 

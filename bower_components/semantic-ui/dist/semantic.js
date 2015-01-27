@@ -18,6 +18,9 @@
  * http://opensource.org/licenses/MIT
  *
  */
+
+console.log("Is this actually loading?");
+
 ;(function ( $, window, document, undefined ) {
 
 $.site = $.fn.site = function(parameters) {
