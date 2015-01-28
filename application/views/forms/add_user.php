@@ -1,6 +1,6 @@
 <div id="add-user-segment" class="ui centered segment">
 	<h2 class="ui header"><i class="user icon"></i>New User</h3>
-	<form class="ui form" action="/admin/add_user" method="POST" enctype="multipart/form-data">
+	<form id="add-user-form" class="ui form" action="/admin/add_user" method="POST" enctype="multipart/form-data">
 		<h4 class="ui dividing header">Personal Information</h4>
 		<div class="three fields">
 			<div class="field">

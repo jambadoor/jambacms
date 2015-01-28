@@ -4,7 +4,6 @@
 		public function __construct() {
 			parent::__construct();
 
-
 		}
 
 		function valid_login($username, $password) {
@@ -19,14 +18,13 @@
 			if ($query->num_rows == 1) {
 				$user = $query->result()[0];			
 
-				//get rid of the password, just in case we every send this object through http
+				//get rid of the password so we can send through http
 				unset($user->password);
 
 				return $user;
 			} else {
 				return null;
 			}
-
 		}
 
 		function get_user_id($username) {

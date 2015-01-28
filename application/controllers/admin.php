@@ -32,12 +32,69 @@
 			//here is our customized view_data
 			$this->view_data['layout'] = 'site';
 			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/assets/css/admin.css">';
-			$this->view_data['scripts'][] = '<script src="/assets/js/site.js"></script>';
+			$this->view_data['scripts'][] = '<script src="/assets/js/admin.js"></script>';
 		}
 		 
+		//This will load up our dashboard, after that everything should be ajax
 		public function index() {
-			//we will start on the users page, I guess... change to be the highest thing that the user can access
-			$this->users();
+			//set up our view_data for the dashboard
+			$this->view_data['page'] = 'dashboard';
+			$users = $this->master_model->get_all('users');
+			foreach ($users as $user) {
+				$this->view_data[$user->type.'s'][] = $user;
+			}
+			$this->load->view('master', $this->view_data);
+		}
+
+		/*---------------------------------------------------------------------------
+		 *
+		 * THESE ARE FOR LOADING HTML VIA AJAX
+		 *
+		 *---------------------------------------------------------------------------*/
+		public function home() {
+			$this->load->view('tabs/home');
+		}
+
+		public function users($action = 'list') {
+			if ($action === 'list') {
+				$users = $this->master_model->get_all('users');
+				foreach ($users as $user) {
+					$data[$user->type.'s'][] = $user;
+				}
+				$data['user'] = $this->user;
+				$this->load->view('tabs/users', $data);
+				return;
+			}
+
+			if ($action === 'add') {
+				$this->load->view('forms/add_user');
+				return;
+			}
+
+			if ($action === 'add_success') {
+				$this->load->view('messages/add_user_success');
+			}
+
+			if ($action === 'uploading') {
+				$this->load->view('messages/creating_user');
+			}
+
+		}
+
+		public function blog() {
+			$this->load->view('tabs/blog');
+		}
+
+		public function forum() {
+			$this->load->view('tabs/forum');
+		}
+
+		public function metrics() {
+			$this->load->view('tabs/metrics');
+		}
+
+		public function ads() {
+			$this->load->view('tabs/ads');
 		}
 
 		/*---------------------------------------------------------------------------
@@ -66,6 +123,8 @@
 			//send the user a message about that and that image is uploading
 			$this->view_data['page'] = 'uploading';
 			$this->load->view('master', $this->view_data);
+			$CI =& get_instance();
+			$CI->output->_display();
 
 			//upload the file
 			//codeigniter upload library stuff
@@ -89,49 +148,6 @@
 
 			//TODO: Implement data sanitization
 
-		}
-
-
-		/*---------------------------------------------------------------------------
-		 *
-		 * OUR DASHBOARD TABS
-		 *
-		 *---------------------------------------------------------------------------*/
-		public function users($action = 'list', $param = 'all') {
-			if ($action === 'list') {
-				//put all users in view_data as $type[user] 
-				$users = $this->master_model->get_all('users');
-				foreach ($users as $user) {
-					$this->view_data[$user->type.'s'][] = $user;
-				}
-
-				$this->view_data['page'] = 'dashboard';
-				$this->view_data['tab'] = 'users';
-				$this->view_data['action'] = $action;
-				$this->view_data['group'] = $param;
-			}
-
-			if ($action === 'add') {
-				$this->view_data['page'] = 'dashboard';
-				$this->view_data['tab'] = 'users';
-				$this->view_data['action'] = $action;
-			}
-
-			$this->load->view('master', $this->view_data);
-		}
-
-		public function blog() {
-			$this->view_data['page'] = 'dashboard';
-			$this->view_data['tab'] = 'blog';
-
-			$this->load->view('master', $this->view_data);
-		}
-
-		public function forum() {
-			$this->view_data['page'] = 'dashboard';
-			$this->view_data['tab'] = 'forum';
-
-			$this->load->view('master', $this->view_data);
 		}
 	}
 ?>

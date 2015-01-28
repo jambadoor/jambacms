@@ -22,9 +22,13 @@
 				$this->session->set_userdata($userdata);
 				redirect("admin");
 			} else {
-				redirect("auth");
+				redirect("/");
 			}
 		}
 
+		public function logout() {
+			$this->session->sess_destroy();
+			redirect('/');
+		}
 	}
 ?>
