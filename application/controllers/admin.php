@@ -4,7 +4,7 @@
 
 		public function __construct() {
 			$this->requires_login = true;
-			$this->login_redirect="/admin/login";
+			$this->login_redirect="/auth/login";
 
 			parent::__construct();
 
@@ -117,6 +117,7 @@
 			$new_user['password'] = sha1($new_user['password']);
 			$new_user['date_created'] = date('Y-m-d');
 			$new_user['last_login'] = date('Y-m-d H:i:s');
+			$new_user['created_by'] = $this->user->id;
 			$this->add('users', $new_user);
 
 			//then get the id

@@ -36,7 +36,7 @@
 				$this->session->set_userdata($userdata);
 				redirect("admin");
 			} else {
-				redirect("/admin/login/retry");
+				redirect("/auth/login/retry");
 			}
 		}
 
