@@ -4,6 +4,7 @@
 
 		public function __construct() {
 			$this->requires_login = true;
+			$this->login_redirect="/admin/login";
 
 			parent::__construct();
 
@@ -45,6 +46,7 @@
 			}
 			$this->load->view('master', $this->view_data);
 		}
+
 
 		/*---------------------------------------------------------------------------
 		 *

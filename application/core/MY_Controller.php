@@ -5,6 +5,7 @@
 		protected $logged_in;
 		protected $requires_login = false;
 		protected $view_data;
+		protected $login_redirect = '/';
 
 		public function __construct() {
 			parent::__construct();
@@ -16,7 +17,7 @@
 			//check if user is logged in and redirect if not
 			if ($this->requires_login) {
 				if (!$this->logged_in) {
-					redirect('/');
+					redirect($this->login_redirect);
 				}
 			}
 
