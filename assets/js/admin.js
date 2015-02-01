@@ -4,4 +4,4 @@
 
 $(function () {
 	$('div.ui.selection.dropdown').dropdown();
-}
+});

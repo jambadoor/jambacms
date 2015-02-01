@@ -11,8 +11,6 @@
 		public function __construct() {
 			parent::__construct();
 
-			$this->load->helper('form');
-
 			$this->logged_in = $this->session->userdata('is_logged_in');
 
 			//check if user is logged in and redirect if not
@@ -22,9 +20,14 @@
 				}
 			}
 
+			//set the back flashdata
+			$this->session->set_flashdata('back', uri_string());
+
 			//load up our models, manually to give better names
 			$this->load->model('authentication_model', 'auth');
 			$this->load->model('master_model');
+			$this->load->model('users_model', 'users');
+
 			//get the table names
 			$this->tables = $this->master_model->get_tables();
 
@@ -32,7 +35,27 @@
 			if ($this->session->userdata('user_id')) {
 				$this->user = $this->auth->get_user_object($this->session->userdata('user_id'));
 			}
+			//TODO this should be in a config or something, so the end user won't have to mess with this code
+			//finish the user object
+			if (isset($this->user)) {
+				//This is where we will be setting up our permissions for different user types.
+				//Currently you have dev, admin, blogger, advertiser, and 'user' types
+				$this->user->permissions = array();
 
+				//dev gets all permissions
+				if ($this->user->type === 'dev') {
+					foreach ($this->tables as $table) {
+						$this->user->permissions[$table] = array();
+						$this->user->permissions[$table]['create'] = true;
+						$this->user->permissions[$table]['read'] = true;
+						$this->user->permissions[$table]['update'] = true;
+						$this->user->permissions[$table]['delete'] = true;
+					}
+				}
+				//likely so will admin, we will have to figure out the rest as we go.
+			}
+
+			//set up our global view data
 			$this->view_data = array(
 				'metas' => array(),
 				'stylesheets' => array(
@@ -45,6 +68,7 @@
 				'logged_in' => $this->session->userdata('is_logged_in')
 			);
 
+			//and the user if we have it
 			if ($this->logged_in) {
 				$this->view_data['user'] = $this->user;
 			}
@@ -57,32 +81,32 @@
 		 * 
 		 *---------------------------------------------------------------------------*/
 
-		protected function add($table, $row) {
+		public function add($table, $record) {
 			if (!$this->user->permissions[$table]['create']) {
 				exit("You don't have permission.");
 			} else {
-				$this->master_model->insert($table, $row);
+				$this->$table->insert($record);
 			}
 		}
 
-		protected function del($table, $id) {
+		public function del($table, $id) {
 			if (!$this->user->permissions[$table]['delete']) {
 				exit("You don't have permission.");
 			}
-			$this->generic_model->del($table, $id);
-			redirect("/generic");
+			$this->$table->del($id);
+			redirect($this->session->flashdata('back'));
 		}
 
-		protected function update($table, $id, $data) {
+		public function update($table, $id, $data) {
 			if (!$this->user->permissions[$table]['update']) {
 				exit("You don't have permission.");
 			} else {
-				$this->master_model->update($table, $id, $data);
+				$this->$table->update($id, $data);
 			}
 		}
 
-		//this will return json for ajax or whatever
-		protected function get($table, $id) {
+		//this will return json
+		public function get($table, $id) {
 			return;
 		}
 
@@ -95,10 +119,11 @@
 
 
 		/*
+		 * THIS ALL BELONGS SOMEWHERE ELSE, NEEDS TO BE LOOKED THROUGH!!!
 		 * Takes every column from the table and creates a form that will create
 		 * an update form easily from the table.
 		 * The include parameter determines if col_mods are ommitted or exclusively included
-		 *---------------------------------------------------------------------------*/
+		 *---------------------------------------------------------------------------
 		private function _update_form_from_table($table, $id, $include=false, $col_mods=array('id', 'user_id', 'video_series_id', 'date_created')) {
 			//our db columns
 			$db_cols = $this->generic_model->get_cols_from_table($table);
@@ -147,7 +172,7 @@
 		 * Takes every column from the table and creates a form that will create
 		 * an insert form easily from the table.
 		 * The include parameter determines is col_mods are ommitted or exclusively included
-		 *---------------------------------------------------------------------------*/
+		 *---------------------------------------------------------------------------/
 		private function _create_form_from_table($table, $include=false, $col_mods='') {
 			//our db columns
 			$db_cols = $this->master->get_cols_from_table($table);
@@ -196,7 +221,7 @@
 		/*
 		 * Creates an html table containing all the rows in the table
 		 * * Really need to add in omitted/included columns
-		 *---------------------------------------------------------------------------*/
+		 *---------------------------------------------------------------------------/
 		private function _create_table_from_table($table, $include=false, $col_mods='') {
 			//our db columns
 			$db_cols = $this->master_model->get_cols_from_table($table);
@@ -255,7 +280,7 @@
 
 		/*
 		 * TESTING
-		 */////////////////////////////////////////////////////////////
+		 /////////////////////////////////////////////////////////////
 		//print out the users permissions, just for testing really
 		private function _user_permissions($id) {
 			foreach ($this->user->permissions as $key=>$value) {
@@ -264,6 +289,6 @@
 					echo "<h4>$permission - $value</h4>";
 				}
 			}
-		}
+		}*/
 	}
 ?>

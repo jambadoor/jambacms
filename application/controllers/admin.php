@@ -3,29 +3,13 @@
 	class Admin extends MY_Controller {
 
 		public function __construct() {
+			//we have some setup to do, these come before construct because construct uses them
 			$this->requires_login = true;
-			$this->login_redirect = "/auth/login";
+			$this->login_redirect = "/auth/login/admin";
 
+			//call our parent constructor
 			parent::__construct();
 
-			//finish the user object
-			if (isset($this->user)) {
-				//This is where you will be setting up your permissions for different user types.
-				//Currently you have dev, admin, blogger, advertiser, and user types.
-				$this->user->permissions = array();
-
-				//dev gets all permissions
-				if ($this->user->type === 'dev') {
-					foreach ($this->tables as $table) {
-						$this->user->permissions[$table] = array();
-						$this->user->permissions[$table]['create'] = true;
-						$this->user->permissions[$table]['read'] = true;
-						$this->user->permissions[$table]['update'] = true;
-						$this->user->permissions[$table]['delete'] = true;
-					}
-				}
-				//likely so will admin, we will have to figure out the rest as we go.
-			}
 
 			//load up our models (auth and master are already loaded)
 			$this->load->model('users_model', 'users');
@@ -54,25 +38,27 @@
 			$this->load->view('master', $this->view_data);
 		}
 
-		public function users($action = 'list') {
+		public function users($content = 'list') {
 			$this->view_data['tab'] = 'users';
-			if ($action === 'list') {
+
+			if ($content === 'list') {
+				$this->view_data['tab_content'] = 'tabs/users';
 				$users = $this->users->get_all();
 				foreach ($users as $user) {
 					$this->view_data[$user->type.'s'][] = $user;
 				}
 			}
 
-			if ($action === 'add') {
-				$this->load->view('forms/add_user');
-				return;
+			if ($content === 'add') {
+				$this->view_data['tab_content'] = 'forms/add_user';
+				$this->session->flashdata('back', '/admin/users');
 			}
 
-			if ($action === 'add_success') {
+			if ($content === 'add_success') {
 				$this->load->view('messages/add_user_success');
 			}
 
-			if ($action === 'uploading') {
+			if ($content === 'uploading') {
 				$this->load->view('messages/creating_user');
 			}
 
@@ -110,6 +96,7 @@
 			//TODO: sanitize it
 			//check that the username isn't taken
 			if (!$this->auth->username_available($new_user['username'])) {
+				//handle this better
 				exit("Username already taken");
 			}
 
@@ -136,16 +123,11 @@
 				//we really need to handle this better, but for now, we will just do this.
 				exit('The upload failed');
 			} else {
-				//update the db with the url
+				//update the db with the url and go back
 				$this->users->update($new_user['id'], array('image_url' => $new_user['id']."-001.png"));
+				redirect($this->session->flashdata('back'));
 			}
-
-			//TODO: Implement data sanitization
-
 		}
 
-		public function delete_user($id) {
-			$this->users->soft_delete($id);
-		}
 	}
 ?>

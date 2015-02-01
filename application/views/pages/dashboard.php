@@ -26,6 +26,6 @@
 		</a>
 	</div>
 	<div id="tab-content" class="ui bottom attached segment">
-		<?php $this->load->view("tabs/$tab");?>
+		<?php $this->load->view("$tab_content");?>
 	</div>
 </div>

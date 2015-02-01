@@ -56,51 +56,41 @@
 		 * READ
 		 */
 		public function get($id, $cols='') {
-			//check that table exists
-			if (!in_array($table, $this->tables)) {
-				exit("$table not in database.");
-			} else {
-				$sql = "SELECT ";
-				if (is_array($cols)) {
-					$all_there = true;
-					foreach ($cols as $col) {
-						if (!in_array($col, $this->columns)) {
-							$all_there = false;
-							exit("$col not in $table");
-						}
-						$sql .= "$col, ";
+			$sql = "SELECT ";
+			if (is_array($cols)) {
+				$all_there = true;
+				foreach ($cols as $col) {
+					if (!in_array($col, $this->columns)) {
+						$all_there = false;
+						exit("$col not in $table");
 					}
-					//get rid of last ", "
-					$sql = substr($sql, 0, -2);
-				} else {
-					$sql .= "* ";
+					$sql .= "$col, ";
 				}
-				$sql .= " FROM $table WHERE id=$id";
+				//get rid of last ", "
+				$sql = substr($sql, 0, -2);
+			} else {
+				$sql .= "* ";
+			}
+			$sql .= " FROM $this->table WHERE id=$id";
 
-				if (!$all_there) {
-					exit("Some table didn't exist.");
+			if (!$all_there) {
+				exit("Some table didn't exist.");
+			} else {
+				$query = $this->db->query($sql);
+				if ($query->num_rows === 1) {
+					return $query->result()[0];
 				} else {
-					$query = $this->db->query($sql);
-					if ($query->num_rows === 1) {
-						return $query->result()[0];
-					} else {
-						exit("Database Error");
-					}
+					exit("Database Error");
 				}
 			}
 		}
 
 		public function get_all() {
-			$query = $this->db->query("SELECT * FROM $table");
+			$query = $this->db->query("SELECT * FROM $this->table");
 		}
 
-		public function get_columns($table) {
-			//check that table exists
-			if (!in_array($table, $this->tables)) {
-				exit("$table not in database.");
-			} else {
-				return $this->columns;
-			}
+		public function get_columns() {
+			return $this->columns;
 		}
 
 		//---------------------------------------------------------------------------
@@ -121,7 +111,7 @@
 				exit("Some table(s) didn't exist. But this should never get hit.");
 			} else {
 				//ok, start the query
-				$sql = "UPDATE $table SET ";
+				$sql = "UPDATE $this->table SET ";
 				foreach ($record as $key=>$value) {
 					$sql .= "$key='$value', ";	
 				}
@@ -130,19 +120,19 @@
 				$sql .= " WHERE id=$id";
 
 				if (!$this->db->query($sql)) {
-					exit("Database Error - Update $table id $id");
+					exit("Database Error - Update $this->table id $id");
 				}
 			}
 		}
 
 		//---------------------------------------------------------------------------
 		/*
-		 * DELETE
+		 * DELETE (SOFT)
 		 */
 
 		public function del($id) {
-			if (!$this->db->query("DELETE FROM $table WHERE id=$id")) {
-				exit("Delete failed at DB for $table id $id");
+			if (!$this->db->query("UPDATE $this->table SET active=0 WHERE id=$id")) {
+				exit("Soft delete failed at DB for $table id $id");
 			}
 		}
 	}

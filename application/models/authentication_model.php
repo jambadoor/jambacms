@@ -7,7 +7,7 @@
 		}
 
 		function valid_login($username, $password) {
-			$query = $this->db->query("SELECT * FROM users WHERE username='$username' AND password='$password'");
+			$query = $this->db->query("SELECT * FROM users WHERE active=1 AND username='$username' AND password='$password'");
 
 			return ($query->num_rows == 1);
 		}
