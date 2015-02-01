@@ -27,14 +27,6 @@
 			}
 		}
 
-		function get_user_id($username) {
-			$query = $this->db->query("SELECT (id) FROM users WHERE username='$username'");
-
-			if ($query->num_rows === 1) {
-				return $query->result()[0]->id;
-			}
-		}
-
 		function username_available($username) {
 			$query = $this->db->query("SELECT (id) FROM users WHERE username='$username'");
 			return ($query->num_rows === 0);

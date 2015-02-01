@@ -4,22 +4,19 @@
 
 		public function __construct() {
 			$this->requires_login = true;
-			$this->login_redirect="/auth/login";
+			$this->login_redirect = "/auth/login";
 
 			parent::__construct();
 
-			//see if there is a user object, MYController creates it if logged in
+			//finish the user object
 			if (isset($this->user)) {
-				//get the table names
-				$tables = $this->master_model->get_tables();
-
 				//This is where you will be setting up your permissions for different user types.
 				//Currently you have dev, admin, blogger, advertiser, and user types.
 				$this->user->permissions = array();
 
 				//dev gets all permissions
-				if ($this->user->type == 'dev') {
-					foreach ($tables as $table) {
+				if ($this->user->type === 'dev') {
+					foreach ($this->tables as $table) {
 						$this->user->permissions[$table] = array();
 						$this->user->permissions[$table]['create'] = true;
 						$this->user->permissions[$table]['read'] = true;
@@ -27,45 +24,43 @@
 						$this->user->permissions[$table]['delete'] = true;
 					}
 				}
+				//likely so will admin, we will have to figure out the rest as we go.
 			}
-			//likely so will admin, we will have to figure out the rest as we go.
 
-			//here is our customized view_data
+			//load up our models (auth and master are already loaded)
+			$this->load->model('users_model', 'users');
+
+
+			//here is our controller-wide view_data
 			$this->view_data['layout'] = 'site';
 			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/assets/css/admin.css">';
 			$this->view_data['scripts'][] = '<script src="/assets/js/admin.js"></script>';
+			$this->view_data['page'] = 'dashboard';
 		}
 		 
-		//This will load up our dashboard, after that everything should be ajax
 		public function index() {
-			//set up our view_data for the dashboard
-			$this->view_data['page'] = 'dashboard';
-			$users = $this->master_model->get_all('users');
-			foreach ($users as $user) {
-				$this->view_data[$user->type.'s'][] = $user;
-			}
-			$this->load->view('master', $this->view_data);
+			$this->home();
 		}
 
 
 		/*---------------------------------------------------------------------------
 		 *
-		 * THESE ARE FOR LOADING HTML VIA AJAX
-		 *
-		 *---------------------------------------------------------------------------*/
+		 * THESE ARE OUR TABS
+		 * 
+		 *---------------------------------------------------------------------------*/ 
 		public function home() {
-			$this->load->view('tabs/home');
+			//set up our view_data
+			$this->view_data['tab'] = 'home';
+			$this->load->view('master', $this->view_data);
 		}
 
 		public function users($action = 'list') {
+			$this->view_data['tab'] = 'users';
 			if ($action === 'list') {
-				$users = $this->master_model->get_all('users');
+				$users = $this->users->get_all();
 				foreach ($users as $user) {
-					$data[$user->type.'s'][] = $user;
+					$this->view_data[$user->type.'s'][] = $user;
 				}
-				$data['user'] = $this->user;
-				$this->load->view('tabs/users', $data);
-				return;
 			}
 
 			if ($action === 'add') {
@@ -81,22 +76,27 @@
 				$this->load->view('messages/creating_user');
 			}
 
+			$this->load->view('master', $this->view_data);
 		}
 
 		public function blog() {
-			$this->load->view('tabs/blog');
+			$this->view_data['tab'] = 'blog';
+			$this->load->view('master', $this->view_data);
 		}
 
 		public function forum() {
-			$this->load->view('tabs/forum');
+			$this->view_data['tab'] = 'forum';
+			$this->load->view('master', $this->view_data);
 		}
 
 		public function metrics() {
-			$this->load->view('tabs/metrics');
+			$this->view_data['tab'] = 'metrics';
+			$this->load->view('master', $this->view_data);
 		}
 
 		public function ads() {
-			$this->load->view('tabs/ads');
+			$this->view_data['tab'] = 'ads';
+			$this->load->view('master', $this->view_data);
 		}
 
 		/*---------------------------------------------------------------------------
@@ -109,7 +109,7 @@
 			$new_user = $this->input->post();
 			//TODO: sanitize it
 			//check that the username isn't taken
-			if (!$this->authentication_model->username_available($new_user['username'])) {
+			if (!$this->auth->username_available($new_user['username'])) {
 				exit("Username already taken");
 			}
 
@@ -118,16 +118,10 @@
 			$new_user['date_created'] = date('Y-m-d');
 			$new_user['last_login'] = date('Y-m-d H:i:s');
 			$new_user['created_by'] = $this->user->id;
-			$this->add('users', $new_user);
+			$this->users->insert($new_user);
 
 			//then get the id
-			$new_user['id'] = $this->authentication_model->get_user_id($new_user['username']);
-
-			//send the user a message about that and that image is uploading
-			$this->view_data['page'] = 'uploading';
-			$this->load->view('master', $this->view_data);
-			$CI =& get_instance();
-			$CI->output->_display();
+			$new_user['id'] = $this->users->get_id($new_user['username']);
 
 			//upload the file
 			//codeigniter upload library stuff
@@ -143,14 +137,15 @@
 				exit('The upload failed');
 			} else {
 				//update the db with the url
-				$this->update('users', $new_user['id'], array('image_url' => $new_user['id']."-001.png"));
+				$this->users->update($new_user['id'], array('image_url' => $new_user['id']."-001.png"));
 			}
-
-			//and redirect to the users tab with a message
-			redirect('/admin/users');
 
 			//TODO: Implement data sanitization
 
+		}
+
+		public function delete_user($id) {
+			$this->users->soft_delete($id);
 		}
 	}
 ?>

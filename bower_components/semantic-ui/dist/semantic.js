@@ -19,7 +19,6 @@
  *
  */
 
-console.log("Is this actually loading?");
 
 ;(function ( $, window, document, undefined ) {
 

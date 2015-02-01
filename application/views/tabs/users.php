@@ -1,8 +1,8 @@
-<button id="add-user-button" class="ui labeled icon button" href="/admin/users/add">
+<a href="/admin/users/add" id="add-user-button" class="ui labeled icon button">
 	<i class="plus icon"></i>
 	Add User
-</button>
-<div id="message" class="ui segment" hidden>
+</a>
+<div id="messages">
 </div>
 <div class="ui segment">
 	<h3 class="ui header"><i class="code icon"></i>Developers</h3>

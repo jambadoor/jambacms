@@ -6,6 +6,7 @@
 		protected $requires_login = false;
 		protected $view_data;
 		protected $login_redirect = '/';
+		protected $tables;
 
 		public function __construct() {
 			parent::__construct();
@@ -21,9 +22,15 @@
 				}
 			}
 
+			//load up our models, manually to give better names
+			$this->load->model('authentication_model', 'auth');
+			$this->load->model('master_model');
+			//get the table names
+			$this->tables = $this->master_model->get_tables();
+
 			//here we will get the user object if it exists
 			if ($this->session->userdata('user_id')) {
-				$this->user = $this->authentication_model->get_user_object($this->session->userdata('user_id'));
+				$this->user = $this->auth->get_user_object($this->session->userdata('user_id'));
 			}
 
 			$this->view_data = array(

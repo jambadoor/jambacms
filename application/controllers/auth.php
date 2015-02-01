@@ -2,21 +2,27 @@
 
 	class Auth extends MY_Controller {
 		public function __construct() {
-
 			parent::__construct();
+
+			$this->load->model('users_model', 'users');
 		}
 
 		public function index() {
-			echo "auth controller";
 		}
 
 		//our login page
-		public function login($message = '') {
+		public function login($redirect='admin') {
+			//put the redirect in flashdata
+			$this->session->set_flashdata('redirect', $redirect);
+
+			//load up the view_data
 			$this->view_data['layout'] = 'site';
 			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/assets/css/admin.css">';
 			$this->view_data['scripts'][] = '<script src="/assets/js/admin.js"></script>';
 			$this->view_data['page'] = 'form';
 			$this->view_data['form'] = 'login';
+
+			//and the view
 			$this->load->view('master', $this->view_data);
 		}
 
@@ -24,17 +30,17 @@
 			$username = $this->input->post('username');
 			$password = sha1($this->input->post('password'));
 
-			echo $username." ".$password;
-
 			//check if valid
-			if ($this->authentication_model->valid_login($username, $password)) {
+			if ($this->auth->valid_login($username, $password)) {
 				//if so, log the user in!
 				$userdata = array();
-				$userdata['user_id'] = $this->authentication_model->get_user_id($username);
+				$userdata['user_id'] = $this->users->get_id($username);
 				$userdata['is_logged_in'] = true;
 
+				//give the session the data
 				$this->session->set_userdata($userdata);
-				redirect("admin");
+
+				redirect($this->session->flashdata('redirect'));
 			} else {
 				redirect("/auth/login/retry");
 			}

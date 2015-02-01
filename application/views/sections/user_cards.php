@@ -2,7 +2,7 @@
 
 <?php foreach ($users as $user) : ?>
 
-	<div class="card">
+	<div id="<?="user_".$user->id;?>" class="user card">
 		<div class="image">
 			<img src="/assets/img/avatars/<?=$user->image_url?>">
 		</div>
@@ -18,14 +18,18 @@
 			</div>
 		</div>
 
-	<?php if ($edit) : ?>
-
-		<a class="ui bottom attached button">
-			<i class="write icon"></i>
-			Edit
-		</a>
-
-	<?php endif; ?>
+		<?php if ($edit) : ?>
+			<div class="ui two bottom attached buttons">
+				<a href="/admin/users/edit/<?=$user->id?>" class="ui button">
+					<i class="edit icon"></i>
+					Edit
+				</a>
+				<a href="/admin/users/delete/<?$user->id?>" class="ui button">
+					<i class="erase icon"></i>
+					Delete
+				</a>
+			</div>
+		<?php endif; ?>
 
 	</div>
 

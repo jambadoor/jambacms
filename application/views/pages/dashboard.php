@@ -1,31 +1,31 @@
 <div class="sixteen wide column" id="page">
 	<div id="dashboard-tabs" class="ui top attached tabular menu">
-		<a id="home-tab" class="active item">
+	<a href="/admin/home" id="home-tab" class="<?php if ($tab === 'home') echo 'active ';?>item">
 			<i class="home icon"></i>
 			Home
 		</a>
-		<a id="users-tab" class="item">
+		<a  href="/admin/users" id="users-tab" class="<?php if ($tab === 'users') echo 'active ';?>item">
 			<i class="users icon"></i>
 			Users
 		</a>
-		<a id="blog-tab" class="item">
+		<a href="/admin/blog" id="blog-tab" class="<?php if ($tab === 'blog') echo 'active ';?>item">
 			<i class="book icon"></i>
 			Blog
 		</a>
-		<a id="forum-tab" class="item">
+		<a href="/admin/forum" id="forum-tab" class="<?php if ($tab === 'forum') echo 'active ';?>item">
 			<i class="comments icon"></i>
 			Forum
 		</a>
-		<a id="metrics-tab" class="item">
+		<a href="/admin/metrics" id="metrics-tab" class="<?php if ($tab === 'metrics') echo 'active ';?>item">
 			<i class="comments icon"></i>
 			Metrics
 		</a>
-		<a id="ads-tab" class="item">
+		<a href="/admin/ads" id="ads-tab" class="<?php if ($tab === 'ads') echo 'active ';?>item">
 			<i class="comments icon"></i>
 			Ads
 		</a>
 	</div>
 	<div id="tab-content" class="ui bottom attached segment">
-		<?php $this->load->view('tabs/home'); ?>
+		<?php $this->load->view("tabs/$tab");?>
 	</div>
 </div>
