@@ -23,9 +23,8 @@
 		}
 		 
 		public function index() {
-			$this->home();
+			$this->users();
 		}
-
 
 		/*---------------------------------------------------------------------------
 		 *
@@ -35,31 +34,36 @@
 		public function home() {
 			//set up our view_data
 			$this->view_data['tab'] = 'home';
+			$this->view_data['tab_content'] = 'tabs/home';
 			$this->load->view('master', $this->view_data);
 		}
 
-		public function users($content = 'list') {
+		public function users($content = 'list', $param='') {
 			$this->view_data['tab'] = 'users';
 
-			if ($content === 'list') {
-				$this->view_data['tab_content'] = 'tabs/users';
-				$users = $this->users->get_all();
-				foreach ($users as $user) {
-					$this->view_data[$user->type.'s'][] = $user;
-				}
-			}
-
-			if ($content === 'add') {
-				$this->view_data['tab_content'] = 'forms/add_user';
-				$this->session->flashdata('back', '/admin/users');
-			}
-
-			if ($content === 'add_success') {
-				$this->load->view('messages/add_user_success');
-			}
-
-			if ($content === 'uploading') {
-				$this->load->view('messages/creating_user');
+			switch ($content) {
+				case 'list':
+					$this->view_data['tab_content'] = 'tabs/users';
+					$users = $this->users->get_all();
+					foreach ($users as $user) {
+						$this->view_data[$user->type.'s'][] = $user;
+					}
+					break;
+				case 'add':
+					$this->view_data['tab_content'] = 'forms/add_user';
+					$this->session->flashdata('back', '/admin/users');
+					break;
+				case 'edit':
+					$this->view_data['tab_content'] = 'forms/edit_user';
+					$this->view_data['edited_user'] = $this->users->get($param);
+					$this->session->flashdata('back', '/admin/users');
+					break;
+				default:
+					$this->view_data['tab_content'] = 'tabs/users';
+					$users = $this->users->get_all();
+					foreach ($users as $user) {
+						$this->view_data[$user->type.'s'][] = $user;
+					}
 			}
 
 			$this->load->view('master', $this->view_data);
@@ -67,21 +71,25 @@
 
 		public function blog() {
 			$this->view_data['tab'] = 'blog';
+			$this->view_data['tab_content'] = 'tabs/blog';
 			$this->load->view('master', $this->view_data);
 		}
 
 		public function forum() {
 			$this->view_data['tab'] = 'forum';
+			$this->view_data['tab_content'] = 'tabs/forum';
 			$this->load->view('master', $this->view_data);
 		}
 
 		public function metrics() {
 			$this->view_data['tab'] = 'metrics';
+			$this->view_data['tab_content'] = 'tabs/metrics';
 			$this->load->view('master', $this->view_data);
 		}
 
 		public function ads() {
 			$this->view_data['tab'] = 'ads';
+			$this->view_data['tab_content'] = 'tabs/ads';
 			$this->load->view('master', $this->view_data);
 		}
 
@@ -129,5 +137,15 @@
 			}
 		}
 
+		public function update_user($id) {
+			$data = $this->input->post();
+			$data['password'] = sha1($data['password']);
+			if (!$this->user->permissions['users']['update']) {
+				exit("You don't have permission.");
+			} else {
+				$this->users->update($id, $data);
+			}
+			redirect($this->session->flashdata('back'));
+		}
 	}
 ?>

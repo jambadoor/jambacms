@@ -32,6 +32,15 @@
 			//some kind of error handling
 		}
 
-
+		public function get($id) {
+			$query = $this->db->query("SELECT * FROM users WHERE id=$id");
+			if ($query->num_rows === 1) {
+				$user = $query->result()[0];
+				unset($user->password);
+			} else {
+				exit("Either 0 or more than one results with that id");
+			}
+			return $user;
+		}
 	}
 ?>

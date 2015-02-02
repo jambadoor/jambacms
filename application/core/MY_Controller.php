@@ -97,12 +97,14 @@
 			redirect($this->session->flashdata('back'));
 		}
 
-		public function update($table, $id, $data) {
+		public function update($table, $id) {
+			$data = $this->input->post();
 			if (!$this->user->permissions[$table]['update']) {
 				exit("You don't have permission.");
 			} else {
 				$this->$table->update($id, $data);
 			}
+			redirect($this->session->flashdata('back'));
 		}
 
 		//this will return json
