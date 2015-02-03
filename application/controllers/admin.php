@@ -1,4 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/*
+ *	File: application/controllers/admin.php
+ *	Description: this is the main controller for the cms/admin side of ci_template, name to change at some point.  The main view is always the dashboard.
+ *	@author: Jason Benford
+ *	@method void index() is the default method, an appropriate method call will go here
+ *	@method void home() loads the home tab, which is a "Recent Changes" type thing for the dashboard
+ *	@method void users(string $content, mixed $param) loads the users tab
+ *	@method void content() loads the content tab
+ *	@method void blog() loads the blog tab
+ *	@method void forum() loads the forum tab
+ *	@method void metrics() loads the metrics tab
+ *	@method void ads() loads the ads tab
+ */
 
 	class Admin extends MY_Controller {
 
@@ -7,9 +20,8 @@
 			$this->requires_login = true;
 			$this->login_redirect = "/auth/login/admin";
 
-			//call our parent constructor
+			//call MY_Controller constructor
 			parent::__construct();
-
 
 			//load up our models (auth and master are already loaded)
 			$this->load->model('users_model', 'users');
@@ -31,12 +43,6 @@
 		 * THESE ARE OUR TABS
 		 * 
 		 *---------------------------------------------------------------------------*/ 
-		public function home() {
-			//set up our view_data
-			$this->view_data['tab'] = 'home';
-			$this->view_data['tab_content'] = 'tabs/home';
-			$this->load->view('master', $this->view_data);
-		}
 
 		public function users($content = 'list', $param='') {
 			$this->view_data['tab'] = 'users';
@@ -69,6 +75,7 @@
 			$this->load->view('master', $this->view_data);
 		}
 
+
 		public function blog() {
 			$this->view_data['tab'] = 'blog';
 			$this->view_data['tab_content'] = 'tabs/blog';
@@ -95,7 +102,7 @@
 
 		/*---------------------------------------------------------------------------
 		 * 
-		 * SOME SPECIALIZED CRUD
+		 * SOME SPECIALIZED CRUD FOR POSTDATA
 		 *
 		 *---------------------------------------------------------------------------*/
 		public function add_user() {
@@ -146,6 +153,23 @@
 				$this->users->update($id, $data);
 			}
 			redirect($this->session->flashdata('back'));
+		}
+
+
+		/*---------------------------------------------------------------------------
+		 *
+		 * TESTING FUNCTIONS
+		 *
+		 *---------------------------------------------------------------------------*/
+		public function test_notifications() {
+			$this->view_data['notifications'] = array();
+			$this->view_data['notifications'][] = array(
+				'view' => 'error',
+				'data' => array()
+			);
+			$this->view_data['tab'] = 'ads';
+			$this->view_data['tab_content'] = 'tabs/ads';
+			$this->load->view('master', $this->view_data);
 		}
 	}
 ?>

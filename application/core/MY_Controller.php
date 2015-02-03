@@ -2,7 +2,7 @@
 
 	class MY_Controller extends CI_Controller {
 		protected $user; 
-		protected $logged_in;
+		protected $logged_in = false;
 		protected $requires_login = false;
 		protected $view_data;
 		protected $login_redirect = '/';
@@ -11,49 +11,13 @@
 		public function __construct() {
 			parent::__construct();
 
-			$this->logged_in = $this->session->userdata('is_logged_in');
-
-			//check if user is logged in and redirect if not
-			if ($this->requires_login) {
-				if (!$this->logged_in) {
-					redirect($this->login_redirect);
-				}
-			}
-
-			//set the back flashdata
-			$this->session->set_flashdata('back', uri_string());
-
 			//load up our models, manually to give better names
-			$this->load->model('authentication_model', 'auth');
 			$this->load->model('master_model');
+			$this->load->model('authentication_model', 'auth');
 			$this->load->model('users_model', 'users');
 
 			//get the table names
 			$this->tables = $this->master_model->get_tables();
-
-			//here we will get the user object if it exists
-			if ($this->session->userdata('user_id')) {
-				$this->user = $this->auth->get_user_object($this->session->userdata('user_id'));
-			}
-			//TODO this should be in a config or something, so the end user won't have to mess with this code
-			//finish the user object
-			if (isset($this->user)) {
-				//This is where we will be setting up our permissions for different user types.
-				//Currently you have dev, admin, blogger, advertiser, and 'user' types
-				$this->user->permissions = array();
-
-				//dev gets all permissions
-				if ($this->user->type === 'dev') {
-					foreach ($this->tables as $table) {
-						$this->user->permissions[$table] = array();
-						$this->user->permissions[$table]['create'] = true;
-						$this->user->permissions[$table]['read'] = true;
-						$this->user->permissions[$table]['update'] = true;
-						$this->user->permissions[$table]['delete'] = true;
-					}
-				}
-				//likely so will admin, we will have to figure out the rest as we go.
-			}
 
 			//set up our global view data
 			$this->view_data = array(
@@ -64,14 +28,50 @@
 				'scripts' => array(
 					'<script src="/bower_components/jquery/dist/jquery.js"></script>',
 					'<script src="/bower_components/semantic-ui/dist/semantic.js"></script>'
-				),
-				'logged_in' => $this->session->userdata('is_logged_in')
+				)
 			);
 
-			//and the user if we have it
-			if ($this->logged_in) {
-				$this->view_data['user'] = $this->user;
+			//loading up the user, if it exists
+			$this->logged_in = $this->session->userdata('is_logged_in');
+			if ($this->logged_in === true) {
+				//just in case
+				if (!empty($this->session->userdata('user_id'))) {
+					//get the user
+					$this->user = $this->auth->get_user_object($this->session->userdata('user_id'));
+
+					//set up our permissions table
+					$this->user->permissions = array();
+					//dev gets all permissions
+					if ($this->user->type === 'dev') {
+						foreach ($this->tables as $table) {
+							$this->user->permissions[$table] = array();
+							$this->user->permissions[$table]['create'] = true;
+							$this->user->permissions[$table]['read'] = true;
+							$this->user->permissions[$table]['update'] = true;
+							$this->user->permissions[$table]['delete'] = true;
+						}
+					}
+					//likely so will admin, we will have to figure out the rest as we go.
+					
+					//put that user in the view_data
+					$this->view_data['user'] = $this->user;
+				} else {
+					exit("The session user_id doesn't exist.");
+				}
 			}
+
+			$this->view_data['logged_in'] = $this->logged_in;
+
+			//checking for permission
+			if ($this->requires_login) {
+				if (!$this->logged_in) {
+					redirect($this->login_redirect);
+				}
+			}
+
+			//set the back flashdata
+			$this->session->set_flashdata('back', uri_string());
+
 		}
 
 

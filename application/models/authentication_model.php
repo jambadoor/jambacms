@@ -6,12 +6,6 @@
 
 		}
 
-		function valid_login($username, $password) {
-			$query = $this->db->query("SELECT * FROM users WHERE active=1 AND username='$username' AND password='$password'");
-
-			return ($query->num_rows == 1);
-		}
-
 		function get_user_object($id) {
 			$query = $this->db->query("SELECT * FROM users WHERE id='$id'");
 			
@@ -26,6 +20,13 @@
 				return null;
 			}
 		}
+
+		function valid_login($username, $password) {
+			$query = $this->db->query("SELECT * FROM users WHERE active=1 AND username='$username' AND password='$password'");
+
+			return ($query->num_rows == 1);
+		}
+
 
 		function username_available($username) {
 			$query = $this->db->query("SELECT (id) FROM users WHERE username='$username'");

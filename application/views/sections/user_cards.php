@@ -18,18 +18,20 @@
 			</div>
 		</div>
 
-		<?php if ($edit) : ?>
-			<div class="ui two bottom attached buttons">
-				<a href="/admin/users/edit/<?=$user->id?>" class="ui button">
-					<i class="edit icon"></i>
-					Edit
-				</a>
-				<a href="/admin/del/users/<?=$user->id?>" class="ui button">
-					<i class="erase icon"></i>
-					Delete
-				</a>
-			</div>
-		<?php endif; ?>
+		<?php if (isset($user->permissions)) {
+			if ($user->permissions['users']['update']) : ?>
+				<div class="ui two bottom attached buttons">
+					<a href="/admin/users/edit/<?=$user->id?>" class="ui button">
+						<i class="edit icon"></i>
+						Edit
+					</a>
+					<a href="/admin/del/users/<?=$user->id?>" class="ui button">
+						<i class="erase icon"></i>
+						Delete
+					</a>
+				</div>
+		<?php endif; 
+		}?>
 
 	</div>
 
