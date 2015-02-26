@@ -87,6 +87,7 @@
 
 		public function get_all() {
 			$query = $this->db->query("SELECT * FROM $this->table");
+			return $query->result();
 		}
 
 		public function get_columns() {

@@ -1,4 +1,5 @@
 $(document).ready(function () {
-	$('div.ui.selection.dropdown')
-		.dropdown();
+	var viewportHeight = $(window).height();
+	var menuHeight = $('#menu').height();
+	$('#masthead').height(viewportHeight - menuHeight);
 });

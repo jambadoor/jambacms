@@ -1,6 +1,6 @@
 <div id="edit-user-segment" class="ui centered segment">
-	<h2 class="ui header"><i class="user icon"></i>New User</h3>
-	<form id="edit-user-form" class="ui form" action="/admin/update_user/<?=$edited_user->id;?>" method="POST" enctype="multipart/form-data">
+	<h2 class="ui header"><i class="user icon"></i>Edit User</h2>
+	<form id="edit-user-form" class="ui form" action="/admin/users/update/<?=$edited_user->id;?>" method="POST" enctype="multipart/form-data">
 		<h4 class="ui dividing header">Personal Information</h4>
 		<div class="three fields">
 			<div class="field">

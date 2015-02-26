@@ -1,8 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-	class Auth extends MY_Controller {
+	class Auth extends Public_Controller {
 		public function __construct() {
 			parent::__construct();
+			$this->view_data['content'] = $this->content->get_all();
 		}
 
 		public function index() {
@@ -14,7 +15,7 @@
 			$this->session->set_flashdata('redirect', $redirect);
 
 			//load up the view_data
-			$this->view_data['layout'] = 'site';
+			$this->view_data['layout'] = 'home';
 			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/assets/css/admin.css">';
 			$this->view_data['scripts'][] = '<script src="/assets/js/admin.js"></script>';
 			$this->view_data['page'] = 'form';
@@ -40,7 +41,7 @@
 
 				redirect($this->session->flashdata('redirect'));
 			} else {
-				redirect("/auth/login/retry");
+				redirect('auth/login'.$this->login_redirect);
 			}
 		}
 

@@ -10,7 +10,17 @@
 |
 */
 
-
+/**
+ * Enables autoloading of base controllers.
+ */
+$hook['pre_system'][] = array(
+	'class'    => 'CI_Autoloader',
+	'function' => 'register',
+	'filename' => 'CI_Autoloader.php',
+	'filepath' => 'hooks',
+	'params'   => array(APPPATH . 'core/')
+);
 
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */
+?>

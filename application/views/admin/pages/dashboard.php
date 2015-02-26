@@ -8,6 +8,10 @@
 			<i class="users icon"></i>
 			Users
 		</a>
+		<a href="/admin/content" id="content-tab" class="<?php if ($tab === 'content') echo 'active ';?>item">
+			<i class="content icon"></i>
+			Content
+		</a>
 		<a href="/admin/blog" id="blog-tab" class="<?php if ($tab === 'blog') echo 'active ';?>item">
 			<i class="book icon"></i>
 			Blog
@@ -17,11 +21,15 @@
 			Forum
 		</a>
 		<a href="/admin/metrics" id="metrics-tab" class="<?php if ($tab === 'metrics') echo 'active ';?>item">
-			<i class="comments icon"></i>
+			<i class="bar chart icon"></i>
 			Metrics
 		</a>
+		<a href="/admin/user" id="user-tab" class="<?php if ($tab === 'user') echo 'active ';?>item">
+			<i class="user icon"></i>
+			User
+		</a>
 		<a href="/admin/ads" id="ads-tab" class="<?php if ($tab === 'ads') echo 'active ';?>item">
-			<i class="comments icon"></i>
+			<i class="dollar icon"></i>
 			Ads
 		</a>
 	</div>

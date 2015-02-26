@@ -1,7 +1,7 @@
 <div class="ui page grid">
 
-	
-<?php $this->load->view('sections/top_bar'); ?>
+<?php $this->load->view('blocks/top_bar'); ?>
+
 <div id="top_spacer"></div>
 
 <?php 
@@ -9,13 +9,13 @@
 		foreach ($notifications as $notification) {
 			$view = $notification['view'];
 			$data = $notification['data'];
-			$this->load->view("notifications/$view", $data); 
+			$this->load->view("blocks/$view", $data); 
 		}
 	}
 ?>
 
 <?php $this->load->view("pages/$page"); ?>
 
-<?php $this->load->view('sections/footer'); ?>
+<?php $this->load->view('blocks/footer'); ?>
 
 </div>
