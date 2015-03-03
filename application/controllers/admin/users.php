@@ -4,6 +4,7 @@
 			parent::__construct();
 
 			$this->view_data['tab'] = 'users';
+			$this->load->model('users_model', 'users');
 		}
 
 		public function index() {

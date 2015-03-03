@@ -3,7 +3,7 @@
 	class Auth extends Public_Controller {
 		public function __construct() {
 			parent::__construct();
-			$this->view_data['content'] = $this->content->get_all();
+			$this->load->model('authentication_model', 'auth');
 		}
 
 		public function index() {
@@ -16,13 +16,14 @@
 
 			//load up the view_data
 			$this->view_data['layout'] = 'home';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/reset.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/site.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/form.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/assets/css/admin.css">';
-			$this->view_data['scripts'][] = '<script src="/assets/js/admin.js"></script>';
 			$this->view_data['page'] = 'form';
 			$this->view_data['form'] = 'login';
+
+			//some plugins
+			$this->view_data['css_plugins'][] = 'semantic-ui/form.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/grid.css';
+
+			$this->view_data['js_plugins'][] = 'semantic-ui/form.js';
 
 			//and the view
 			$this->load->view('master', $this->view_data);
@@ -36,7 +37,7 @@
 			if ($this->auth->valid_login($username, $password)) {
 				//if so, log the user in!
 				$userdata = array();
-				$userdata['user_id'] = $this->users->get_id($username);
+				$userdata['user_id'] = $this->auth->get_user_id($username);
 				$userdata['is_logged_in'] = true;
 
 				//give the session the data
