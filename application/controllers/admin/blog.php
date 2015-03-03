@@ -32,5 +32,10 @@
 
 			redirect('/admin/blog');
 		}
+
+		public function del($id) {
+			$this->blog->del($id);
+			redirect('/admin/blog');
+		}	
 	}
 ?>

@@ -52,6 +52,10 @@
 			redirect('/admin/content/view');
 		}
 
+		public function del($id) {
+			$this->content->del($id);
+		}
+
 		public function update($name) { 
 			$record = $this->input->post();
 			$id = $this->content->get_id($name);

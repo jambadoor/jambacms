@@ -11,24 +11,26 @@
 			parent::__construct();
 
 			//all admin controllers will have this view_data
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/reset.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/site.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/grid.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/menu.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/dropdown.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/icon.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/image.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/form.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/button.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/segment.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/card.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/transition.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/assets/css/admin.css">';
+			$this->view_data['css_plugins'][] = 'semantic-ui/reset.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/site.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/grid.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/menu.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/dropdown.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/icon.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/image.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/form.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/button.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/segment.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/card.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/transition.css';
 
-			$this->view_data['scripts'][] = '<script src="/bower_components/semantic-ui/dist/components/dropdown.js"></script>';
-			$this->view_data['scripts'][] = '<script src="/bower_components/semantic-ui/dist/components/form.js"></script>';
-			$this->view_data['scripts'][] = '<script src="/bower_components/semantic-ui/dist/components/transition.js"></script>';
-			$this->view_data['scripts'][] = '<script src="/assets/js/admin.js"></script>';
+			$this->view_data['stylesheets'][] = 'admin.css';
+
+			$this->view_data['js_plugins'][] = 'semantic-ui/dropdown.js';
+			$this->view_data['js_plugins'][] = 'semantic-ui/form.js';
+			$this->view_data['js_plugins'][] = 'semantic-ui/transition.js';
+
+			$this->view_data['scripts'][] = 'admin.js';
 
 			$this->view_data['layout'] = 'admin';
 			$this->view_data['page'] = 'dashboard';

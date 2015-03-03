@@ -4,25 +4,26 @@
 			parent::__construct();
 
 			$this->load->model('content_model', 'content');
-			$this->view_data['content'] = $this->content->get_all();
+			$this->view_data['content'] = $this->content->get_all_active();
 
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/reset.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/site.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/grid.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/header.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/table.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/icon.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/accordion.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/divider.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/image.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/form.css">';
-			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/assets/css/site.css">';
+			$this->view_data['css_plugins'][] = 'semantic-ui/reset.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/site.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/grid.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/header.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/table.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/icon.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/accordion.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/divider.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/image.css';
+			$this->view_data['css_plugins'][] = 'semantic-ui/form.css';
+
+			$this->view_data['stylesheets'][] = 'site.css';
 
 
-			$this->view_data['scripts'][] = '<script src="/bower_components/semantic-ui/dist/components/site.js"></script>';
-			$this->view_data['scripts'][] = '<script src="/bower_components/semantic-ui/dist/components/accordion.js"></script>';
+			$this->view_data['js_plugins'][] = 'semantic-ui/site.js';
+			$this->view_data['js_plugins'][] = 'semantic-ui/accordion.js';
 
-			$this->view_data['scripts'][] = '<script src="/assets/js/site.js"></script>';
+			$this->view_data['scripts'][] = 'site.js';
 		}
 
 		public function index() {

@@ -13,6 +13,10 @@
 			<i class="edit icon"></i>
 			Edit
 		</a>
+		<a href="/admin/content/del/<?=$section->id?>" class="ui right floated icon button">
+			<i class="erase icon"></i>
+			Delete
+		</a>
 	</div>
 <?php endforeach; ?>
 

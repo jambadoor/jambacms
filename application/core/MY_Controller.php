@@ -71,11 +71,11 @@ abstract class Base_Controller extends CI_Controller {
 		$this->view_data['logged_in'] = $this->logged_in;
 		$this->view_data['user'] = $this->user;
 
-		$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/reset.css">';
-		$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/site.css">';
+		$this->view_data['css_plugins'][] = 'semantic-ui/reset.css';
+		$this->view_data['css_plugins'][] = 'semantic-ui/site.css';
 
-		$this->view_data['scripts'][] = '<script src="/bower_components/jquery/dist/jquery.js"></script>';
-		$this->view_data['scripts'][] = '<script src="/bower_components/semantic-ui/dist/components/site.js"></script>';
+		$this->view_data['js_plugins'][] = 'jquery/jquery.js';
+		$this->view_data['js_plugins'][] = 'semantic-ui/site.js';
 	}
 
 }
