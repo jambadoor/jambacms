@@ -12,7 +12,7 @@
 
 		public function all() {
 			$this->view_data['tab_content'] = 'blocks/users_list';
-			$users = $this->users->get_all();
+			$users = $this->users->get_all_active();
 
 			foreach ($users as $user) {
 				$this->view_data[$user->type.'s'][] = $user;
@@ -30,7 +30,7 @@
 
 		public function edit($user_id) {
 			$this->view_data['tab_content'] = 'forms/edit_user';
-			$this->view_data['edited_user'] = $this->users->get($user_id);
+			$this->view_data['edited_user'] = $this->users->get_by_id($user_id);
 			$this->session->set_flashdata('back', '/admin/users');
 
 			$this->load->view('master', $this->view_data);

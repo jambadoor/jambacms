@@ -5,7 +5,7 @@
 			parent::__construct();
 		}
 
-		public function get($name) {
+		public function get_by_name($name) {
 			$query = $this->db->where('name', $name)->get($this->table);
 			if ($query->num_rows === 1) {
 				return $query->result()[0];
@@ -24,12 +24,12 @@
 			}
 		}
 
-		public function get_all() {
-			$query = $this->db->get($this->table);
+		public function get_all_active($cols='') {
+			$all_content = $this->_get_all_active($cols);
 
 			$content_by_name = array();
-			foreach ($query->result() as $result) {
-				$content_by_name[$result->name] = $result;
+			foreach ($all_content as $content) {
+				$content_by_name[$content->name] = $content;
 			}
 
 			return $content_by_name;

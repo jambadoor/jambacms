@@ -15,14 +15,14 @@
 		}
 
 		public function view() {
-			$this->view_data['content_sections'] = $this->content->get_all();
+			$this->view_data['content_sections'] = $this->content->get_all_active();
 			$this->view_data['tab_content'] = 'blocks/content_view';
 
 			$this->load->view('master', $this->view_data);
 		}
 
 		public function edit($name) {
-			$section = $this->content->get($name);
+			$section = $this->content->get_by_name($name);
 			$this->view_data['content_section'] = $section;
 			$this->view_data['tab_content'] = 'forms/edit_content';
 

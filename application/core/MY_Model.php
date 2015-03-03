@@ -25,13 +25,27 @@
 		/*
 		 * READ
 		 */
-		public function get($id = '', $cols='') {
+		protected function _get_by_id($id, $cols='') {
 			if ($cols !== '')
 				$this->db->select($cols);
-			if ($id !== '')
-				$this->db->where('id', $id);
+			$query = $this->db->where('id', $id)->get($this->table);
+			if ($query->num_rows === 1) {
+				return $query->result()[0];
+			}
+		}
 
-			return $this->db->get($this->table)->result();
+		protected function _get_all($cols='') {
+			if ($cols !== '')
+				$this->db->select($cols);
+			$query = $this->db->get($this->table);
+			return $query->result();
+		}
+
+		protected function _get_all_active($cols='') {
+			if ($cols !== '')
+				$this->db->select($cols);
+			$query = $this->db->where('active', 1)->get($this->table);
+			return $query->result();
 		}
 
 		public function get_columns() {
