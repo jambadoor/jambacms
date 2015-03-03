@@ -1,15 +1,8 @@
-<div id="masthead">
-	<img class="ui centered image" src="/assets/img/tree.png">
-</div>
-<?php $this->load->view('blocks/menu'); ?>
-<div id="about-us">
-</div>
-<div id="lawncare">
-</div>
-<div id="landscaping">
-</div>
-<div id="contact">
-</div>
-<div id="footer">
-	<?php $this->load->view('blocks/footer'); ?>
-</div>
+<?php
+	$this->load->view("blocks/masthead");
+	$this->load->view("blocks/about");
+	$this->load->view("blocks/work");
+	$this->load->view("blocks/skills");
+	$this->load->view("blocks/irons");
+	$this->load->view("blocks/contact");
+?>

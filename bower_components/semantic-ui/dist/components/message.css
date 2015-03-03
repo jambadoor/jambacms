@@ -1,5 +1,5 @@
  /*
- * # Semantic UI - 1.7.3
+ * # Semantic UI - 1.8.1
  * https://github.com/Semantic-Org/Semantic-UI
  * http://www.semantic-ui.com/
  *
@@ -43,8 +43,8 @@
 /* Header */
 .ui.message .header {
   display: block;
-  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
   margin: 0em 0em 0.5rem 0em;
 }
 
@@ -394,19 +394,19 @@
 ---------------*/
 
 .ui.small.message {
-  font-size: 0.92857143em;
+  font-size: 0.94444444em;
 }
 .ui.message {
   font-size: 1em;
 }
 .ui.large.message {
-  font-size: 1.14285714em;
+  font-size: 1.16666667em;
 }
 .ui.huge.message {
-  font-size: 1.42857143em;
+  font-size: 1.44444444em;
 }
 .ui.massive.message {
-  font-size: 1.71428571em;
+  font-size: 1.72222222em;
 }
 
 

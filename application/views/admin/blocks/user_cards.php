@@ -26,7 +26,7 @@
 						<i class="edit icon"></i>
 						Edit
 					</a>
-					<a href="/admin/del/users/<?=$usr->id?>" class="ui button">
+					<a href="/admin/users/del/<?=$usr->id?>" class="ui button">
 						<i class="erase icon"></i>
 						Delete
 					</a>

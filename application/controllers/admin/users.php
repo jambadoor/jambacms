@@ -44,6 +44,7 @@
 		public function create() {
 			//get the post data
 			$new_user = $this->input->post();
+
 			//TODO: sanitize it
 			//check that the username isn't taken
 			if (!$this->auth->username_available($new_user['username'])) {
@@ -63,21 +64,24 @@
 
 			//upload the file
 			//codeigniter upload library stuff
-			$upload_config = array(
-				'upload_path' => './assets/img/avatars/',
-				'file_name' => $new_user['id']."-001.png",
-				'allowed_types' => 'png',
-				'max_size' => '250'
-			);
-			$this->load->library('upload', $upload_config);
-			if (!$this->upload->do_upload('photo')) {
-				//we really need to handle this better, but for now, we will just do this.
-				exit('The upload failed');
-			} else {
-				//update the db with the url and go back
-				$this->users->update($new_user['id'], array('image_url' => $new_user['id']."-001.png"));
-				redirect($this->session->flashdata('back'));
+			if (isset($this->input->post()['photo'])) {
+				$upload_config = array(
+					'upload_path' => './assets/img/avatars/',
+					'file_name' => $new_user['id']."-001.png",
+					'allowed_types' => 'png|jpg|gif',
+					'max_size' => '250'
+				);
+				$this->load->library('upload', $upload_config);
+				if (!$this->upload->do_upload('photo')) {
+					//we really need to handle this better, but for now, we will just do this.
+					print_r($this->upload->display_errors());
+				} else {
+					//update the db with the url and go back
+					$this->users->update($new_user['id'], array('image_url' => $new_user['id']."-001.png"));
+				}
 			}
+
+			redirect($this->session->flashdata('back'));
 		}
 
 		public function update($id) {
@@ -89,6 +93,11 @@
 				$this->users->update($id, $data);
 			}
 
+			redirect($this->session->flashdata('back'));
+		}
+
+		public function del($id) {
+			$this->users->del($id);
 			redirect($this->session->flashdata('back'));
 		}
 

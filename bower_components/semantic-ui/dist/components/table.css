@@ -1,5 +1,5 @@
  /*
- * # Semantic UI - 1.7.3
+ * # Semantic UI - 1.8.1
  * https://github.com/Semantic-Org/Semantic-UI
  * http://www.semantic-ui.com/
  *
@@ -60,7 +60,7 @@
   padding: 0.7em 0.8em;
   vertical-align: middle;
   font-style: none;
-  font-weight: bold;
+  font-weight: 300;
   text-transform: none;
   border-bottom: 1px solid #d4d4d5;
   border-left: none;

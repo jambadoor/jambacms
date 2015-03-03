@@ -6,7 +6,7 @@
 		}
 
 		public function get($name) {
-			$query = $this->db->query("SELECT * FROM $this->table WHERE name='$name'");
+			$query = $this->db->where('name', $name)->get($this->table);
 			if ($query->num_rows === 1) {
 				return $query->result()[0];
 			} else {
@@ -15,7 +15,8 @@
 		}
 
 		public function get_id($name) {
-			$query = $this->db->query("SELECT id FROM $this->table WHERE name='$name'");
+			$query = $this->db->where('name', $name)->select('id')->get($this->table);
+
 			if ($query->num_rows === 1) {
 				return $query->result()[0]->id;
 			} else {
@@ -24,7 +25,8 @@
 		}
 
 		public function get_all() {
-			$query = $this->db->query("SELECT * FROM $this->table");
+			$query = $this->db->get($this->table);
+
 			$content_by_name = array();
 			foreach ($query->result() as $result) {
 				$content_by_name[$result->name] = $result;

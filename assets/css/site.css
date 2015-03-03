@@ -1,39 +1,71 @@
+section {
+	padding: 1em 3em;
+}
+
+article {
+	margin-bottom: 2rem;
+}
+
+.centered {
+	text-align: center;
+}
+
+.left.float {
+	float: left;
+}
+
+.santa-game {
+	display: block;
+	width: 800px;
+	margin: 0 auto;
+}
+
 #masthead {
-	background: linear-gradient(to bottom, #669999, #ddddff);
-	height: 600px;
-	max-height: 800px;
-}
-
-#masthead img {
+	background: url('/assets/img/sailboat-background.png');
+	background-size: cover;
 	height: 100%;
+	max-height: 800px;
+	text-align: center;
 }
 
-#menu {
-	background: #446622;
+#masthead header {
+	position: relative;
+	top: 30%;
+	width: 40rem;
+	margin: 0 auto;
 }
 
-#about-us {
-	background: #446622;
-	height: 600px;
+#about {
 }
 
-#lawncare {
-	background: #88aa99;
-	height: 600px;
+#skills {
+	background: #1f1f1f;
+	color: #ddd;
 }
 
-#landscaping {
-	background: ##ddeedd;
-	height: 600px;
+#skills header {
+	color: #ddd;
+}
+
+#work {
+	background: #e8e8e8;
 }
 
 #contact {
-	background: #88ccff;
-	height: 600px;
+	background: #e8e8e8;
 }
 
-#footer {
-	background: #446622;
-	height: 600px;
+#contact form {
+	margin: 0 auto;
+	max-width: 800px;
 }
 
+#contact form input[type="submit"] {
+	width: 100%;
+	padding: 0;
+	border-radius: 0 0 0.5em 0.5em;
+}
+
+form .last.field {
+	margin-bottom: 0 !important;
+}

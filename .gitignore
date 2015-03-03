@@ -1,1 +1,3 @@
 ./assets/img/avatars/*
+./bower_components/semantic-ui/src/*
+./bower_components/jquery/srs/*

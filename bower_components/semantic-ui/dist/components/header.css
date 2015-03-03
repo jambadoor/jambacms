@@ -1,5 +1,5 @@
  /*
- * # Semantic UI - 1.7.3
+ * # Semantic UI - 1.8.1
  * https://github.com/Semantic-Org/Semantic-UI
  * http://www.semantic-ui.com/
  *
@@ -22,25 +22,30 @@
   margin: -webkit-calc(2rem -  0.165em ) 0em 1rem;
   margin: calc(2rem -  0.165em ) 0em 1rem;
   padding: 0em 0em;
-  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
   line-height: 1.33em;
   text-transform: none;
   color: rgba(0, 0, 0, 0.8);
-}
-.ui.header .sub.header {
-  font-size: 1.0714rem;
-  font-weight: normal;
-  margin: 0em;
-  padding: 0em;
-  line-height: 1.2em;
-  color: rgba(0, 0, 0, 0.5);
 }
 .ui.header:first-child {
   margin-top: -0.165em;
 }
 .ui.header:last-child {
   margin-bottom: 0em;
+}
+
+/*--------------
+   Sub Header
+---------------*/
+
+.ui.header .sub.header {
+  font-weight: normal;
+  margin: 0em;
+  padding: 0em;
+  font-size: 1.1428rem;
+  line-height: 1.2em;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 /*--------------
@@ -79,27 +84,6 @@
 }
 
 /*--------------
- Content Heading
----------------*/
-
-.ui.tiny.header {
-  font-size: 1em;
-}
-.ui.small.header {
-  font-size: 1.071em;
-}
-.ui.medium.header {
-  font-size: 1.285em;
-}
-.ui.large.header {
-  font-size: 1.714em;
-}
-.ui.huge.header {
-  min-height: 1em;
-  font-size: 2em;
-}
-
-/*--------------
  Loose Coupling
 ---------------*/
 
@@ -124,19 +108,74 @@
 ---------------*/
 
 h1.ui.header {
-  font-size: 2rem;
+  font-size: 3rem;
 }
 h2.ui.header {
-  font-size: 1.714rem;
+  font-size: 2.5rem;
 }
 h3.ui.header {
-  font-size: 1.28rem;
+  font-size: 2rem;
 }
 h4.ui.header {
-  font-size: 1.071rem;
+  font-size: 1.7rem;
 }
 h5.ui.header {
+  font-size: 1.25rem;
+}
+
+/* Sub Header */
+h1.ui.header .sub.header {
+  font-size: 1.4285rem;
+}
+h2.ui.header .sub.header {
+  font-size: 1.1428rem;
+}
+h3.ui.header .sub.header {
+  font-size: 1.1428rem;
+}
+h4.ui.header .sub.header {
   font-size: 1rem;
+}
+h5.ui.header .sub.header {
+  font-size: 0.9285rem;
+}
+
+/*--------------
+ Content Heading
+---------------*/
+
+.ui.huge.header {
+  min-height: 1em;
+  font-size: 3em;
+}
+.ui.large.header {
+  font-size: 2.5em;
+}
+.ui.medium.header {
+  font-size: 2em;
+}
+.ui.small.header {
+  font-size: 1.7em;
+}
+.ui.tiny.header {
+  font-size: 1.25em;
+}
+
+/* Sub Header */
+.ui.huge.header .sub.header {
+  font-size: 1.4285rem;
+}
+.ui.large.header .sub.header {
+  font-size: 1.4285rem;
+}
+.ui.header .sub.header {
+  font-size: 1.1428rem;
+}
+.ui.small.header .sub.header {
+  font-size: 1rem;
+}
+.ui.tiny.header .sub.header {
+  font-size: 0.9285rem;
 }
 
 /*-------------------
@@ -447,19 +486,19 @@ a.ui.inverted.yellow.header:hover {
   border-radius: 0.3125rem;
 }
 .ui.tiny.block.header {
-  font-size: 1em;
+  font-size: 1.25em;
 }
 .ui.small.block.header {
-  font-size: 1.071em;
+  font-size: 1.7em;
 }
 .ui.block.header:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
-  font-size: 1.285em;
+  font-size: 2em;
 }
 .ui.large.block.header {
-  font-size: 1.714em;
+  font-size: 2.5em;
 }
 .ui.huge.block.header {
-  font-size: 2em;
+  font-size: 3em;
 }
 
 /*-------------------
@@ -517,7 +556,7 @@ a.ui.inverted.yellow.header:hover {
 --------------------*/
 
 .ui.header:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
-  font-size: 1.285em;
+  font-size: 2em;
 }
 
 

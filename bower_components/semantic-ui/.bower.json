@@ -26,15 +26,15 @@
     "src/site",
     "test"
   ],
-  "version": "1.7.3",
-  "_release": "1.7.3",
+  "version": "1.8.1",
+  "_release": "1.8.1",
   "_resolution": {
     "type": "version",
-    "tag": "1.7.3",
-    "commit": "257d175bf6138cc19e767b8061466cc7f3d97017"
+    "tag": "1.8.1",
+    "commit": "c56a53886f4686c4a2b96836ab790d0cb152461e"
   },
   "_source": "git://github.com/Semantic-Org/Semantic-UI.git",
-  "_target": "~1.7.3",
+  "_target": "~1.8.1",
   "_originalSource": "semantic-ui",
   "_direct": true
 }

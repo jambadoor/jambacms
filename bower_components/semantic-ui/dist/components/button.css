@@ -1,5 +1,5 @@
  /*
- * # Semantic UI - 1.7.3
+ * # Semantic UI - 1.8.1
  * https://github.com/Semantic-Org/Semantic-UI
  * http://www.semantic-ui.com/
  *
@@ -24,7 +24,7 @@
   vertical-align: baseline;
   background-color: #e0e0e0;
   color: rgba(0, 0, 0, 0.6);
-  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   margin: 0em 0.25em 0em 0em;
   padding: 0.78571em 1.5em 0.78571em;
   text-transform: none;
@@ -73,9 +73,9 @@
 
 .ui.button:focus {
   background-color: '';
-  background-image: '';
-  box-shadow: 0px 0px 0px 1px transparent inset, 0px 0px 1px rgba(81, 167, 232, 0.8) inset, 0px 0px 3px 2px rgba(81, 167, 232, 0.8);
   color: rgba(0, 0, 0, 0.8);
+  background-image: '' !important;
+  box-shadow: 0px 0px 0px 1px transparent inset, 0px 0px 1px rgba(81, 167, 232, 0.8) inset, 0px 0px 3px 2px rgba(81, 167, 232, 0.8) !important;
 }
 .ui.button:focus .icon {
   opacity: 0.85;
@@ -162,12 +162,10 @@
   box-shadow: none;
 }
 @-webkit-keyframes button-spin {
-
   from {
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
   }
-
   to {
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
@@ -205,6 +203,11 @@
   background-image: none !important;
   box-shadow: none !important;
   pointer-events: none;
+}
+
+/* Basic Group With Disabled */
+.ui.basic.buttons .ui.disabled.button {
+  border-color: rgba(39, 41, 43, 0.5);
 }
 
 
@@ -573,17 +576,17 @@
 .ui.mini.buttons .button,
 .ui.mini.buttons .or,
 .ui.mini.button {
-  font-size: 0.71428571rem;
+  font-size: 0.72222222rem;
 }
 .ui.tiny.buttons .button,
 .ui.tiny.buttons .or,
 .ui.tiny.button {
-  font-size: 0.85714286rem;
+  font-size: 0.83333333rem;
 }
 .ui.small.buttons .button,
 .ui.small.buttons .or,
 .ui.small.button {
-  font-size: 0.92857143rem;
+  font-size: 0.94444444rem;
 }
 .ui.buttons .button,
 .ui.buttons .or,
@@ -593,22 +596,22 @@
 .ui.large.buttons .button,
 .ui.large.buttons .or,
 .ui.large.button {
-  font-size: 1.14285714rem;
+  font-size: 1.16666667rem;
 }
 .ui.big.buttons .button,
 .ui.big.buttons .or,
 .ui.big.button {
-  font-size: 1.28571429rem;
+  font-size: 1.27777778rem;
 }
 .ui.huge.buttons .button,
 .ui.huge.buttons .or,
 .ui.huge.button {
-  font-size: 1.42857143rem;
+  font-size: 1.44444444rem;
 }
 .ui.massive.buttons .button,
 .ui.massive.buttons .or,
 .ui.massive.button {
-  font-size: 1.71428571rem;
+  font-size: 1.72222222rem;
 }
 
 /*--------------
@@ -721,6 +724,13 @@
 }
 .ui.basic.vertical.buttons .button {
   border-left: none;
+}
+.ui.basic.vertical.buttons .button {
+  border-left-width: 0px;
+  border-top: 1px solid rgba(39, 41, 43, 0.15);
+}
+.ui.basic.vertical.buttons .button:first-child {
+  border-top-width: 0px;
 }
 
 /*--------------

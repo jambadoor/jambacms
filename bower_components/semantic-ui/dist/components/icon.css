@@ -1,5 +1,5 @@
  /*
- * # Semantic UI - 1.7.3
+ * # Semantic UI - 1.8.1
  * https://github.com/Semantic-Org/Semantic-UI
  * http://www.semantic-ui.com/
  *
@@ -63,12 +63,10 @@ i.icon.loading {
           animation: icon-loading 2s linear infinite;
 }
 @-webkit-keyframes icon-loading {
-
   from {
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
   }
-
   to {
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
@@ -2125,3 +2123,6 @@ i.icon.weixin:before {
          Site Overrides
 *******************************/
 
+.lightgreen {
+  color: #c8e9d0;
+}

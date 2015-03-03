@@ -1,5 +1,5 @@
  /*
- * # Semantic UI - 1.7.3
+ * # Semantic UI - 1.8.1
  * https://github.com/Semantic-Org/Semantic-UI
  * http://www.semantic-ui.com/
  *
@@ -8,7 +8,7 @@
  * http://opensource.org/licenses/MIT
  *
  */
-@import 'https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin';
+@import 'http://fonts.googleapis.com/css?family=Open+Sans:300,400|Khula';
 
 
 
@@ -21,16 +21,16 @@ body {
   height: 100%;
 }
 html {
-  font-size: 14px;
+  font-size: 16px;
 }
 body {
   margin: 0px;
   padding: 0px;
-  min-width: 278px;
+  min-width: 272px;
   background: #f7f7f7;
-  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  font-size: 14px;
-  line-height: 1.33;
+  font-family: 'Khula', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
   color: rgba(0, 0, 0, 0.8);
   font-smoothing: antialiased;
 }
@@ -45,28 +45,28 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   line-height: 1.33em;
-  margin: -webkit-calc(2rem -  0.165em ) 0em 1rem;
-  margin: calc(2rem -  0.165em ) 0em 1rem;
-  font-weight: bold;
+  margin: -webkit-calc(2rem -  0.25em ) 0em 1rem;
+  margin: calc(2rem -  0.25em ) 0em 1rem;
+  font-weight: lighter;
   padding: 0em;
 }
 h1 {
   min-height: 1rem;
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 h2 {
-  font-size: 1.714rem;
+  font-size: 2.25rem;
 }
 h3 {
-  font-size: 1.28rem;
+  font-size: 2rem;
 }
 h4 {
-  font-size: 1.071rem;
+  font-size: 1.5rem;
 }
 h5 {
-  font-size: 1rem;
+  font-size: 1.25rem;
 }
 
 
@@ -76,7 +76,7 @@ h5 {
 
 p {
   margin: 0em 0em 1em;
-  line-height: 1.33;
+  line-height: 1.5;
 }
 p:first-child {
   margin-top: 0em;

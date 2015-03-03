@@ -109,7 +109,7 @@
 @pageBackground      : #F7F7F7;
 @pageOverflowX       : hidden;
 
-@lineHeight          : 1.33;
+@lineHeight          : 1.5;
 @textColor           : rgba(0, 0, 0, 0.8);
 
 /*-------------------
@@ -351,6 +351,7 @@
 
 @borderColor                   : rgba(39, 41, 43, 0.15);
 @selectedBorderColor           : rgba(39, 41, 43, 0.3);
+@disabledBorderColor           : rgba(39, 41, 43, 0.5);
 
 @solidBorderColor              : #D4D4D5;
 @solidSelectedBorderColor      : #BEBEBF;

@@ -8,7 +8,7 @@
 		}
 
 		public function get_all() {
-			$users = $this->db->query("SELECT * FROM users WHERE active=1")->result();
+			$users = $this->db->where('active', 1)->get($this->table)->result();
 			
 			foreach ($users as $user) {
 				unset($user->password);
@@ -18,29 +18,13 @@
 		}
 
 		public function get_id($username) {
-			$query = $this->db->query("SELECT (id) FROM users WHERE username='$username'");
+			$query = $this->db->where('username', $username)->select('id')->get($this->table);
 
 			if ($query->num_rows === 1) {
 				return $query->result()[0]->id;
 			} else {
 				exit("Either 0 or more than one results with that id");
 			}
-		}
-
-		public function soft_delete($id) {
-			$query = $this->db->query("UPDATE users SET active=0 WHERE id=$id");
-			//some kind of error handling
-		}
-
-		public function get($id) {
-			$query = $this->db->query("SELECT * FROM users WHERE id=$id");
-			if ($query->num_rows === 1) {
-				$user = $query->result()[0];
-				unset($user->password);
-			} else {
-				exit("Either 0 or more than one results with that id");
-			}
-			return $user;
 		}
 	}
 ?>

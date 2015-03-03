@@ -527,7 +527,13 @@ $.fn.accordion.settings = {
   duration        : 500,
   easing          : 'easeOutQuint',
 
-  onOpen          : function(){},
+  onOpen          : function(){
+		//this is custom
+		//scroll to the top of the heading if we are past it, fixes a little bug when using large content
+		if ($(this).prev().position().top < $(window).scrollTop()) {
+			$("html, body").animate({scrollTop : $(this).prev().position().top + "px"});
+		}
+	},
   onClose         : function(){},
   onChange        : function(){},
 

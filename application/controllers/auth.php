@@ -16,6 +16,9 @@
 
 			//load up the view_data
 			$this->view_data['layout'] = 'home';
+			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/reset.css">';
+			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/site.css">';
+			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/bower_components/semantic-ui/dist/components/form.css">';
 			$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/assets/css/admin.css">';
 			$this->view_data['scripts'][] = '<script src="/assets/js/admin.js"></script>';
 			$this->view_data['page'] = 'form';

@@ -1,3 +1,8 @@
+<a href="/admin/content/add" id="add-content-button" class="ui labeled icon button">
+	<i class="plus icon"></i>
+	Add Content
+</a>
+
 <?php foreach ($content_sections as $section) : ?>
 	<div id="<?=$section->name;?>_segment" class="ui segment">
 		<h3 class="ui header"><?=$section->header;?></h3>

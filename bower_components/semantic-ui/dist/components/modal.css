@@ -1,5 +1,5 @@
  /*
- * # Semantic UI - 1.7.3
+ * # Semantic UI - 1.8.1
  * https://github.com/Semantic-Org/Semantic-UI
  * http://www.semantic-ui.com/
  *
@@ -77,15 +77,15 @@
 
 .ui.modal > .header {
   display: block;
-  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.05)) #ffffff;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.05)) #ffffff;
   margin: 0em;
   padding: 1.2rem 2rem;
   box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.05);
   font-size: 1.6em;
-  line-height: 1.3em;
-  font-weight: bold;
+  line-height: 1.33em;
+  font-weight: 300;
   color: rgba(0, 0, 0, 0.85);
   border-bottom: 1px solid rgba(39, 41, 43, 0.15);
 }
@@ -250,6 +250,7 @@
 .ui.basic.modal {
   background-color: transparent;
   border: none;
+  border-radius: 0em;
   box-shadow: 0px 0px 0px 0px;
   color: #ffffff;
 }

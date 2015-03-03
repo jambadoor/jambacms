@@ -1,5 +1,5 @@
  /*
- * # Semantic UI - 1.7.3
+ * # Semantic UI - 1.8.1
  * https://github.com/Semantic-Org/Semantic-UI
  * http://www.semantic-ui.com/
  *
@@ -194,21 +194,21 @@ img.ui.bordered.image {
 .ui.mini.images svg,
 .ui.mini.image {
   width: 20px;
-  font-size: 0.71428571rem;
+  font-size: 0.72222222rem;
 }
 .ui.tiny.images .image,
 .ui.tiny.images img,
 .ui.tiny.images svg,
 .ui.tiny.image {
   width: 80px;
-  font-size: 0.85714286rem;
+  font-size: 0.83333333rem;
 }
 .ui.small.images .image,
 .ui.small.images img,
 .ui.small.images svg,
 .ui.small.image {
   width: 150px;
-  font-size: 0.92857143rem;
+  font-size: 0.94444444rem;
 }
 .ui.medium.images .image,
 .ui.medium.images img,
@@ -222,28 +222,28 @@ img.ui.bordered.image {
 .ui.large.images svg,
 .ui.large.image {
   width: 450px;
-  font-size: 1.14285714rem;
+  font-size: 1.16666667rem;
 }
 .ui.big.images .image,
 .ui.big.images img,
 .ui.big.images svg,
 .ui.big.image {
   width: 600px;
-  font-size: 1.28571429rem;
+  font-size: 1.27777778rem;
 }
 .ui.huge.images .image,
 .ui.huge.images img,
 .ui.huge.images svg,
 .ui.huge.image {
   width: 800px;
-  font-size: 1.42857143rem;
+  font-size: 1.44444444rem;
 }
 .ui.massive.images .image,
 .ui.massive.images img,
 .ui.massive.images svg,
 .ui.massive.image {
   width: 960px;
-  font-size: 1.71428571rem;
+  font-size: 1.72222222rem;
 }
 
 
