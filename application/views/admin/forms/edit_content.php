@@ -3,7 +3,7 @@
 	<form id="edit-content-form" class="ui form" action="/admin/content/update/<?=$content_section->name;?>" method="POST" enctype="multipart/form-data">
 		<div class="field">
 			<label>Name</label>
-			<input name="name" type="text" value="<?=$content_section->header;?>">
+			<input name="name" type="text" value="<?=$content_section->name;?>">
 		</div>
 		<div class="field">
 			<label>Header</label>
