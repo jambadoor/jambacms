@@ -16,7 +16,7 @@
 
 		public function view() {
 			$this->view_data['content_sections'] = $this->content->get_all_active();
-			$this->view_data['tab_content'] = 'blocks/content_view';
+			$this->view_data['tab_content'] = 'blocks/content_list';
 
 			$this->load->view('master', $this->view_data);
 		}
@@ -42,7 +42,6 @@
 			$this->view_data['scripts'][] = '<script src="/assets/js/tinyeditor.js"></script>';
 
 			$this->load->view('master', $this->view_data);
-
 		}
 
 		/*CRUD*/
