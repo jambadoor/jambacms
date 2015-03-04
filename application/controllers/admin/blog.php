@@ -71,8 +71,9 @@
 		}
 
 		public function del($name) {
-			if ($this->user->permissions['blog']['delete'] || $this->user->id == $this->blog->get_by_name($name)->created_by) {
-				$this->blog->del($id);
+			$entry = $this->blog->get_by_name($name);
+			if ($this->user->permissions['blog']['delete'] || $this->user->id == $entry->created_by) {
+				$this->blog->del($entry->id);
 				redirect('/admin/blog');
 			} else {
 				//send message
