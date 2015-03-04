@@ -27,10 +27,13 @@ function startSanta() {
 	renderer.view.className = "santa-game";
 	document.body.appendChild(renderer.view);
 
+	//assets location
+	var assetsPath = "/assets/img/santa/";
+
 	//GAME OBJECT CONSTRUCTORS
 	//santa///////////////////////////////////
 	function Santa() {
-		this.sprite = new PIXI.Sprite.fromImage("images/santa.png");
+		this.sprite = new PIXI.Sprite.fromImage(assetsPath + "santa.png");
 		this.sprite.scale.x = this.sprite.scale.y = 0.75;
 		this.x = viewWidth / 2;
 		this.y = viewHeight - this.sprite.height;
@@ -197,8 +200,8 @@ function startSanta() {
 	//health bar/////////////////////////////////////////////////////
 	function Health() {
 		this.health = 1.0;
-		this.red = new PIXI.Sprite.fromImage("images/health-red.png");
-		this.green = new PIXI.Sprite.fromImage("images/health-green.png");
+		this.red = new PIXI.Sprite.fromImage(assetsPath + "health-red.png");
+		this.green = new PIXI.Sprite.fromImage(assetsPath + "health-green.png");
 
 		//bar height
 		this.green.height = 10;
@@ -247,11 +250,11 @@ function startSanta() {
 	//load images
 	var snowFiles = [];
 	for (var i = 1; i <= 7; ++i)
-		snowFiles[i-1] = "images/snowflakes/" + i + ".png";
-	var giftFiles = ["images/gifts/blue.png", "images/gifts/green.png", "images/gifts/red.png", "images/gifts/orange.png"];
-	var startFiles = ["images/start/start-2.png", "images/start/start-3.png", "images/start/start-4.png", "images/start/start-5.png"];
+		snowFiles[i-1] = assetsPath + "snowflakes/" + i + ".png";
+	var giftFiles = [assetsPath + "gifts/blue.png", assetsPath + "gifts/green.png", assetsPath + "gifts/red.png", assetsPath + "gifts/orange.png"];
+	var startFiles = [assetsPath + "start/start-2.png", assetsPath + "start/start-3.png", assetsPath + "start/start-4.png", assetsPath + "start/start-5.png"];
 
-	var assets = ["images/santa.png", "images/tree.png", "images/bg.png", "images/health-red.png", "images/health-green.png", "images/restart.png"];
+	var assets = [assetsPath + "santa.png", assetsPath + "tree.png", assetsPath + "bg.png", assetsPath + "health-red.png", assetsPath + "health-green.png", assetsPath + "restart.png"];
 	var loader = new PIXI.AssetLoader(assets.concat(snowFiles, giftFiles, startFiles));
 	loader.onComplete = onAssetsLoaded;
 	loader.load();
@@ -266,15 +269,15 @@ function startSanta() {
 
 	function createTextures() {
 		var i = 0;
-		backgroundTexture = new PIXI.Texture.fromImage("images/bg.png");
+		backgroundTexture = new PIXI.Texture.fromImage(assetsPath + "bg.png");
 		snowflakeTextures = [];
 		giftTextures = [];
 		for (i = 0; i < snowFiles.length; ++i)
 			snowflakeTextures[i] = new PIXI.Texture.fromImage(snowFiles[i]);
 		for (i = 0; i < giftFiles.length; ++i)
 			giftTextures[i] = new PIXI.Texture.fromImage(giftFiles[i]);
-		treeTexture = new PIXI.Texture.fromImage("images/tree.png");
-		santaTexture = new PIXI.Texture.fromImage("images/santa.png");
+		treeTexture = new PIXI.Texture.fromImage(assetsPath + "tree.png");
+		santaTexture = new PIXI.Texture.fromImage(assetsPath + "santa.png");
 	}
 
 	function createObjects() {
@@ -282,7 +285,7 @@ function startSanta() {
 		startScreen = [];
 		for (i = 0; i < startFiles.length; ++i)
 			startScreen[i] = new PIXI.Sprite.fromImage(startFiles[i]);
-		restartScreen = new PIXI.Sprite.fromImage("images/restart.png");
+		restartScreen = new PIXI.Sprite.fromImage(assetsPath + "restart.png");
 		background = new Background(backgroundTexture);
 		snowflakes = [];
 		trees = [];
@@ -379,6 +382,12 @@ function startSanta() {
 		stage.addChild(score.text);
 		renderer.render(stage);
 		stage.click = stage.tap = restartGame;
+		$.ajax({
+			type: "POST",
+			url: "/home/santa_score", 
+			data: {score: score.score},
+			success: function (result) {alert(result);},
+			dataType: "text"});
 	}
 
 	function gameLoop(){

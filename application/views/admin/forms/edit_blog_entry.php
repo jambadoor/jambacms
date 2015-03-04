@@ -7,12 +7,16 @@
 		</div>
 		<div class="field">
 			<label>Title</label>
-			<input name="header" type="text" value="<?=$blog_entry->title;?>">
+			<input name="title" type="text" value="<?=$blog_entry->title;?>">
 		</div>
 		<div class="field">
 			<label>Content</label>
 			<textarea id="input" name="content"><?=$blog_entry->content;?></textarea>
 			<script type="text/javascript" src="/assets/js/init_tinyeditor.js"></script>
+		</div>
+		<div class="field">
+			<label>Keywords</label>
+			<input type="text" name="keywords">
 		</div>
 		<input id="submit" type="submit" value="Submit" class="ui button">
 	</form>

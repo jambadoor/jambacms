@@ -14,6 +14,10 @@
 			<textarea id="input" name="content"></textarea>
 			<script type="text/javascript" src="/assets/js/init_tinyeditor.js"></script>
 		</div>
+		<div class="field">
+			<label>Keywords</label>
+			<input type="text" name="keywords">
+		</div>
 		<input id="submit" type="submit" value="Submit" class="ui button">
 	</form>
 </div>

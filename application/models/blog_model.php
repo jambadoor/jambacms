@@ -14,6 +14,15 @@
 			}
 		}
 
+		public function get_id_from_name($name) {
+			$query = $this->db->select('id')->where('name', $name)->get($this->table);
+			if ($query->num_rows === 1) {
+				return $query->result()[0]->id;
+			} else {
+				exit("error");
+			}
+		}
+
 		public function get_all_active($cols='') {
 			$all_entries = $this->_get_all_active($cols);
 

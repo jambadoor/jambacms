@@ -15,7 +15,7 @@
 			$this->session->set_flashdata('redirect', $redirect);
 
 			//load up the view_data
-			$this->view_data['layout'] = 'home';
+			$this->view_data['layout'] = 'page';
 			$this->view_data['page'] = 'form';
 			$this->view_data['form'] = 'login';
 

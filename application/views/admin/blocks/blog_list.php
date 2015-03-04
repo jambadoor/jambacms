@@ -10,19 +10,20 @@
 			<?=$entry->content;?>
 		</div>
 		<div>Name: <?=$entry->name?></div>
+		<div>Keywords: <?=$entry->keywords?></div>
 		<div>Created on <?=$entry->date_created?> by <?=$entry->created_by?></div>
 		<div>Last modified on <?=$entry->last_modified?> by <?=$entry->last_modified_by?></div>
 		<?php if ($user->permissions['blog']['update'] || $user->id == $entry->created_by) : ?>
-		<a href="/admin/blog/edit/<?=$entry->name;?>" id="edit-entry-button" class="ui right floated labeled icon button">
-			<i class="edit icon"></i>
-			Edit
-		</a>
+			<a href="/admin/blog/edit/<?=$entry->name;?>" id="edit-entry-button" class="ui right floated labeled icon button">
+				<i class="edit icon"></i>
+				Edit
+			</a>
 		<?php endif; ?>
 		<?php if ($user->permissions['blog']['delete'] || $user->id == $entry->created_by) : ?>
-		<a href="/admin/blog/del/<?=$entry->name?>" class="ui right floated icon button">
-			<i class="erase icon"></i>
-			Delete
-		</a>
+			<a href="/admin/blog/del/<?=$entry->name?>" class="ui right floated icon button">
+				<i class="erase icon"></i>
+				Delete
+			</a>
 		<?php endif; ?>
 	</div>
 <?php endforeach; ?>

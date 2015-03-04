@@ -83,11 +83,11 @@
 			}
 		}	
 
-		public function update($id) {
+		public function update($name) {
 			if ($this->user->permissions['blog']['update']) {
 				$entry = $this->input->post();
 				$entry['last_modified'] = date('Y-m-d');
-				$this->blog->update($data);
+				$this->blog->update($this->blog->get_id_from_name($name), $entry);
 				redirect('/admin/blog');
 			} else {
 				//send message
