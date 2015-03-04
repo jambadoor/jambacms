@@ -13,7 +13,7 @@
 			<i class="edit icon"></i>
 			Edit
 		</a>
-		<a href="/admin/blog/del/<?=$entry->id?>" class="ui right floated icon button">
+		<a href="/admin/blog/del/<?=$entry->name?>" class="ui right floated icon button">
 			<i class="erase icon"></i>
 			Delete
 		</a>

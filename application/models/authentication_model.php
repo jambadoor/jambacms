@@ -29,10 +29,10 @@
 				$user->permissions = array();
 				foreach ($tables as $table) {
 					$user->permissions[$table] = array();
-					$user->permissions[$table]['create'] = false;
-					$user->permissions[$table]['read'] = false;
-					$user->permissions[$table]['update'] = false;
-					$user->permissions[$table]['delete'] = false;
+					$user->permissions[$table]['create'] = FALSE;
+					$user->permissions[$table]['read'] = FALSE;
+					$user->permissions[$table]['update'] = FALSE;
+					$user->permissions[$table]['delete'] = FALSE;
 				}
 
 				//then explicitly define permissions for each table and type
@@ -40,26 +40,36 @@
 				switch ($user->type) {
 					//dev and admin get all access to everything
 					case 'dev':
-					case 'admin':
-						foreach ($user->permissions as $table_permissions) {
-							foreach ($table_permissions as $permission) {
-								$permission = true;
+						foreach ($user->permissions as $table => $permissions) {
+							foreach($user->permissions[$table] as $permission => $value) {
+								$user->permissions[$table][$permission] = TRUE;
 							}
 						}
 						break;
+					case 'admin':
+						$user->permissions['users']['create'] = TRUE;
+						$user->permissions['users']['read'] = TRUE;
+						$user->permissions['blog']['create'] = TRUE;
+						$user->permissions['blog']['read'] = TRUE;
+						$user->permissions['blog']['update'] = TRUE;
+						$user->permissions['content']['create'] = TRUE;
+						$user->permissions['content']['read'] = TRUE;
+						$user->permissions['content']['update'] = TRUE;
+						break;
 					//bloggers can create blogs
 					case 'blogger':
-						$user->permissions['blog']['create'] = true;
-						$user->permissions['blog']['read'] = true;
+						$user->permissions['blog']['create'] = TRUE;
+						$user->permissions['blog']['read'] = TRUE;
 						break;
 					case 'advertiser':
 						break;
 					case 'user': 
-						$user->permissions['blog']['read'] = true;
+						$user->permissions['blog']['read'] = TRUE;
 						break;
 					default:
 						break;
 				}
+
 				return $user;
 			} else {
 				return null;

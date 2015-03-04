@@ -1,7 +1,9 @@
-<a href="/admin/users/add" id="add-user-button" class="ui labeled icon button">
-	<i class="plus icon"></i>
-	Add User
-</a>
+<?php if ($user->permissions['users']['create']) : ?>
+	<a href="/admin/users/add" id="add-user-button" class="ui labeled icon button">
+		<i class="plus icon"></i>
+		Add User
+	</a>
+<?php endif; ?>
 <div class="ui segment">
 	<h3 class="ui header"><i class="code icon"></i>Developers</h3>
 	<?php 
