@@ -11,7 +11,10 @@
 				<?=$usr->first_name." ".$usr->last_name."\n"?>
 			</div>
 			<div class="meta">
-				<span>Since <?=$usr->date_created?></span>
+				<div><?=$usr->username?></div>
+				<div><?=$usr->email?></div>
+				<div>Joined <?=$usr->date_created?></div>
+				<div>Last logged in <?=$usr->last_login?></div>
 			</div>
 			<div class="description">
 				<?=$usr->about."\n"?>

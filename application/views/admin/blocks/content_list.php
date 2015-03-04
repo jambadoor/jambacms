@@ -7,10 +7,13 @@
 
 <?php foreach ($content_sections as $section) : ?>
 	<div id="<?=$section->name;?>_segment" class="ui segment">
-		<h3 class="ui header"><?=$section->header;?></h3>
+		<h3><?=$section->header;?></h3>
 		<div class="content">
 			<?=$section->content;?>
 		</div>
+		<div>Name: <?=$section->name?></div>
+		<div>Created on <?=$section->date_created?> by <?=$section->created_by?></div>
+		<div>Last modified on <?=$section->last_modified?> by <?=$section->last_modified_by?></div>
 		<?php if ($user->permissions['content']['update'] || $user->id == $section->created_by) : ?>
 			<a href="/admin/content/edit/<?=$section->name;?>" id="add-user-button" class="ui right floated labeled icon button">
 				<i class="edit icon"></i>

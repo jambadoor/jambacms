@@ -78,8 +78,12 @@
 
 		function valid_login($username, $password) {
 			$query = $this->db->where('username', $username)->where('password', $password)->where('active', 1)->get('users');
-
-			return ($query->num_rows === 1);
+			if ($query->num_rows === 1) {
+				$this->db->where('username', $username)->update('users', array('last_login' => date('Y-m-d H:i:s')));
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		function username_available($username) {

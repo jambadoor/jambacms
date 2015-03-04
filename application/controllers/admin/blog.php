@@ -62,6 +62,8 @@
 			if ($this->user->permissions['blog']['create']) {
 				$new_entry = $this->input->post();	
 				$new_entry['created_by'] = $this->user->id;
+				$new_entry['date_created'] = date('Y-m-d');
+				$new_entry['last_modified'] = date('Y-m-d');
 				$this->blog->insert($new_entry);
 				redirect('/admin/blog');
 			} else {
@@ -83,7 +85,8 @@
 
 		public function update($id) {
 			if ($this->user->permissions['blog']['update']) {
-				$data = $this->input->post();
+				$entry = $this->input->post();
+				$entry['last_modified'] = date('Y-m-d');
 				$this->blog->update($data);
 				redirect('/admin/blog');
 			} else {

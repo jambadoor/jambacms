@@ -6,8 +6,6 @@
 			$this->load->model('content_model', 'content');
 			$this->view_data['content'] = $this->content->get_all_active();
 
-			$this->view_data['css_plugins'][] = 'semantic-ui/reset.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/site.css';
 			$this->view_data['css_plugins'][] = 'semantic-ui/grid.css';
 			$this->view_data['css_plugins'][] = 'semantic-ui/header.css';
 			$this->view_data['css_plugins'][] = 'semantic-ui/table.css';
@@ -17,13 +15,7 @@
 			$this->view_data['css_plugins'][] = 'semantic-ui/image.css';
 			$this->view_data['css_plugins'][] = 'semantic-ui/form.css';
 
-			$this->view_data['stylesheets'][] = 'site.css';
-
-
-			$this->view_data['js_plugins'][] = 'semantic-ui/site.js';
 			$this->view_data['js_plugins'][] = 'semantic-ui/accordion.js';
-
-			$this->view_data['scripts'][] = 'site.js';
 		}
 
 		public function index() {

@@ -60,6 +60,10 @@
 		public function create() {
 			if ($this->user->permissions['content']['create']) {
 				$new_content = $this->input->post();	
+				$new_content['created_by'] = $this->user->id;
+				$new_content['date_created'] = date('Y-m-d');
+				$new_content['last_modified'] = date('Y-m-d');
+				$new_content['last_modified_by'] = $this->user->id;
 				$this->content->insert($new_content);
 				redirect('/admin/content/view');
 			} else {
@@ -79,11 +83,13 @@
 		}
 
 		public function update($name) { 
-			$record = $this->input->post();
+			$content = $this->input->post();
+			$content['last_modified'] = date('Y-m-d');
+			$content['last_modified_by'] = $this->user->id;
 			
-			if ($this->user->permissions['content']['update'] || $this->user->id == $record->created_by) {
+			if ($this->user->permissions['content']['update'] || $this->user->id == $content->created_by) {
 				$id = $this->content->get_id($name);
-				$this->content->update($id, $record);
+				$this->content->update($id, $content);
 				redirect('/admin/content/view');
 			} else {
 				//TODO: send message
