@@ -1,37 +1,65 @@
 <div class="sixteen wide column" id="page">
 	<div id="dashboard-tabs" class="ui top attached tabular menu">
-	<a href="/admin/home" id="home-tab" class="<?php if ($tab === 'home') echo 'active ';?>item">
-			<i class="home icon"></i>
-			Home
-		</a>
-		<a  href="/admin/users" id="users-tab" class="<?php if ($tab === 'users') echo 'active ';?>item">
-			<i class="users icon"></i>
-			Users
-		</a>
-		<a href="/admin/content" id="content-tab" class="<?php if ($tab === 'content') echo 'active ';?>item">
-			<i class="content icon"></i>
-			Content
-		</a>
-		<a href="/admin/blog" id="blog-tab" class="<?php if ($tab === 'blog') echo 'active ';?>item">
-			<i class="book icon"></i>
-			Blog
-		</a>
-		<a href="/admin/forum" id="forum-tab" class="<?php if ($tab === 'forum') echo 'active ';?>item">
-			<i class="comments icon"></i>
-			Forum
-		</a>
-		<a href="/admin/metrics" id="metrics-tab" class="<?php if ($tab === 'metrics') echo 'active ';?>item">
-			<i class="bar chart icon"></i>
-			Metrics
-		</a>
-		<a href="/admin/user" id="user-tab" class="<?php if ($tab === 'user') echo 'active ';?>item">
-			<i class="user icon"></i>
-			User
-		</a>
-		<a href="/admin/adlinks" id="ads-tab" class="<?php if ($tab === 'adlinks') echo 'active ';?>item">
-			<i class="dollar icon"></i>
-			Ads
-		</a>
+		<div class="<?php if ($tab === 'home') echo 'active ';?>item">
+			<a href="/admin/home" id="home-tab" class="">
+				<i class="home icon"></i>
+				Home
+			</a>
+		</div>
+	<?php if ($user->permissions['users']['read']) : ?>
+		<div id="users-tab" class="<?php if ($tab === 'users') echo 'active ';?>item">
+			<a  href="/admin/users">
+				<i class="users icon"></i>
+				Users
+			</a>
+		</div>
+	<?php endif; ?>
+	<?php if ($user->permissions['content']['read']) : ?>
+		<div id="content-tab" class="<?php if ($tab === 'content') echo 'active ';?>item">
+			<a href="/admin/content">
+				<i class="content icon"></i>
+				Content
+			</a>
+		</div>
+	<?php endif; ?>
+	<?php if ($user->permissions['blog']['read']) : ?>
+		<div id="blog-tab" class="<?php if ($tab === 'blog') echo 'active ';?>item">
+			<a href="/admin/blog">
+				<i class="book icon"></i>
+				Blog
+			</a>
+		</div>
+	<?php endif; ?>
+	<?php if ($user->permissions['forum']['read']) : ?>
+		<div id="forum-tab" class="<?php if ($tab === 'forum') echo 'active ';?>item">
+			<a href="/admin/forum">
+				<i class="comments icon"></i>
+				Forum
+			</a>
+		</div>
+	<?php endif; ?>
+	<?php if ($user->permissions['analytics']['read']) : ?>
+		<div id="analytics-tab" class="<?php if ($tab === 'analytics') echo 'active ';?>item">
+			<a href="/admin/analytics">
+				<i class="bar chart icon"></i>
+				Metrics
+			</a>
+		</div>
+	<?php endif; ?>
+		<div id="user-tab" class="<?php if ($tab === 'user') echo 'active ';?>item">
+			<a href="/admin/user">
+				<i class="user icon"></i>
+				User
+			</a>
+		</div>
+	<?php if ($user->permissions['adlinks']['read']) : ?>
+		<div id="ads-tab" class="<?php if ($tab === 'adlinks') echo 'active ';?>item">
+			<a href="/admin/adlinks">
+				<i class="dollar icon"></i>
+				Ads
+			</a>
+		</div>
+	<?php endif; ?>
 	</div>
 	<div id="tab-content" class="ui bottom attached segment">
 		<?php $this->load->view("$tab_content");?>

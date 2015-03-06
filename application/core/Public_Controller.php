@@ -24,6 +24,10 @@
 
 			//global scripts
 			$this->view_data['scripts'][] = 'site.js';
+
+			//analytics
+			$this->load->model('analytics_model', 'analytics');
+			$this->analytics->log();
 		}
 
 		public function index() {
