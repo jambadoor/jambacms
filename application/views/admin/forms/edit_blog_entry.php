@@ -11,12 +11,12 @@
 		</div>
 		<div class="field">
 			<label>Content</label>
-			<textarea id="input" name="content"><?=$blog_entry->content;?></textarea>
+			<textarea id="input" name="content"><?=$blog_entry->content?></textarea>
 			<script type="text/javascript" src="/assets/js/init_tinyeditor.js"></script>
 		</div>
 		<div class="field">
 			<label>Keywords</label>
-			<input type="text" name="keywords">
+			<input type="text" name="keywords" value="<?=$blog_entry->keywords?>">
 		</div>
 		<input id="submit" type="submit" value="Submit" class="ui button">
 	</form>

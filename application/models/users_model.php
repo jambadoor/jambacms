@@ -30,7 +30,12 @@
 			if ($query->num_rows === 1) {
 				return $query->result()[0]->id;
 			} else {
-				exit("Either 0 or more than one results with that id");
+				if ($query->num_rows > 1) {
+					show_error(__METHOD__."<br>There is more than one user with the username '$username'.");
+				}
+				if ($query->num_rows === 0) {
+					show_error(__METHOD__."<br>There is no user with the username '$username'.");
+				}
 			}
 		}
 	}

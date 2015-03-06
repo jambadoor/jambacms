@@ -31,6 +31,13 @@
 			$query = $this->db->where('id', $id)->get($this->table);
 			if ($query->num_rows === 1) {
 				return $query->result()[0];
+			} else {
+				if ($query->num_rows > 1) {
+					show_error(__METHOD__."<br>There is more than one row with the id '$id' in $this->table.");
+				}
+				if ($query->num_rows === 0) {
+					show_error(__METHOD__."<br>There is no row with the id '$id' in $this->table.");
+				}
 			}
 		}
 

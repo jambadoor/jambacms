@@ -10,7 +10,12 @@
 			if ($query->num_rows === 1) {
 				return $query->result()[0];
 			} else {
-				exit("Couldn't retrieve.");
+				if ($query->num_rows > 1) {
+					show_error(__METHOD__."<br>There is more than one blog entry with the name '$name'.");
+				}
+				if ($query->num_rows === 0) {
+					show_error(__METHOD__."<br>There is no blog entry with the name '$name'.");
+				}
 			}
 		}
 
@@ -19,7 +24,12 @@
 			if ($query->num_rows === 1) {
 				return $query->result()[0]->id;
 			} else {
-				exit("error");
+				if ($query->num_rows > 1) {
+					show_error(__METHOD__."<br>There is more than one blog entry with the name '$name'.");
+				}
+				if ($query->num_rows === 0) {
+					show_error(__METHOD__."<br>There is no blog entry with the name '$name'.");
+				}
 			}
 		}
 
@@ -32,6 +42,11 @@
 			}
 
 			return $entries_by_name;
+		}
+
+		public function get_latest() {
+			$query = $this->db->order_by('last_modified', 'desc')->order_by('id', 'desc')->limit(1)->get($this->table);
+			return $query->result()[0];
 		}
 	}
 ?>

@@ -32,8 +32,8 @@
 				$this->view_data['tab_content'] = 'forms/edit_content';
 
 				//tinyeditor
-				$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/assets/css/tinyeditor.css">';
-				$this->view_data['scripts'][] = '<script src="/assets/js/tinyeditor.js"></script>';
+				$this->view_data['css_plugins'][] = 'tinyeditor/tinyeditor.css';
+				$this->view_data['js_plugins'][] = 'tinyeditor/tinyeditor.js';
 			} else {
 				$this->view_data['tab_content'] = 'blocks/content_list';
 			}
@@ -47,8 +47,8 @@
 				$this->session->set_flashdata('back', '/admin/users');
 
 				//tinyeditor
-				$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/assets/css/tinyeditor.css">';
-				$this->view_data['scripts'][] = '<script src="/assets/js/tinyeditor.js"></script>';
+				$this->view_data['css_plugins'][] = 'tinyeditor/tinyeditor.css';
+				$this->view_data['js_plugins'][] = 'tinyeditor/tinyeditor.js';
 			} else {
 				$this->view_data['tab_content'] = 'blocks/content_list';
 			}

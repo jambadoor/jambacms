@@ -28,8 +28,8 @@
 				$this->view_data['tab_content'] = 'forms/add_blog_entry';
 
 				//tinyeditor
-				$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/assets/css/tinyeditor.css">';
-				$this->view_data['scripts'][] = '<script src="/assets/js/tinyeditor.js"></script>';
+				$this->view_data['css_plugins'][] = 'tinyeditor/tinyeditor.css';
+				$this->view_data['js_plugins'][] = 'tinyeditor/tinyeditor.js';
 			} else {
 				//TODO: send a message
 				$this->view_data['blog_entries'] = $this->blog->get_all_active();
@@ -46,8 +46,8 @@
 				$this->view_data['tab_content'] = 'forms/edit_blog_entry';
 
 				//tinyeditor
-				$this->view_data['stylesheets'][] = '<link rel="stylesheet" href="/assets/css/tinyeditor.css">';
-				$this->view_data['scripts'][] = '<script src="/assets/js/tinyeditor.js"></script>';
+				$this->view_data['css_plugins'][] = 'tinyeditor/tinyeditor.css';
+				$this->view_data['js_plugins'][] = 'tinyeditor/tinyeditor.js';
 			} else {
 				//TODO: send message
 				$this->view_data['blog_entries'] = $this->blog->get_all_active();

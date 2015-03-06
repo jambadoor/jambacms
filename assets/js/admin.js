@@ -7,10 +7,17 @@ $(function () {
 	$('div.ui.selection.dropdown').dropdown();
 
 	//make tinyeditor update textarea before submitting
+	//we need to make this more elegant
 	$('#edit-content-form').submit(function(event) {
 		tinyeditor.post();
 	});
 	$('#add-content-form').submit(function(event) {
+		tinyeditor.post();
+	});
+	$('#edit-blog-entry-form').submit(function(event) {
+		tinyeditor.post();
+	});
+	$('#add-blog-entry-form').submit(function(event) {
 		tinyeditor.post();
 	});
 

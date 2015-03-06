@@ -10,17 +10,26 @@
 			if ($query->num_rows === 1) {
 				return $query->result()[0];
 			} else {
-				exit("Couldn't retrieve.");
+				if ($query->num_rows > 1) {
+					show_error(__METHOD__."<br>There is more than one content block with the name '$name'.");
+				}
+				if ($query->num_rows === 0) {
+					show_error(__METHOD__."<br>There is no content block with the name '$name'.");
+				}
 			}
 		}
 
 		public function get_id($name) {
 			$query = $this->db->where('name', $name)->select('id')->get($this->table);
-
 			if ($query->num_rows === 1) {
 				return $query->result()[0]->id;
 			} else {
-				exit("Couldn't retrieve");
+				if ($query->num_rows > 1) {
+					show_error(__METHOD__."<br>There is more than one content block with the name '$name'.");
+				}
+				if ($query->num_rows === 0) {
+					show_error(__METHOD__."<br>There is no content block with the name '$name'.");
+				}
 			}
 		}
 

@@ -11,9 +11,6 @@
 
 		//our login page
 		public function login($redirect='admin') {
-			//put the redirect in flashdata
-			$this->session->set_flashdata('redirect', $redirect);
-
 			//load up the view_data
 			$this->view_data['layout'] = 'page';
 			$this->view_data['page'] = 'form';
@@ -45,12 +42,14 @@
 
 				redirect($this->session->flashdata('redirect'));
 			} else {
+				//TODO: send a message
 				redirect('auth/login'.$this->login_redirect);
 			}
 		}
 
 		public function logout() {
 			$this->session->sess_destroy();
+			//TODO: put in a message
 			redirect('/auth/login');
 		}
 	}
