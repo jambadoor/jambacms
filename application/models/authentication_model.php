@@ -55,6 +55,9 @@
 						$user->permissions['content']['create'] = TRUE;
 						$user->permissions['content']['read'] = TRUE;
 						$user->permissions['content']['update'] = TRUE;
+						$user->permissions['adlinks']['create'] = TRUE;
+						$user->permissions['adlinks']['read'] = TRUE;
+						$user->permissions['adlinks']['update'] = TRUE;
 						break;
 					//bloggers can create blogs
 					case 'blogger':

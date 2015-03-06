@@ -45,6 +45,21 @@
 			return $redirect_url;
 		}
 
+		public function get_by_link_url($link_url) {
+			$query = $this->db->where('link_url', $link_url)->get($this->table);
+			if ($query->num_rows === 1) {
+				$adlink = $query->result()[0];
+			} else {
+				if ($query->num_rows > 1) {
+					show_error(__METHOD__."<br>There is more than one adlink with the url '$link_url'.");
+				}
+				if ($query->num_rows === 0) {
+					show_error(__METHOD__."<br>There is no adlink with the url '$link_url'.");
+				}
+			}
+			return $adlink;
+		}
+
 		public function log($link_url) {
 			$query = $this->db->where('link_url', $link_url)->get($this->table);
 			if ($query->num_rows === 1) {
@@ -58,12 +73,19 @@
 				}
 			}
 
+			$this->load->library('user_agent');
+			if ($this->agent->is_referral()) {
+				$referrer = $this->agent->referrer();
+			} else {
+				$referrer = 'none';
+			}
+
 			$hit = array(
 				'ad_id' => $adlink->id,
 				'link_url' => $link_url,
 				'timestamp' => date('Y-m-d H:i:s'),
 				'ip' => $this->input->ip_address(),
-				'referrer' => 'todo'
+				'referrer' => $referrer
 			);
 
 			$this->db->insert('adhits', $hit);

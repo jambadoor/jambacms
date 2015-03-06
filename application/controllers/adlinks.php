@@ -4,8 +4,10 @@
 			parent::__construct();
 			$this->load->model('adlinks_model', 'adlinks');
 
-			$link_url = $this->uri->segment(2);
-
+			if ($this->uri->segment(2))
+				$link_url = $this->uri->segment(2);
+			else
+				$link_url = 'none';
 			//log the ad hit
 			$this->adlinks->log($link_url);
 

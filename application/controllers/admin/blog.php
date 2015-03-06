@@ -23,6 +23,7 @@
 			$this->load->view('master', $this->view_data);
 		}
 
+		//forms
 		public function add() {
 			if ($this->user->permissions['blog']['create']) {
 				$this->view_data['tab_content'] = 'forms/add_blog_entry';

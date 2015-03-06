@@ -28,7 +28,7 @@
 			<i class="user icon"></i>
 			User
 		</a>
-		<a href="/admin/ads" id="ads-tab" class="<?php if ($tab === 'ads') echo 'active ';?>item">
+		<a href="/admin/adlinks" id="ads-tab" class="<?php if ($tab === 'adlinks') echo 'active ';?>item">
 			<i class="dollar icon"></i>
 			Ads
 		</a>
