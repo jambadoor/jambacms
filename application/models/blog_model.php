@@ -44,8 +44,8 @@
 			return $entries_by_name;
 		}
 
-		public function get_latest() {
-			$query = $this->db->order_by('last_modified', 'desc')->order_by('id', 'desc')->limit(1)->get($this->table);
+		public function get_latest($quantity=1) {
+			$query = $this->db->order_by('last_modified', 'desc')->order_by('id', 'desc')->limit($quantity)->get($this->table);
 			return $query->result()[0];
 		}
 	}

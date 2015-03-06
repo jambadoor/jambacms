@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-	class Home extends Public_Controller {
+	class Blog extends Public_Controller {
 		public function __construct() {
 			parent::__construct();
 
@@ -7,7 +7,7 @@
 			$this->load->model('blog_model', 'blog');
 
 			$this->view_data['layout'] = 'main';
-			$this->view_data['page'] = 'home';
+			$this->view_data['page'] = 'blog';
 
 			$this->view_data['css_plugins'][] = 'semantic-ui/menu.css';
 			$this->view_data['css_plugins'][] = 'semantic-ui/grid.css';
@@ -15,8 +15,7 @@
 
 		public function index() {
 			$this->view_data['site_header'] = $this->content->get_by_name('site-header');
-			$this->view_data['welcome_to_jamba_cms'] = $this->content->get_by_name('welcome-to-jamba-cms');
-			$this->view_data['latest_blog_entry'] = $this->blog->get_latest();
+			$this->view_data['blog_entries'] = $this->blog->get_all_active();
 			$this->load->view('master', $this->view_data);
 		}
 	}

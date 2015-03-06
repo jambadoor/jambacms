@@ -4,13 +4,4 @@
 	<div class="right floated launch item">
 		<a href="/blog">Blog</a>
 	</div>
-	<div class="right floated launch item">
-		<a href="/demos">Demos</a>
-	</div>
-	<div class="right floated launch item">
-		<a href="/projects">Projects</a>
-	</div>
-	<div class="right floated launch item">
-		<a href="/resume">Resume</a>
-	</div>
 </div>
