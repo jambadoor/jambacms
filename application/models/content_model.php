@@ -40,25 +40,43 @@
 			}
 		}
 
-		public function get_by_category($category, $name) {
-			if ($category) {
+		public function get_by_category($category = '', $name = '') {
+			if ($category !== '') {
 				$this->db->where('category', $category);
-			}
-			if ($name) {
-				$this->db->where('name', $name);
-			}
-			$query = $this->db->get($this->table);
-			if ($query->num_rows === 1) {
-				return $query->result()[0];
+				//if there is a name supplied we look for a single record
+				if ($name !== '') {
+					$this->db->where('name', $name);
+					$query = $this->db->get($this->table);
+					if ($query->num_rows === 1) {
+						return $query->result()[0];
+					} else {
+						if ($query->num_rows > 1) {
+							show_error(__METHOD__."<br>There is more than one content block in ".$category." with the name '$name'.");
+						}
+						if ($query->num_rows === 0) {
+							show_error(__METHOD__."<br>There is no content block in ".$category." with the name '$name'.");
+						}
+					}
+				//otherwise we return an array of records that are in supplied category
+				} else {
+					$query = $this->db->get($this->table);
+					$records = array();
+					foreach ($query->result() as $record) {
+						$records[$record->name] = $record;
+					}
+					return $records;
+				}
 			} else {
-				if ($query->num_rows > 1) {
-					show_error(__METHOD__."<br>There is more than one content block in ".$category." with the name '$name'.");
+				//if no parameters supplied, we return array that represents the items by category
+				$records = array();
+				$query = $this->db->get($this->table);
+
+				foreach ($query->result() as $record) {
+					$records[$record->category][$record->name] = $record;
 				}
-				if ($query->num_rows === 0) {
-					show_error(__METHOD__."<br>There is no content block in ".$category." with the name '$name'.");
-				}
+
+				return $records;
 			}
-			return FALSE;
 		}
 
 		public function get_all_active($cols='') {
@@ -70,6 +88,14 @@
 			}
 
 			return $content_by_name;
+		}
+
+		public function insert($record) {
+			if ($this->db->where('name', $record->name)->where('category', $record->category)->get($this->table)->num_rows < 1) {
+				$this->db->insert($this->table, $record);
+			} else {
+				return FALSE;
+			}
 		}
 	}
 ?>
