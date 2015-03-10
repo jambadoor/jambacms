@@ -21,5 +21,13 @@
 
 			$this->load->view('master', $this->view_data);
 		}
+
+		public function test() {
+			$this->load->library("Semantic_Form");
+			$this->semantic_form->open();
+			$this->semantic_form->add_input_field('something', "Something");
+			$this->semantic_form->close();
+			$this->semantic_form->output();
+		}
 	}
 ?>

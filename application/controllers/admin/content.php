@@ -96,5 +96,65 @@
 				redirect('/admin/content');
 			}
 		}
+
+		public function crawl() {
+		}
+
+		/*
+		 * This generates some ipsum content in the table
+		 */
+		public function generate_content () {
+			$ipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare dui ac mi porttitor vestibulum. Ut porttitor dolor a sem interdum, et faucibus massa consectetur. Vivamus euismod odio in tristique vestibulum. In ultrices felis vel fringilla finibus. Duis tincidunt eros velit, ut pretium diam vulputate quis. Cras at vestibulum lorem. Maecenas hendrerit tortor nibh, at tristique orci dignissim in. Integer vel pretium dolor, eu euismod metus. Nunc a cursus diam. Phasellus egestas maximus sollicitudin. Cras ac semper tortor. Nulla malesuada felis sem, sit amet porttitor odio dapibus non. Fusce eu massa sollicitudin, lobortis lacus non, dictum dolor. Pellentesque non nibh ex. Morbi in magna eget erat vulputate bibendum.";
+			$sentences = explode(". ", $ipsum);
+			$words = explode(' ', $ipsum);
+			foreach ($words as $index=>$word) {
+				$words[$index] = ucfirst(chop($word, '.,'));
+				if ($words[$index] == '' || $words[$index] == ' ') {
+					unset($words[$index]);
+				}
+				
+			}
+			$categories = array();
+			for ($category = 0; $category < 10; $category++) {
+				$categories[] = $words[rand(0, count($words) - 1)];
+			}
+
+			$record = new stdClass();
+
+			$this->db->query('delete from content where id>2');
+
+			for ($category = 1; $category <= 10; $category++) {
+				for ($item = 1; $item <= 10; $item++) {
+					$num_paragraphs = rand(3, 6);
+					$header = '';
+					$num_words = rand(1, 5);
+					for ($word = 0; $word < $num_words; $word++) {
+						$header .= $words[rand(0, count($words) - 1)].' ';
+					}
+					$header = chop($header, ' ');
+					$content = '';
+					for ($paragraph = 0; $paragraph < $num_paragraphs; $paragraph++) {
+						$num_sentences = rand(10, 20);
+						$content .= "<p>";
+						for ($sentence = 0; $sentence < $num_sentences; $sentence++) {
+							$content .= $sentences[rand(0, count($sentences) - 1)];
+							$content .= '. ';
+						}
+						$content .= "</p>";
+					}
+					$record->name = str_replace(' ', '-', strtolower($header));
+					$record->header = $header;
+					$record->content = $content;
+					$record->category = $categories[$category - 1];
+					$date_created = new DateTime();
+					$date_created->sub(DateInterval::createFromDateString(rand(0, 365).' days'));
+					$record->date_created = $date_created->format('Y-m-d');
+					$record->last_modified = $date_created->format('Y-m-d');
+						
+					$this->content->insert($record);
+				}
+			}
+			redirect("/articles/view");
+		}
 	}
 ?>

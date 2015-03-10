@@ -22,6 +22,7 @@
 
 		//forms
 		public function add() {
+			$this->load->library("UI_Form");
 			if ($this->user->permissions['adlinks']['create']) {
 				$this->view_data['tab_content'] = 'forms/add_adlink';
 			} else {
@@ -36,6 +37,7 @@
 		public function edit($link_url) {
 			$adlink = $this->adlinks->get_by_link_url($link_url);
 			if ($this->user->permissions['adlinks']['update'] || $this->user->id == $adlink->created_by) {
+				$this->load->library("UI_Form");
 				$this->view_data['adlink'] = $adlink;
 				$this->view_data['tab_content'] = 'forms/edit_adlink';
 			} else {
