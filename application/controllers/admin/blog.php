@@ -3,6 +3,7 @@
 		public function __construct() {
 			parent::__construct();
 
+			//get stuff ready for blog module
 			$this->load->model('blog_model', 'blog');
 			$this->view_data['tab'] = 'blog';
 
@@ -13,19 +14,32 @@
 			}
 		}
 
+		/*
+		 * load the list if /admin/blog
+		 */
 		public function index() {
 			$this->all();
 		}
 
+		/*
+		 * loads a list of all blog entries
+		 */
 		public function all() {
 			$this->view_data['blog_entries'] = $this->blog->get_all_active();
 			$this->view_data['tab_content'] = 'blocks/blog_list';
 			$this->load->view('master', $this->view_data);
 		}
 
-		//forms
+		/*
+		 * FORMS
+		 * ***************************************************************************/
+
+		/*
+		 * loads add blog entry form
+		 */
 		public function add() {
 			if ($this->user->permissions['blog']['create']) {
+				$this->load->library("UI_Form");
 				$this->view_data['tab_content'] = 'forms/add_blog_entry';
 
 				//tinyeditor
@@ -40,9 +54,14 @@
 			$this->load->view('master', $this->view_data);
 		}
 
+		/*
+		 * loads edit blog entry form with entry specified by $name
+		 */
 		public function edit($name) {
 			$entry = $this->blog->get_by_name($name);
 			if ($this->user->permissions['blog']['update'] || $this->user->id == $entry->created_by) {
+				//load up our form library
+				$this->load->library("UI_Form");
 				$this->view_data['blog_entry'] = $entry;
 				$this->view_data['tab_content'] = 'forms/edit_blog_entry';
 
@@ -58,7 +77,13 @@
 			$this->load->view('master', $this->view_data);
 		}
 
-		/*CRUD*/
+		/*
+		 * CRUD
+		 ****************************************************************************/
+
+		/*
+		 * creates blog entry from post
+		 */
 		public function create() {
 			if ($this->user->permissions['blog']['create']) {
 				$new_entry = $this->input->post();	
@@ -73,6 +98,9 @@
 			}
 		}
 
+		/*
+		 * performs soft delete of blog entry specified by $name
+		 */
 		public function del($name) {
 			$entry = $this->blog->get_by_name($name);
 			if ($this->user->permissions['blog']['delete'] || $this->user->id == $entry->created_by) {
@@ -84,6 +112,9 @@
 			}
 		}	
 
+		/*
+		 * updates the blog entry specified by $name from post
+		 */
 		public function update($name) {
 			if ($this->user->permissions['blog']['update']) {
 				$entry = $this->input->post();

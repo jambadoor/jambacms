@@ -8,11 +8,12 @@ class UI_Form {
 		$CI =& get_instance();
 		$this->CI =& $CI;
 		if (!in_array('semantic-ui/form.css', $CI->view_data['css_plugins'])) $CI->view_data['css_plugins'][] = 'semantic-ui/form.css';
-
-		$this->html = '';
+		if (!in_array('semantic-ui/form.js', $CI->view_data['js_plugins'])) $CI->view_data['js_plugins'][] = 'semantic-ui/form.js';
 	}
 
 	public function open($config = array()) {
+		$this->html = '';
+
 		foreach ($config as $key => $value) {
 			${$key} = $value;
 		}
@@ -90,6 +91,7 @@ class UI_Form {
 
 	public function add_textarea($name, $label='', $value='') {
 		$this->html .= '<div class="field">'."\n";
+		$this->html .= '<label>'.$label.'</label>'."\n";
 		$this->html .= '<textarea name="'.$name.'" label="'.$label.'">'."\n";
 		$this->html .= $value."\n";
 		$this->html .= '</textarea>'."\n";

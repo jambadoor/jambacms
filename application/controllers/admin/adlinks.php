@@ -6,7 +6,7 @@
 			$this->load->model('adlinks_model', 'adlinks');
 			$this->view_data['tab'] = 'adlinks';
 
-			//check if the user can even view all blogs, but I think everyone can
+			//check if the user can even view all adlinks
 			if (!$this->user->permissions['adlinks']['read'] && !$this->user->permissions['adhits']['read']) {
 				//TODO: we need to send a message to them, or maybe show a disabled tab or something
 				redirect('/admin/home');
@@ -20,10 +20,19 @@
 			$this->load->view('master', $this->view_data);
 		}
 
-		//forms
+		/*
+		 * FORMS
+		 * ***************************************************************************/
+
+		/*
+		 * add adlink form
+		 */
 		public function add() {
-			$this->load->library("UI_Form");
+
+			//check if we can create adlinks
 			if ($this->user->permissions['adlinks']['create']) {
+				//load up our form library
+				$this->load->library("UI_Form");
 				$this->view_data['tab_content'] = 'forms/add_adlink';
 			} else {
 				//TODO: send a message
@@ -34,6 +43,9 @@
 			$this->load->view('master', $this->view_data);
 		}
 
+		/*
+		 * edit adlink form
+		 */
 		public function edit($link_url) {
 			$adlink = $this->adlinks->get_by_link_url($link_url);
 			if ($this->user->permissions['adlinks']['update'] || $this->user->id == $adlink->created_by) {
@@ -49,7 +61,13 @@
 			$this->load->view('master', $this->view_data);
 		}
 
-		//CRUD
+		/*
+		 * CRUD
+		 * ***************************************************************************/
+
+		/*
+		 * create adlink from post
+		 */
 		public function create() {
 			if ($this->user->permissions['adlinks']['create']) {
 				$adlink = $this->input->post();	
@@ -64,6 +82,9 @@
 			}
 		}
 
+		/*
+		 * update adlink specified with $link_url with post
+		 */
 		public function update($link_url) {
 			if ($this->user->permissions['adlinks']['update']) {
 				$adlink = $this->input->post();
@@ -75,6 +96,9 @@
 			}
 		}
 
+		/*
+		 * performs soft delete of adlink specified by $link_url
+		 */
 		public function del($link_url) {
 			$adlink = $this->adlinks->get_by_link_url($link_url);
 			if ($this->user->permissions['adlinks']['delete'] || $this->user->id == $adlink->created_by) {

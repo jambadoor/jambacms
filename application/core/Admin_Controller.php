@@ -16,7 +16,6 @@
 			$this->view_data['css_plugins'][] = 'semantic-ui/dropdown.css';
 			$this->view_data['css_plugins'][] = 'semantic-ui/icon.css';
 			$this->view_data['css_plugins'][] = 'semantic-ui/image.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/form.css';
 			$this->view_data['css_plugins'][] = 'semantic-ui/button.css';
 			$this->view_data['css_plugins'][] = 'semantic-ui/segment.css';
 			$this->view_data['css_plugins'][] = 'semantic-ui/card.css';
@@ -25,7 +24,6 @@
 			//admin js plugins
 			$this->view_data['js_plugins'][] = 'jquery/jquery.js';
 			$this->view_data['js_plugins'][] = 'semantic-ui/dropdown.js';
-			$this->view_data['js_plugins'][] = 'semantic-ui/form.js';
 			$this->view_data['js_plugins'][] = 'semantic-ui/transition.js';
 
 			//admin stylesheets
