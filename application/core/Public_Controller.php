@@ -7,9 +7,6 @@
 			//all of these belong to the site, set our view_path
 			$this->load->set_view_path('site');
 
-			//and the content model, and any other models that all site controllers will use
-			$this->load->model('content_model', 'content');
-
 			//global meta tags
 			$this->view_data['metas'] = array();
 

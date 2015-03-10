@@ -154,7 +154,7 @@
 				$categories[] = $words[rand(0, count($words) - 1)];
 			}
 
-			$article = new stdClass();
+			$article = array();
 
 			$this->db->query('delete from content where id>2');
 
@@ -177,16 +177,16 @@
 						}
 						$content .= "</p>";
 					}
-					$article->name = str_replace(' ', '-', strtolower($header));
-					$article->header = $header;
-					$article->content = $content;
-					$article->category = $categories[$category - 1];
+					$article['name'] = str_replace(' ', '-', strtolower($header));
+					$article['headline'] = $header;
+					$article['content'] = $content;
+					$article['category'] = $categories[$category - 1];
 					$date_created = new DateTime();
 					$date_created->sub(DateInterval::createFromDateString(rand(0, 365).' days'));
-					$article->date_created = $date_created->format('Y-m-d');
-					$article->last_modified = $date_created->format('Y-m-d');
+					$article['date_created'] = $date_created->format('Y-m-d');
+					$article['last_modified'] = $date_created->format('Y-m-d');
 						
-					$this->articles->insert($record);
+					$this->articles->insert($article);
 				}
 			}
 

@@ -3,20 +3,20 @@
 	<div class="ui breadcrumb">
 		<a class="section">Articles</a>
 		<i class="right chevron icon divider"></i>
-		<a class="section"><?=$content_item->category?></a>
+		<a class="section"><?=$article->category?></a>
 		<i class="right chevron icon divider"></i>
-		<a class="section"><?=$content_item->header?></a>
+		<a class="section"><?=$article->headline?></a>
 	</div>
 </div>
 <div class="four wide column">
 </div>
 <div class="four wide column">
 	<div class="ui segment">
-		<h3>More <?=$content_item->category?></h3>
+		<h3>More <?=$article->category?></h3>
 		<div class="ui bulleted list">
-		<?php foreach ($content[$content_item->category] as $name => $item) : ?>
+		<?php foreach ($articles[$article->category] as $name => $item) : ?>
 			<div class="item">
-				<a href="/articles/view/<?=$content_item->category?>/<?=$name?>"><?=$item->header?></a>
+				<a href="/articles/view/<?=$article->category?>/<?=$name?>"><?=$item->headline?></a>
 			</div>
 		<?php endforeach; ?>
 		</div>
@@ -34,8 +34,8 @@
 </div>
 <div class="twelve wide column">
 	<div class="ui segment">
-		<h3><?=$content_item->header?></h3>
-		<p><?=$content_item->content?></p>
-		<?=$content_item->last_modified?>
+		<h3><?=$article->headline?></h3>
+		<p><?=$article->content?></p>
+		<?=$article->last_modified?>
 	</div>
 </div>

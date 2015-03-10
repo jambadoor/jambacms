@@ -3,8 +3,7 @@
 		public function __construct() {
 			parent::__construct();
 
-			$this->load->model('content_model', 'content');
-			$this->load->model('blog_model', 'blog');
+			$this->load->model('articles_model', 'articles');
 
 			$this->view_data['layout'] = 'main';
 			$this->view_data['page'] = 'home';
@@ -12,22 +11,14 @@
 			$this->view_data['css_plugins'][] = 'semantic-ui/menu.css';
 			$this->view_data['css_plugins'][] = 'semantic-ui/grid.css';
 			
-			$this->view_data['site_header'] = $this->content->get_by_name('site-header');
+			$this->view_data['site_header'] = $this->articles->get_by_name('site-header');
 		}
 
 		public function index($category = '', $item = '') {
-			$this->view_data['welcome_to_jamba_cms'] = $this->content->get_by_name('welcome-to-jamba-cms');
-			$this->view_data['latest_blog_entry'] = $this->blog->get_latest();
+			$this->view_data['welcome_to_jamba_cms'] = $this->articles->get_by_name('welcome-to-jamba-cms');
 
 			$this->load->view('master', $this->view_data);
 		}
 
-		public function test() {
-			$this->load->library("Semantic_Form");
-			$this->semantic_form->open();
-			$this->semantic_form->add_input_field('something', "Something");
-			$this->semantic_form->close();
-			$this->semantic_form->output();
-		}
 	}
 ?>
