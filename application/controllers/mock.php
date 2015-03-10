@@ -32,18 +32,19 @@
 				//if there is nothing supplied
 				if ($category === '') {
 					//load up the list of all content
+					$this->view_data['content_item'] = $this->content->get_latest();
 					$this->view_data['content'] = $this->content->get_by_category();
-					$this->view_data['page'] = 'mock_list';
 				//if there is a category supplied
 				} else {
+					$this->view_data['content_item'] = $this->content->get_latest($category);
 					$this->view_data['content'][$category] = $this->content->get_by_category($category);
-					$this->view_data['page'] = 'mock_list';
 				}
 			} else {
 				//if everything is supplied
 				$this->view_data['content_item'] = $this->content->get_by_category($category, $name);
-				$this->view_data['page'] = 'mock_item';
+				$this->view_data['content'][$category] = $this->content->get_by_category($category);
 			} 
+			$this->view_data['page'] = 'mock_item';
 
 			$this->load->view('master', $this->view_data);
 		}
@@ -73,7 +74,7 @@
 
 			for ($category = 1; $category <= 10; $category++) {
 				for ($item = 1; $item <= 10; $item++) {
-					$num_paragraphs = rand(1, 5);
+					$num_paragraphs = rand(3, 6);
 					$header = '';
 					$num_words = rand(1, 5);
 					for ($word = 0; $word < $num_words; $word++) {
@@ -82,7 +83,7 @@
 					$header = chop($header, ' ');
 					$content = '';
 					for ($paragraph = 0; $paragraph < $num_paragraphs; $paragraph++) {
-						$num_sentences = rand(5, 10);
+						$num_sentences = rand(10, 20);
 						$content .= "<p>";
 						for ($sentence = 0; $sentence < $num_sentences; $sentence++) {
 							$content .= $sentences[rand(0, count($sentences) - 1)];
@@ -94,14 +95,15 @@
 					$record->header = $header;
 					$record->content = $content;
 					$record->category = $categories[$category - 1];
-					$record->date_created = date('Y-m-d');
-					$record->last_modified = date('Y-m-d');
+					$date_created = new DateTime();
+					$date_created->sub(DateInterval::createFromDateString(rand(0, 365).' days'));
+					$record->date_created = $date_created->format('Y-m-d');
+					$record->last_modified = $date_created->format('Y-m-d');
 						
 					$this->content->insert($record);
 				}
 			}
-			//redirect("/mock/content");
-			print_r($categories);
+			redirect("/mock/content");
 		}
 	}
 ?>

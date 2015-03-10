@@ -5,6 +5,15 @@
 			parent::__construct();
 		}
 
+		public function get_latest($category = '') {
+			if ($category !== '') {
+				$this->db->where('category', $category);
+			}
+			$this->db->order_by('last_modified', 'desc')->limit(1);
+			$query = $this->db->get($this->table);
+			return $query->result()[0];
+		}
+
 		public function get_by_name($name) {
 			$query = $this->db->where('name', $name)->get($this->table);
 			if ($query->num_rows === 1) {
@@ -20,10 +29,14 @@
 		}
 
 		public function get_categories() {
-			$query = $this->db->select('category')->get($this->table);
-			$categories = $query->result();
+			$query = $this->db->distinct()->select('category')->get($this->table);
+			$categories = array();
+			foreach ($query->result() as $category) {
+				if ($category->category != '') {
+					$categories[] = $category->category;
+				}
+			}
 			return $categories;
-
 		}
 
 		public function get_id($name) {
@@ -41,6 +54,7 @@
 		}
 
 		public function get_by_category($category = '', $name = '') {
+			$this->db->order_by('last_modified', 'desc');
 			if ($category !== '') {
 				$this->db->where('category', $category);
 				//if there is a name supplied we look for a single record
