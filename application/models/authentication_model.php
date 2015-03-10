@@ -52,22 +52,22 @@
 						$user->permissions['blog']['create'] = TRUE;
 						$user->permissions['blog']['read'] = TRUE;
 						$user->permissions['blog']['update'] = TRUE;
-						$user->permissions['content']['create'] = TRUE;
-						$user->permissions['content']['read'] = TRUE;
-						$user->permissions['content']['update'] = TRUE;
+						$user->permissions['articles']['create'] = TRUE;
+						$user->permissions['articles']['read'] = TRUE;
+						$user->permissions['articles']['update'] = TRUE;
 						$user->permissions['adlinks']['create'] = TRUE;
 						$user->permissions['adlinks']['read'] = TRUE;
 						$user->permissions['adlinks']['update'] = TRUE;
 						break;
 					//bloggers can create blogs
 					case 'blogger':
-						$user->permissions['blog']['create'] = TRUE;
-						$user->permissions['blog']['read'] = TRUE;
+						$user->permissions['articles']['create'] = TRUE;
+						$user->permissions['articles']['read'] = TRUE;
 						break;
 					case 'advertiser':
 						break;
 					case 'user': 
-						$user->permissions['blog']['read'] = TRUE;
+						$user->permissions['articles']['read'] = TRUE;
 						break;
 					default:
 						break;

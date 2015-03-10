@@ -14,19 +14,11 @@
 			</a>
 		</div>
 	<?php endif; ?>
-	<?php if ($user->permissions['content']['read']) : ?>
-		<div id="content-tab" class="<?php if ($tab === 'content') echo 'active ';?>item">
-			<a href="/admin/content">
+	<?php if ($user->permissions['articles']['read']) : ?>
+		<div id="articles-tab" class="<?php if ($tab === 'articles') echo 'active ';?>item">
+			<a href="/admin/articles">
 				<i class="content icon"></i>
-				Content
-			</a>
-		</div>
-	<?php endif; ?>
-	<?php if ($user->permissions['blog']['read']) : ?>
-		<div id="blog-tab" class="<?php if ($tab === 'blog') echo 'active ';?>item">
-			<a href="/admin/blog">
-				<i class="book icon"></i>
-				Blog
+				Articles
 			</a>
 		</div>
 	<?php endif; ?>
