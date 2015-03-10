@@ -1,27 +1,19 @@
-<div id="add-content-segment" class="ui segment">
-	<h2 class="ui header"><i class="content icon"></i>Add Content</h3>
-	<form id="add-content-form" class="ui form" action="/admin/articles/create" method="POST" enctype="multipart/form-data">
-		<div class="field">
-			<label>Name</label>
-			<input name="name" type="text">
-		</div>
-		<div class="field">
-			<label>Headline</label>
-			<input type="text" name="headline">
-		</div>
-		<div class="field">
-			<label>Content</label>
-			<textarea id="input" name="content"></textarea>
-			<script type="text/javascript" src="/assets/js/init_tinyeditor.js"></script>
-		</div>
-		<div class="field">
-			<label>Category</label>
-			<input type="text" name="category">
-		</div>
-		<div class="field">
-			<label>Sub-Category</label>
-			<input type="text" name="subcategory">
-		</div>
-		<input id="submit" type="submit" value="Submit" class="ui button">
-	</form>
-</div>
+<?php
+	$config = array (
+		'class' => 'ui form segment',
+		'id' => 'add-article-form',
+		'header' => 'New Article',
+		'action' => '/admin/articles/create',
+		'indent_level' => 2
+	);
+
+	$this->ui_form->open($config);
+	$this->ui_form->add_input_field('name', 'Name');
+	$this->ui_form->add_input_field('headline', 'Headline');
+	$this->ui_form->add_tinyeditor('content', 'Content');
+	$this->ui_form->add_input_field('category', 'Category');
+	$this->ui_form->add_input_field('subcategory', 'Sub-Category');
+	$this->ui_form->add_submit();
+	$this->ui_form->close();
+	$this->ui_form->render();
+?>

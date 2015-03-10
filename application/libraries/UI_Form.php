@@ -4,6 +4,10 @@ class UI_Form {
 	var $CI;
 	var $html;
 
+	/*
+	 * CONSTRUCTOR
+	 * set up our ci instance and load in the required semantic files
+	 */
 	public function __construct() {
 		$CI =& get_instance();
 		$this->CI =& $CI;
@@ -11,14 +15,26 @@ class UI_Form {
 		if (!in_array('semantic-ui/form.js', $CI->view_data['js_plugins'])) $CI->view_data['js_plugins'][] = 'semantic-ui/form.js';
 	}
 
+	/*
+	 * starts the form, takes a config array to get it started
+	 */
 	public function open($config = array()) {
-		$this->html = '';
-
+		//get all of our config values as local variables
 		foreach ($config as $key => $value) {
 			${$key} = $value;
 		}
 
-		//open and set up class
+		if (isset($indent_level)) {
+			$this->indent_level = $indent_level;
+		} else {
+			$this->indent_level = 0;
+		}
+
+		//reset our html
+		$this->html = "\n";
+		$this->indent();
+
+		//open up our tag
 		$this->html .= '<form class="';
 		if (isset($class)) {
 			$this->html .= $class;
@@ -27,25 +43,26 @@ class UI_Form {
 		}
 		$this->html .= '"';
 
-		if (isset($id)) {
-			$this->html .= ' id="'.$id.'"';
-		} 		
+		if (isset($id)) { $this->html .= ' id="'.$id.'"'; } 		
 
-		if (isset($action)) {
-			$this->html .= ' action="'.$action.'"';
-
-		}
+		if (isset($action)) { $this->html .= ' action="'.$action.'"'; }
 
 		$this->html .= ' method="POST"';
 		$this->html .= '>'."\n";
 
+		//move our indent up a level and indent
+		$this->indent_level++;
+		$this->indent();
+
 		if (isset($header)) {
 			$this->html .= '<h3>'.$header.'</h3>';
 		}
-
+		$this->html .= "\n";
 	}
 
 	public function close() {
+		$this->indent_level--;
+		$this->indent();
 		$this->html .= "</form>\n";
 	}
 
@@ -76,31 +93,77 @@ class UI_Form {
 			default: break;
 		}
 		$this->html .= 'fields">'."\n";
+		$this->indent_level++;
+		$this->indent();
 	}
 
 	public function close_group() {
+		$this->indent_level--;
+		$this->indent();
 		$this->html .= "</div>\n";
 	}
 
 	public function add_input_field($name, $label='', $value='') {
+		$this->indent();
 		$this->html .= '<div class="field">'."\n";
+		$this->indent_level++;
+		$this->indent();
 		$this->html .= '<label>'.$label.'</label>'."\n";
+		$this->indent();
 		$this->html .= '<input type="text" name="'.$name.'" value="'.$value.'">'."\n";
-		$this->html .= '</div>';
-	}
-
-	public function add_textarea($name, $label='', $value='') {
-		$this->html .= '<div class="field">'."\n";
-		$this->html .= '<label>'.$label.'</label>'."\n";
-		$this->html .= '<textarea name="'.$name.'" label="'.$label.'">'."\n";
-		$this->html .= $value."\n";
-		$this->html .= '</textarea>'."\n";
+		$this->indent_level--;
+		$this->indent();
 		$this->html .= '</div>'."\n";
 	}
 
+	public function add_tinyeditor($name, $label='', $value='') {
+		$this->indent();
+		$this->html .= '<div class="field">'."\n";
+		$this->indent_level++;
+		$this->indent();
+		$this->html .= '<label>'.$label.'</label>'."\n";
+		$this->indent();
+		$this->html .= '<textarea id="input" name="'.$name.'" label="'.$label.'">'."\n";
+		$this->indent_level++;
+		$this->indent();
+		$this->html .= $value."\n";
+		$this->indent_level--;
+		$this->indent();
+		$this->html .= '</textarea>'."\n";
+		$this->indent();
+		$this->html .= '<script type="text/javascript" src="/assets/js/init_tinyeditor.js"></script>'."\n";
+		$this->indent_level--;
+		$this->indent();
+		$this->html .= '</div>'."\n";
+	}
+
+
+	public function add_textarea($name, $label='', $value='') {
+		$this->indent();
+		$this->html .= '<div class="field">'."\n";
+		$this->indent_level++;
+		$this->indent();
+		$this->html .= '<label>'.$label.'</label>'."\n";
+		$this->indent();
+		$this->html .= '<textarea name="'.$name.'" label="'.$label.'">'."\n";
+		$this->html .= $value."\n";
+		$this->html .= '</textarea>'."\n";
+		$this->indent_level--;
+		$this->indent();
+		$this->html .= '</div>'."\n";
+
+	}
+
 	public function add_submit($label = "Submit") {
+		$this->indent();
 		$this->html .= '<input type="submit" value="'.$label.'" class="ui button">'."\n";
 
+	}
+
+	private function indent() {
+		for ($i = 0; $i < $this->indent_level; $i++) {
+			$this->html .= "\t";
+		}
 	}
 	
 }

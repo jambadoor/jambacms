@@ -5,6 +5,8 @@
 		public function __construct() {
 			parent::__construct();
 
+			//trying something out for prettier code
+			$this->view_data['indent_level'] = 0;
 			//global meta tags
 			$this->view_data['metas'] = array();
 

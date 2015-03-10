@@ -1,6 +1,5 @@
-<div class="ui page grid">
-
-<?php $this->load->view('blocks/top_bar'); ?>
+	<div class="ui page grid">
+		<?php $this->load->view('blocks/top_bar'); ?>
 
 <div id="top_spacer"></div>
 
