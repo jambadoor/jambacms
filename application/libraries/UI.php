@@ -3,7 +3,7 @@
 class UI {
 	var $CI;
 	var $html;
-	var $indent_level;
+	public $indent_level;
 
 	/*
 	 * CONSTRUCTOR
@@ -13,9 +13,9 @@ class UI {
 		$CI =& get_instance();
 		$this->CI =& $CI;
 		
-		$css_plugins = array('reset', 'site', 'button', 'grid', 'tab', 'menu', 'divider', 'header', 'segment', 'icon');
+		$css_plugins = array('reset', 'site', 'button', 'grid', 'tab', 'menu', 'divider', 'header', 'segment', 'icon', 'breadcrumb', 'image');
 		foreach ($css_plugins as $plugin) {
-			if (!in_array("semantic-ui/$plugin.css", $CI->view_data['css_plugins'])) $CI->view_data['css_plugins'][] = "semantic-ui/$plugin.css";
+			if (!in_array("semantic-ui/$plugin.min.css", $CI->view_data['css_plugins'])) $CI->view_data['css_plugins'][] = "semantic-ui/$plugin.css";
 		}
 		$this->indent_level = 0;
 	}
@@ -27,12 +27,6 @@ class UI {
 		//get all of our config values as local variables
 		foreach ($config as $key => $value) {
 			${$key} = $value;
-		}
-
-		if (isset($indent_level)) {
-			$this->indent_level = $indent_level;
-		} else {
-			$this->indent_level = 0;
 		}
 
 		$this->indent();
@@ -71,7 +65,38 @@ class UI {
 		$this->indent();
 
 		$this->html .= '</'.$tag.'>'."\n";
+	}
 
+	public function add_breadcrumb($config) {
+		//get all of our config values as local variables
+		foreach ($config as $key => $value) {
+			${$key} = $value;
+		}
+
+		//open up our tag
+		$this->html .= "\n";
+		$this->indent();
+		$this->html .= '<div class="ui ';
+		if (isset($breadcrumb_class)) {
+			$this->html .= $breadcrumb_class.' ';
+		}
+		$this->html .= 'breadcrumb">'."\n";
+		$this->indent_level++;
+		if (isset($crumbs)) {
+			foreach ($crumbs as $href => $text) {
+				$this->indent();
+				if ($href !== '') {
+					$this->html .= '<a href="'.$href.'" class="section">'.$text.'</a>'."\n";
+					$this->indent();
+					$this->html .= '<div class="divider">/</div>'."\n";
+				} else {
+					$this->html .= '<div class="section">'.$text.'</div>'."\n";
+				}
+			}
+		}
+		$this->indent_level--;
+		$this->indent();
+		$this->html .= '</div>'."\n";
 	}
 
 	/*

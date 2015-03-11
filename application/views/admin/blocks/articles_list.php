@@ -1,15 +1,35 @@
 <?php 
+	/*
+	 * TOP CONTROLS
+	 ****************************************************************************/
+	
+	/*
+	 * breadcrumbs
+	 */
+	$config = array(
+		'divider_class' => 'right chevron icon divider',
+		'crumbs' => array (
+			'/admin/articles/view' => 'all',
+			'' => $category
+		)
+	);
+	$this->ui->add_breadcrumb($config);
+	/*
+	 * add user
+	 */
 	if ($user->permissions['articles']['create']) {
 		$config = array(
 			'icon' => 'plus icon',
-			'class' => 'ui labeled icon button',
+			'class' => 'ui labeled right floated icon button',
 			'text' => 'Add Article',
 			'href' => '/admin/articles/add',
 			'id' => 'add-article-button'
 		);
 		$this->ui->add_button($config);
 	}
-
+	/*
+	 * article generator
+	 */
 	if ($user->type === 'dev') {
 		$config = array(
 			'icon' => 'plus icon',
@@ -20,7 +40,6 @@
 		);
 		$this->ui->add_button($config);
 	}
-
 	$this->ui->render();
 	
 	//Create our list
@@ -35,8 +54,7 @@
 			$this->ui_table->add_column($article->created_by);
 			$this->ui_table->add_column($article->date_created);
 			$this->ui_table->add_column($article->active);
-			$options = '';
-			$options .= '<a href="/admin/articles/view/'.$article->category.'/'.$article->name.'">View</a> | ';
+			$options = '<a href="/admin/articles/view/'.$article->category.'/'.$article->name.'">View</a> | ';
 			$options .= '<a href="/admin/articles/edit/'.$article->category.'/'.$article->name.'">Edit</a> | ';
 			$options .= '<a href="/admin/articles/del/'.$article->category.'/'.$article->name.'">Deactivate</a>';
 			$this->ui_table->add_column($options);

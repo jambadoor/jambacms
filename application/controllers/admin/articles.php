@@ -32,6 +32,7 @@
 				$this->view_data['articles'] = $this->articles->get_all();
 				$this->view_data['tab_content'] = 'blocks/articles_list';
 			} else { 
+				$this->view_data['category'] = $category;
 				if ($name === '') {
 					$this->load->library('UI_Table');
 					$this->view_data['articles'] = $this->articles->get_by_category($category);
