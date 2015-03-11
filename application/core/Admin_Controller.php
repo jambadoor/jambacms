@@ -10,18 +10,11 @@
 			//global meta tags
 			$this->view_data['metas'] = array();
 
-			//admin css plugins
-			$this->view_data['css_plugins'][] = 'semantic-ui/reset.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/site.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/grid.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/menu.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/dropdown.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/icon.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/image.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/button.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/segment.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/card.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/transition.css';
+			$this->view_data['css_plugins'] = array();
+
+			//our fancy new ui class
+			$this->load->library('UI');
+
 
 			//admin js plugins
 			$this->view_data['js_plugins'][] = 'jquery/jquery.js';

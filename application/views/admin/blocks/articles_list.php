@@ -1,31 +1,47 @@
-<?php if ($user->permissions['articles']['create']) : ?>
-	<a href="/admin/articles/add" id="add-article-button" class="ui labeled icon button">
-		<i class="plus icon"></i>
-		Add Article
-	</a>
-<?php endif; ?>
+<?php 
+	if ($user->permissions['articles']['create']) {
+		$config = array(
+			'icon' => 'plus icon',
+			'class' => 'ui labeled icon button',
+			'text' => 'Add Article',
+			'href' => '/admin/articles/add',
+			'id' => 'add-article-button'
+		);
+		$this->ui->add_button($config);
+	}
 
-<?php foreach ($articles as $article) : ?>
-	<div id="<?=$article->name;?>-segment" class="ui segment">
-		<h3><?=$article->headline;?></h3>
-		<div class="content">
-			<?=$article->content;?>
-		</div>
-		<div>Name: <?=$article->name?></div>
-		<div>Created on <?=$article->date_created?> by <?=$article->created_by?></div>
-		<div>Last modified on <?=$article->last_modified?> by <?=$article->last_modified_by?></div>
-		<?php if ($user->permissions['articles']['update'] || $user->id == $article->created_by) : ?>
-			<a href="/admin/articles/edit/<?=$article->name;?>" id="edit-article-button" class="ui right floated labeled icon button">
-				<i class="edit icon"></i>
-				Edit
-			</a>
-		<?php endif; ?>
-		<?php if ($user->permissions['articles']['delete'] || $user->id == $article->created_by) : ?>
-			<a href="/admin/articles/del/<?=$article->id?>" class="ui right floated icon button">
-				<i class="erase icon"></i>
-				Delete
-			</a>
-		<?php endif; ?>
-	</div>
-<?php endforeach; ?>
+	if ($user->type === 'dev') {
+		$config = array(
+			'icon' => 'plus icon',
+			'class' => 'ui labeled icon right floated button',
+			'id' => 'generate-articles-button',
+			'href' => '/admin/articles/generator',
+			'text' => 'Generate Random Articles'
+		);
+		$this->ui->add_button($config);
+	}
 
+	$this->ui->render();
+	
+	//Create our list
+	$config = array (
+		'headers' => array ('Name', 'Category', 'Author', 'Created On', 'Active', 'Options')
+	);
+	$this->ui_table->open($config);
+	foreach ($articles as $article) {
+		$this->ui_table->open_row();
+			$this->ui_table->add_column('<a href="/admin/articles/view/'.$article->category.'/'.$article->name.'">'.$article->name.'</a>');
+			$this->ui_table->add_column('<a href="/admin/articles/view/'.$article->category.'">'.$article->category.'</a>');
+			$this->ui_table->add_column($article->created_by);
+			$this->ui_table->add_column($article->date_created);
+			$this->ui_table->add_column($article->active);
+			$options = '';
+			$options .= '<a href="/admin/articles/view/'.$article->category.'/'.$article->name.'">View</a> | ';
+			$options .= '<a href="/admin/articles/edit/'.$article->category.'/'.$article->name.'">Edit</a> | ';
+			$options .= '<a href="/admin/articles/del/'.$article->category.'/'.$article->name.'">Deactivate</a>';
+			$this->ui_table->add_column($options);
+		$this->ui_table->close_row();
+	}
+	$this->ui_table->close();
+	$this->ui_table->render();
+?>

@@ -26,9 +26,21 @@
 		/*
 		 * loads up a list of articles
 		 */
-		public function view() {
-			$this->view_data['articles'] = $this->articles->get_all();
-			$this->view_data['tab_content'] = 'blocks/articles_list';
+		public function view($category='', $name='') {
+			if ($category === '') {
+				$this->load->library('UI_Table');
+				$this->view_data['articles'] = $this->articles->get_all();
+				$this->view_data['tab_content'] = 'blocks/articles_list';
+			} else { 
+				if ($name === '') {
+					$this->load->library('UI_Table');
+					$this->view_data['articles'] = $this->articles->get_by_category($category);
+					$this->view_data['tab_content'] = 'blocks/articles_list';
+				} else {
+					$this->view_data['article'] = $this->articles->get_by_category($category, $name);
+					$this->view_data['tab_content'] = 'blocks/article_view';
+				}
+			}
 
 			$this->load->view('master', $this->view_data);
 		}
@@ -41,8 +53,8 @@
 		/*
 		 * loads up the edit article form with article specified by $url
 		 */
-		public function edit($name) {
-			$article = $this->articles->get_by_name($name);
+		public function edit($category, $name) {
+			$article = $this->articles->get_by_category($category, $name);
 
 			//if user has permission or is creator
 			if ($this->user->permissions['articles']['update'] || $this->user->id == $article->created_by) {
@@ -58,6 +70,20 @@
 			}
 
 			$this->load->view('master', $this->view_data);
+		}
+
+		/*
+		 * loads up the article generator form
+		 */
+		public function generator() {
+			if (!$this->user->type === 'dev') {
+				//TODO: send a message
+				redirect('/admin');
+			} else {
+				$this->load->library('UI_Form');
+				$this->view_data['tab_content'] = 'forms/article_generator';
+				$this->load->view('master', $this->view_data);
+			}
 		}
 
 		/*
@@ -133,14 +159,24 @@
 			}
 		}
 
+
 		/*
 		 * This generates some ipsum content in the table
 		 */
-		public function generate_content () {
+		public function generate_articles () {
+			$data = $this->input->post();
 			//TODO: only allow dev users to do this
 			
-			$ipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare dui ac mi porttitor vestibulum. Ut porttitor dolor a sem interdum, et faucibus massa consectetur. Vivamus euismod odio in tristique vestibulum. In ultrices felis vel fringilla finibus. Duis tincidunt eros velit, ut pretium diam vulputate quis. Cras at vestibulum lorem. Maecenas hendrerit tortor nibh, at tristique orci dignissim in. Integer vel pretium dolor, eu euismod metus. Nunc a cursus diam. Phasellus egestas maximus sollicitudin. Cras ac semper tortor. Nulla malesuada felis sem, sit amet porttitor odio dapibus non. Fusce eu massa sollicitudin, lobortis lacus non, dictum dolor. Pellentesque non nibh ex. Morbi in magna eget erat vulputate bibendum.";
+			$this->db->query('delete from articles where id > 2');
+			
+			if (strlen($data['ipsum']) < 50) {
+				$ipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare dui ac mi porttitor vestibulum. Ut porttitor dolor a sem interdum, et faucibus massa consectetur. Vivamus euismod odio in tristique vestibulum. In ultrices felis vel fringilla finibus. Duis tincidunt eros velit, ut pretium diam vulputate quis. Cras at vestibulum lorem. Maecenas hendrerit tortor nibh, at tristique orci dignissim in. Integer vel pretium dolor, eu euismod metus. Nunc a cursus diam. Phasellus egestas maximus sollicitudin. Cras ac semper tortor. Nulla malesuada felis sem, sit amet porttitor odio dapibus non. Fusce eu massa sollicitudin, lobortis lacus non, dictum dolor. Pellentesque non nibh ex. Morbi in magna eget erat vulputate bibendum.";
+			} else {
+				$ipsum = $data['ipsum'];
+			}
+
 			$sentences = explode(". ", $ipsum);
+
 			$words = explode(' ', $ipsum);
 			foreach ($words as $index=>$word) {
 				$words[$index] = ucfirst(chop($word, '.,'));
@@ -149,16 +185,15 @@
 				}
 				
 			}
-			$categories = array();
-			for ($category = 0; $category < 10; $category++) {
-				$categories[] = $words[rand(0, count($words) - 1)];
-			}
+
+			$categories = explode(', ', $data['categories']);
+			$keywords = explode(', ', $data['keywords']);
 
 			$article = array();
 
 			$this->db->query('delete from content where id>2');
 
-			for ($category = 1; $category <= 10; $category++) {
+			foreach ($categories as $category) {
 				for ($item = 1; $item <= 10; $item++) {
 					$num_paragraphs = rand(3, 6);
 					$header = '';
@@ -180,7 +215,7 @@
 					$article['name'] = str_replace(' ', '-', strtolower($header));
 					$article['headline'] = $header;
 					$article['content'] = $content;
-					$article['category'] = $categories[$category - 1];
+					$article['category'] = $category;
 					$date_created = new DateTime();
 					$date_created->sub(DateInterval::createFromDateString(rand(0, 365).' days'));
 					$article['date_created'] = $date_created->format('Y-m-d');

@@ -87,10 +87,10 @@
 						return $query->result()[0];
 					} else {
 						if ($query->num_rows > 1) {
-							show_error(__METHOD__."<br>There is more than one content block in ".$category." with the url '$url'.");
+							show_error(__METHOD__."<br>There is more than one content block in ".$category." with the url '$name'.");
 						}
 						if ($query->num_rows === 0) {
-							show_error(__METHOD__."<br>There is no content block in ".$category." with the url '$url'.");
+							show_error(__METHOD__."<br>There is no content block in ".$category." with the url '$name'.");
 						}
 					}
 				//otherwise we return an array of records that are in supplied category
