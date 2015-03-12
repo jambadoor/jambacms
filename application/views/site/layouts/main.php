@@ -1,7 +1,9 @@
 <?php
 	$this->load->view('blocks/sticky_top_bar');
-	echo '<div class="ui centered page grid">';
+	$this->ui->open_div('ui centered page grid');
+	$this->ui->render();
 	$this->load->view("pages/$page");
-	echo '</div>';
+	$this->ui->close_div();
+	$this->ui->render();
 ?>
 

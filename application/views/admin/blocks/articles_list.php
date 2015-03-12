@@ -6,14 +6,16 @@
 	/*
 	 * breadcrumbs
 	 */
-	$config = array(
-		'divider_class' => 'right chevron icon divider',
-		'crumbs' => array (
-			'/admin/articles/view' => 'all',
-			'' => $category
-		)
-	);
-	$this->ui->add_breadcrumb($config);
+	if (isset($category)) {
+		$config = array(
+			'divider_class' => 'right chevron icon divider',
+			'crumbs' => array (
+				'/admin/articles/view' => 'all',
+				'' => $category
+			)
+		);
+		$this->ui->add_breadcrumb($config);
+	}
 	/*
 	 * add user
 	 */

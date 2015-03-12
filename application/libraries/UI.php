@@ -21,6 +21,9 @@ class UI {
 	}
 
 	/*
+	 * elements that open and close in the same function
+	 ****************************************************************************/
+	/*
 	 * creates a ui button with options
 	 */
 	public function add_button ($config = array()) {
@@ -67,6 +70,9 @@ class UI {
 		$this->html .= '</'.$tag.'>'."\n";
 	}
 
+	/*
+	 * creates a breadcrumb element using config data
+	 */
 	public function add_breadcrumb($config) {
 		//get all of our config values as local variables
 		foreach ($config as $key => $value) {
@@ -74,7 +80,6 @@ class UI {
 		}
 
 		//open up our tag
-		$this->html .= "\n";
 		$this->indent();
 		$this->html .= '<div class="ui ';
 		if (isset($breadcrumb_class)) {
@@ -99,6 +104,96 @@ class UI {
 		$this->html .= '</div>'."\n";
 	}
 
+	/*
+	 * create a link
+	 */
+	public function add_link($href, $text, $class='', $id='') {
+		$this->indent();
+		$this->html .= '<a href="'.$href.'"';
+		if ($class !== '') {
+			$this->html .= ' class="'.$class.'"';
+		}
+		if ($id !== '') {
+			$this->html .= ' id="'.$id.'"';
+		}
+		$this->html .= '>'.$text.'</a>'."\n";
+	}
+
+	/*
+	 * creates headers
+	 */
+	public function add_h($size, $content, $class = '', $id = '') {
+		$this->indent();
+		$this->html .= '<h'.$size;
+		if ($class !== '') {
+			$this->html .= ' class="'.$class.'"';
+		}
+		if ($id !== '') {
+			$this->html .= ' id="'.$id.'"';
+		}
+		$this->html .= '>'.$content.'</h'.$size.'>'."\n";
+	}
+
+	/*
+	 * insert some content
+	 */
+	public function add_content($content) {
+		$this->indent();
+		$this->open_div();
+		$this->html .= $content."\n";
+		$this->close_div();
+	}
+
+	/*
+	 * elements that require open and close calls
+	 ****************************************************************************/
+	/*
+	 * div
+	 */
+	public function open_div($class = '', $id = '') {
+		$this->indent();
+		$this->html .= '<div';
+		if ($class !== '') {
+			$this->html .= ' class="'.$class.'"';
+		}
+		if ($id !== '') {
+			$this->html .= ' id="'.$id.'"';
+		}
+		$this->html .= '>'."\n";
+		$this->indent_level++;
+	}
+
+	public function close_div() {
+		$this->indent_level--;
+		$this->indent();
+		$this->html .= '</div>'."\n";
+	}
+
+	/*
+	 * grid columns
+	 ****************************************************************************/
+	public function open_column($class = '') {
+		$this->indent();
+		$this->html .= '<div class="';
+		if ($class !== '') {
+			$this->html .= $class.' ';
+		}
+		$this->html .= 'column">'."\n";
+
+		$this->indent_level++;
+	}
+
+	public function close_column() {
+		$this->indent_level--;
+		$this->indent();
+		$this->html .= '</div>'."\n";
+	}
+
+
+
+	/*
+	 * utility functions
+	 ****************************************************************************/
 	/*
 	 * we keep our indents pretty
 	 */
