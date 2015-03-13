@@ -41,6 +41,4 @@
 			$this->ui->add_content($article->last_modified);
 		$this->ui->close_div();
 	$this->ui->close_div();
-
-	$this->ui->render();
 ?>
