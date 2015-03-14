@@ -1,44 +1,33 @@
-<?php
-	$this->ui->open_div('', 'top-spacer');
-	$this->ui->close_div();
-	$this->ui->open_column('twelve wide');
-		$this->ui->add_breadcrumb(array(
-			'crumbs' => array(
-				'/articles' => 'All',
-				"/articles/$article->category" => $article->category,
-				'' => $article->headline
-			)
-		));
-	$this->ui->close_column();
-	$this->ui->open_column('four wide');
-	$this->ui->close_column();
-	$this->ui->open_column('four wide');
-		$this->ui->open_div('ui segment');
-			$this->ui->add_h(3, 'More '.$article->category);
-			$this->ui->open_div('ui list');
-				foreach ($articles[$article->category] as $name => $item) {
-					$this->ui->open_div('item');
-						$this->ui->add_link('/articles/view/'.$article->category.'/'.$name, $item->headline); 
-					$this->ui->close_div();
-				}
-			$this->ui->close_div();
-		$this->ui->close_div();
-		$this->ui->open_div('ui segment');
-			$this->ui->add_h(3, 'Categories');
-			$this->ui->open_div('ui list');
-				foreach ($categories as $category) {
-					$this->ui->open_div('item');
-						$this->ui->add_link('/articles/view/'.$category, $category);
-					$this->ui->close_div();
-				}
-			$this->ui->close_div();
-		$this->ui->close_div();
-	$this->ui->close_column();
-	$this->ui->open_column('twelve wide');
-		$this->ui->open_div('ui segment');
-			$this->ui->add_h(3, $article->headline);
-			$this->ui->add_content($article->content);
-			$this->ui->add_content($article->last_modified);
-		$this->ui->close_div();
-	$this->ui->close_div();
-?>
+
+<!-- pages/article -->
+<div class="twelve wide column">
+	<div class="ui breadcrumb">
+		<a class="section" href="/articles">All</a>
+		<div class="divider">/</div>
+		<a class="section" href="/articles/<?=$article->category?>"><?=$article->category?></a>
+		<div class="divider">/</div>
+		<div class="section"><?=$article->headline?></div>
+	</div>
+</div>
+<div class="four wide column"></div>
+<div class="four wide column">
+	<div class="ui segment">
+		<h3>More <?=$article->category?></h3>
+		<ul class="ui list">
+<?php foreach ($articles[$article->category] as $name => $item) : ?>
+
+			<li class="item">
+				<a href="/articles/view/<?=$article->category?>/<?=$name?>"><?=$item->headline?></a>
+			</li>
+<?php endforeach; ?>
+
+		</ul>
+	</div>
+</div>
+<div class="twelve wide column">
+	<div class="ui segment">
+		<h3><?=$article->headline?></h3>
+		<div><?=$article->content?></div>
+		<div><?=$article->last_modified?></div>
+	</div>
+</div>

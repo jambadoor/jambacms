@@ -11,17 +11,15 @@
 			$this->view_data['metas'] = array();
 
 			//global plugins
+			$this->view_data['css_plugins'][] = 'semantic-ui/semantic.min.css';
 			$this->view_data['js_plugins'][] = 'jquery/jquery.js';
-			$this->view_data['css_plugins'] = array();
+			$this->view_data['js_plugins'][] = 'semantic-ui/semantic.min.js';
 
 			//global stylesheets
 			$this->view_data['stylesheets'][] = 'site.css';
 
 			//global scripts
 			$this->view_data['scripts'][] = 'site.js';
-
-			//global libraries
-			$this->load->library('UI');
 
 			//analytics
 			$this->load->model('analytics_model', 'analytics');

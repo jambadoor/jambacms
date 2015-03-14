@@ -8,9 +8,6 @@
 			$this->view_data['layout'] = 'main';
 			$this->view_data['page'] = 'home';
 
-			$this->view_data['css_plugins'][] = 'semantic-ui/menu.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/grid.css';
-			
 			$this->view_data['site_header'] = $this->articles->get_by_name('site-header');
 		}
 

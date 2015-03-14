@@ -10,16 +10,11 @@
 			//global meta tags
 			$this->view_data['metas'] = array();
 
-			$this->view_data['css_plugins'] = array();
-
-			//our fancy new ui class
-			$this->load->library('UI');
-
+			$this->view_data['css_plugins'][] = 'semantic-ui/semantic.min.css';
 
 			//admin js plugins
 			$this->view_data['js_plugins'][] = 'jquery/jquery.js';
-			$this->view_data['js_plugins'][] = 'semantic-ui/dropdown.js';
-			$this->view_data['js_plugins'][] = 'semantic-ui/transition.js';
+			$this->view_data['js_plugins'][] = 'semantic-ui/semantic.min.js';
 
 			//admin stylesheets
 			$this->view_data['scripts'][] = 'admin.js';

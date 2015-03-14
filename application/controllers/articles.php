@@ -7,14 +7,6 @@
 
 			$this->view_data['layout'] = 'main';
 
-			$this->view_data['css_plugins'][] = 'semantic-ui/menu.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/grid.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/segment.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/list.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/breadcrumb.css';
-			$this->view_data['css_plugins'][] = 'semantic-ui/icon.css';
-
-			
 			$this->view_data['site_header'] = $this->articles->get_by_name('site-header');
 		}
 
