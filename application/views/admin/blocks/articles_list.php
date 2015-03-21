@@ -27,7 +27,7 @@ if ($user->type === 'dev') : ?>
 		$this->ui_table->open_row();
 			$this->ui_table->add_column('<a href="/admin/articles/view/'.$article->category.'/'.$article->name.'">'.$article->name.'</a>');
 			$this->ui_table->add_column('<a href="/admin/articles/view/'.$article->category.'">'.$article->category.'</a>');
-			$this->ui_table->add_column($article->created_by);
+			$this->ui_table->add_column($article->author);
 			$this->ui_table->add_column($article->date_created);
 			$this->ui_table->add_column($article->active);
 			$options = '<a href="/admin/articles/view/'.$article->category.'/'.$article->name.'">View</a> | ';

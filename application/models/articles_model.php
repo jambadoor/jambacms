@@ -19,8 +19,14 @@
 			}
 			$this->db->order_by('last_modified', 'desc')->limit(1);
 			$query = $this->db->get($this->table);
-			return $query->result()[0];
+			$article = $query->result()[0];
+
+			//now add in the author's name
+			$this->_add_author_name($article);
+
+			return $article;
 		}
+
 
 		/*
 		 * gets a single article with the name supplied
@@ -29,7 +35,12 @@
 		public function get_by_name($name) {
 			$query = $this->db->where('name', $name)->get($this->table);
 			if ($query->num_rows === 1) {
-				return $query->result()[0];
+				$article = $query->result()[0];
+
+				//now add in the author's name
+				$this->_add_author_name($article);
+
+				return $article;
 			} else {
 				if ($query->num_rows > 1) {
 					show_error(__METHOD__."<br>There is more than one content block url the name '$name'.");
@@ -84,7 +95,9 @@
 					$this->db->where('name', $name);
 					$query = $this->db->get($this->table);
 					if ($query->num_rows === 1) {
-						return $query->result()[0];
+						$article = $query->result()[0];
+						$this->_add_author_name($article);
+						return $article;
 					} else {
 						if ($query->num_rows > 1) {
 							show_error(__METHOD__."<br>There is more than one content block in ".$category." with the url '$name'.");
@@ -93,48 +106,48 @@
 							show_error(__METHOD__."<br>There is no content block in ".$category." with the url '$name'.");
 						}
 					}
-				//otherwise we return an array of records that are in supplied category
+				//otherwise we return an array of articles that are in supplied category
 				} else {
 					$query = $this->db->get($this->table);
-					$records = array();
-					foreach ($query->result() as $record) {
-						$records[$record->name] = $record;
+					$article = array();
+					foreach ($query->result() as $article) {
+						$this->_add_author_name($article);
+						$articles[$article->name] = $article;
 					}
-					return $records;
+					return $articles;
 				}
 			} else {
 				//if no parameters supplied, we return array that represents the items by category
-				$records = array();
+				$articles = array();
 				$query = $this->db->get($this->table);
 
-				foreach ($query->result() as $record) {
-					$records[$record->category][$record->name] = $record;
+				foreach ($query->result() as $article) {
+					$this->_add_author_name($article);
+					$articles[$article->category][$article->name] = $article;
 				}
 
-				return $records;
+				return $articles;
 			}
 		}
 
 		public function get_all_active($cols='') {
-			$all_content = $this->_get_all_active($cols);
-
-			$content_by_name = array();
-			foreach ($all_content as $content) {
-				$content_by_name[$content->name] = $content;
+			$articles = array();
+			foreach ($this->_get_all_active($cols) as $article) {
+				$this->_add_author_name($article);
+				$articles[$article->name] = $article;
 			}
 
 			return $content_by_name;
 		}
 
 		public function get_all($cols='') {
-			$all_content = $this->_get_all($cols);
-
-			$content_by_name = array();
-			foreach ($all_content as $content) {
-				$content_by_name[$content->name] = $content;
+			$artilces = array();
+			foreach ($this->_get_all($cols) as $article) {
+				$this->_add_author_name($article);
+				$articles[$article->name] = $article;
 			}
 
-			return $content_by_name;
+			return $articles;
 		}
 
 		public function insert($record) {
@@ -144,5 +157,15 @@
 				return FALSE;
 			}
 		}
+
+		/*
+		 * utility function to ammend the authors name into the object before returning to the controller
+		 */
+		private function _add_author_name(&$article) {
+			$this->db->where('id', $article->created_by);
+			$user = $this->db->get('users')->result()[0];
+			$article->author = $user->first_name." ".$user->last_name;
+		}
+
 	}
 ?>
