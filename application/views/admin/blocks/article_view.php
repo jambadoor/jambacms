@@ -1,18 +1,11 @@
-<?php
-	$config = array(
-		'divider_class' => 'right chevron icon divider',
-		'crumbs' => array (
-			'/admin/articles/view' => 'all',
-			"/admin/articles/view/$article->category" => $article->category,
-			'' => $article->headline
-		)
-	);
-	echo $this->ui->indent_level;
-	$this->ui->add_breadcrumb($config);
-	echo $this->ui->indent_level;
-	$this->ui->render();
+<div class="ui breadcrumb">
+	<a class="section" href="/admin/articles/view">Articles</a>
+	<span class="divider">/</span>
+	<a class="section" href="/admin/articles/view/<?=$article->category?>"><?=$article->category?></a>
+	<span class="divider">/</span>
+	<span class="section"><?=$article->headline?></span>
+</div>
 
-?>
 <div class="ui segment">
 	<h3><?=$article->headline?></h3>
 	<div>Name: <?=$article->name?></div>

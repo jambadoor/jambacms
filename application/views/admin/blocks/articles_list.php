@@ -1,49 +1,23 @@
-<?php 
-	/*
-	 * TOP CONTROLS
-	 ****************************************************************************/
-	
-	/*
-	 * breadcrumbs
-	 */
-	if (isset($category)) {
-		$config = array(
-			'divider_class' => 'right chevron icon divider',
-			'crumbs' => array (
-				'/admin/articles/view' => 'all',
-				'' => $category
-			)
-		);
-		$this->ui->add_breadcrumb($config);
-	}
-	/*
-	 * add user
-	 */
-	if ($user->permissions['articles']['create']) {
-		$config = array(
-			'icon' => 'plus icon',
-			'class' => 'ui labeled right floated icon button',
-			'text' => 'Add Article',
-			'href' => '/admin/articles/add',
-			'id' => 'add-article-button'
-		);
-		$this->ui->add_button($config);
-	}
-	/*
-	 * article generator
-	 */
-	if ($user->type === 'dev') {
-		$config = array(
-			'icon' => 'plus icon',
-			'class' => 'ui labeled icon right floated button',
-			'id' => 'generate-articles-button',
-			'href' => '/admin/articles/generator',
-			'text' => 'Generate Random Articles'
-		);
-		$this->ui->add_button($config);
-	}
-	$this->ui->render();
-	
+<div class="ui breadcrumb">
+	<a class="section" href="/admin/articles/view">Articles</a>
+	<div class="divider">/</div>
+<?php if (isset($category)) : ?>
+	<div class="section"><?=$category?></div>
+<?php endif; ?>
+</div>
+
+<?php if ($user->permissions['articles']['create']) : ?>
+<a href="/admin/articles/add" class="ui labeled right floated icon button">
+	<i class="plus icon"></i>
+	Add Article
+</a>
+<?php endif; 
+if ($user->type === 'dev') : ?>
+	<a href="/admin/articles/generator" class="ui labeled icon right floated button">
+		<i class="plus icon"></i>
+		Generate Random Articles
+	</a>
+<?php endif; 
 	//Create our list
 	$config = array (
 		'headers' => array ('Name', 'Category', 'Author', 'Created On', 'Active', 'Options')
@@ -64,4 +38,3 @@
 	}
 	$this->ui_table->close();
 	$this->ui_table->render();
-?>

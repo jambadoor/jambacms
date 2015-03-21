@@ -1,7 +1,7 @@
 <div class="sixteen wide column" id="page">
 	<div id="dashboard-tabs" class="ui top attached tabular menu">
 		<div class="<?php if ($tab === 'home') echo 'active ';?>item">
-			<a href="/admin/home" id="home-tab" class="">
+			<a href="/admin/home" id="home-tab">
 				<i class="home icon"></i>
 				Home
 			</a>

@@ -1,0 +1,30 @@
+/*******************************
+     User Global Variables
+*******************************/
+@headerFont        : 'Open Sans', sans-serif;
+@pageFont          : 'Khula', sans-serif;
+
+@googleProtocol    : 'http://';
+
+//I don't think that we need to use the googleFontName at all.  Will just do it manually here for multiple fonts
+@googleFontRequest : 'Open+Sans:300,400|Khula';
+
+/*-------------------
+      Base Sizes
+--------------------*/
+
+@emSize   : 16px;
+@fontSize : 16px;
+/*--------------
+  Page Heading
+---------------*/
+
+@headerFontWeight : lighter;
+@headerLineHeight : 1.33em;
+
+@h1 : 2.5rem;
+@h2 : 2.25rem;
+@h3 : 2rem;
+@h4 : 1.5rem;
+@h5 : 1.25rem;
+

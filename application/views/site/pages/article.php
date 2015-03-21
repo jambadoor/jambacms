@@ -25,7 +25,7 @@
 	</div>
 </div>
 <div class="twelve wide column">
-	<div class="ui segment">
+	<div class="ui green inverted segment">
 		<h3><?=$article->headline?></h3>
 		<div><?=$article->content?></div>
 		<div><?=$article->last_modified?></div>
