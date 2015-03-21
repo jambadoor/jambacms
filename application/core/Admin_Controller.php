@@ -3,13 +3,14 @@
 	abstract class Admin_Controller extends Protected_Controller {
 
 		public function __construct() {
+			$this->login_redirect = 'admin';
+
 			parent::__construct();
 
-			//trying something out for prettier code
-			$this->view_data['indent_level'] = 0;
 			//global meta tags
 			$this->view_data['metas'] = array();
 
+			//plugins
 			$this->view_data['css_plugins'][] = 'semantic-ui/semantic.min.css';
 
 			//admin js plugins

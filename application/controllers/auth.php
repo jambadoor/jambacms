@@ -10,7 +10,7 @@
 		}
 
 		//our login page
-		public function login($redirect='admin') {
+		public function login($redirect='/') {
 			//load up the view_data
 			$this->view_data['layout'] = 'page';
 			$this->view_data['page'] = 'form';
@@ -24,6 +24,9 @@
 
 			//and the view
 			$this->load->view('master', $this->view_data);
+
+			//set the redirect flashdata
+			$this->session->set_flashdata('redirect', $redirect);
 		}
 
 		public function authenticate() {
@@ -43,14 +46,14 @@
 				redirect($this->session->flashdata('redirect'));
 			} else {
 				//TODO: send a message
-				redirect('auth/login'.$this->login_redirect);
+				redirect('/auth/login'.$this->login_redirect);
 			}
 		}
 
-		public function logout() {
+		public function logout($redirect = '') {
 			$this->session->sess_destroy();
 			//TODO: put in a message
-			redirect('/auth/login');
+			redirect('/'.$redirect);
 		}
 	}
 ?>

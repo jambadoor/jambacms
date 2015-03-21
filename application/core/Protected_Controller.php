@@ -8,6 +8,7 @@
  */
 abstract class Protected_Controller extends Base_Controller {
 	protected $user;			//the currently logged in user
+	protected $login_redirect;	//after a login, where do we redirect?
 
 	public function __construct() {
 		parent::__construct();
@@ -27,7 +28,7 @@ abstract class Protected_Controller extends Base_Controller {
 		} else {
 			//if we aren't logged in, redirect
 			//TODO: send a message via flashdata
-			redirect('/auth/login');
+			redirect('/auth/login/'.$this->login_redirect);
 		}
 	}
 }
