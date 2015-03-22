@@ -6,7 +6,6 @@ $(function () {
 	//initialize the dropdowns
 	$('div.ui.selection.dropdown').dropdown();
 
-	//make tinyeditor update textarea before submitting
 	//we need to make this more elegant
 	$('#edit-content-form').submit(function(event) {
 		tinyeditor.post();
@@ -20,5 +19,16 @@ $(function () {
 	$('#add-blog-entry-form').submit(function(event) {
 		tinyeditor.post();
 	});
+
+	//get confirmation of user deletes
+	$('.delete.button').click(
+		function () {
+			var del = window.confirm("Are you sure you want to delete this user?");
+			if (!del) {
+				this.href='#';
+			}
+		}
+	);
+
 
 });

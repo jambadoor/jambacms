@@ -667,6 +667,11 @@ input::selection {
 /*******************************
          Site Overrides
 *******************************/
+
+canvas {
+  width: 100%;
+  min-height: 400px;
+}
 /*!
  * # Semantic UI x.x - Button
  * http://github.com/semantic-org/semantic-ui/

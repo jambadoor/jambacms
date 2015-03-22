@@ -15,5 +15,6 @@
 	<div>Author: <?=$article->author?></div>
 	<div>Last Modified: <?=$article->last_modified?></div>
 	<div>Last Modified By: <?=$article->last_modified_by?></div>
+	<div>Active: <?php if ($article->active) echo "Yes"; else echo "No"; ?>
 	<div><?=$article->content?></div>
 </div>

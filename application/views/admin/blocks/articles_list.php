@@ -29,10 +29,16 @@ if ($user->type === 'dev') : ?>
 			$this->ui_table->add_column('<a href="/admin/articles/view/'.$article->category.'">'.$article->category.'</a>');
 			$this->ui_table->add_column($article->author);
 			$this->ui_table->add_column($article->date_created);
-			$this->ui_table->add_column($article->active);
-			$options = '<a href="/admin/articles/view/'.$article->category.'/'.$article->name.'">View</a> | ';
-			$options .= '<a href="/admin/articles/edit/'.$article->category.'/'.$article->name.'">Edit</a> | ';
-			$options .= '<a href="/admin/articles/del/'.$article->category.'/'.$article->name.'">Deactivate</a>';
+			if ($article->active) 
+				$this->ui_table->add_column("Yes");
+			else
+				$this->ui_table->add_column("No");
+			$options = '';
+			$options = '<a href="/admin/articles/view/'.$article->category.'/'.$article->name.'">View</a>';
+			if ($user->permissions['articles']['update'])
+				$options .= ' | <a href="/admin/articles/edit/'.$article->category.'/'.$article->name.'">Edit</a>';
+			if ($user->permissions['articles']['delete'])
+				$options .= ' | <a href="/admin/articles/del/'.$article->id.'">Deactivate</a>';
 			$this->ui_table->add_column($options);
 		$this->ui_table->close_row();
 	}

@@ -67,7 +67,7 @@
 				$this->view_data['css_plugins'][] = 'tinyeditor/tinyeditor.css';
 				$this->view_data['js_plugins'][] = 'tinyeditor/tinyeditor.js';
 			} else {
-				$this->view_data['tab_content'] = 'blocks/article_list';
+				redirect('/admin/articles');
 			}
 
 			$this->load->view('master', $this->view_data);
@@ -229,4 +229,3 @@
 			redirect("/admin/articles/view");
 		}
 	}
-?>
