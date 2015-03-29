@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 	/*
 	 * the articles tab of our dashboard
-	 * used to manage our articles table
+	 * used to manage our articles features
 	 */
 	class Articles extends Admin_Controller {
 		public function __construct() {
@@ -105,42 +105,13 @@
 			$this->load->view('master', $this->view_data);
 		}
 
-		/*
-		 * CRUD
-		 ****************************************************************************/
 
-		/*
-		 * creates a new articles from post
-		 */
-		public function create() {
-			if ($this->user->permissions['articles']['create']) {
-				$new_article = $this->input->post();	
-				print_r($new_article);
-				$new_article['created_by'] = $this->user->id;
-				$new_article['date_created'] = date('Y-m-d');
-				$new_article['last_modified'] = date('Y-m-d');
-				$new_article['last_modified_by'] = $this->user->id;
-				$this->articles->insert($new_article);
-				redirect('/admin/articles/view');
-			} else {
-				//TODO: send a message
-				redirect('/admin/articles');
-			}
-		}
 
-		/*
-		 * sets active to false
-		 */
-		public function del($id) {
-			if ($this->user->permissions['articles']['delete']) {
-				$this->articles->del($id);
-				redirect('/admin/articles');
-			} else {
-				//TODO: send a message
-				redirect('/admin/articles');
-			}
-		}
-
+/****************************************************************************
+ *                                                                          *
+ * POST HANDLERS                                                            *
+ *                                                                          *
+ ****************************************************************************/
 		/*
 		 * updates the article specified by $url with post
 		 */
@@ -160,9 +131,41 @@
 			}
 		}
 
+		/*
+		 * creates a new articles from post
+		 */
+		public function create() {
+			if ($this->user->permissions['articles']['create']) {
+				$new_article = $this->input->post();	
+				$new_article['created_by'] = $this->user->id;
+				$new_article['date_created'] = date('Y-m-d');
+				$new_article['last_modified'] = date('Y-m-d');
+				$new_article['last_modified_by'] = $this->user->id;
+				$this->articles->insert($new_article);
+				redirect('/admin/articles/view');
+			} else {
+				//TODO: send a message
+				redirect('/admin/articles');
+			}
+		}
+
 
 		/*
-		 * This generates some ipsum content in the table
+		 * sets active to false
+		 */
+		public function del($id) {
+			if ($this->user->permissions['articles']['delete']) {
+				$this->articles->del($id);
+				redirect('/admin/articles');
+			} else {
+				//TODO: send a message
+				redirect('/admin/articles');
+			}
+		}
+
+
+		/*
+		 * This generates some ipsum content in the table from post attributes
 		 */
 		public function generate_articles () {
 			$data = $this->input->post();
@@ -184,7 +187,6 @@
 				if ($words[$index] == '' || $words[$index] == ' ') {
 					unset($words[$index]);
 				}
-				
 			}
 
 			$categories = explode(', ', $data['categories']);

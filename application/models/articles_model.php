@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * Author: Jason Benford
+ * File: ./application/models/articles_model.php
+ * Description: the model for the articles table
+ */
+
 	class Articles_Model extends MY_Model {
 		public function __construct() {
 			$this->table = 'articles';
@@ -130,6 +137,10 @@
 			}
 		}
 
+		/*
+		 * get all active articles
+		 * parameter limits the columns
+		 */
 		public function get_all_active($cols='') {
 			$articles = array();
 			foreach ($this->_get_all_active($cols) as $article) {
@@ -140,6 +151,10 @@
 			return $content_by_name;
 		}
 
+		/*
+		 * get all articles, active and not
+		 * parameter limits columns
+		 */
 		public function get_all($cols='') {
 			$artilces = array();
 			foreach ($this->_get_all($cols) as $article) {
@@ -150,7 +165,11 @@
 			return $articles;
 		}
 
+		/*
+		 * insert
+		 */
 		public function insert($record) {
+			//make sure that we don't already have an article with that name and category
 			if ($this->db->where('name', $record['name'])->where('category', $record['category'])->get($this->table)->num_rows < 1) {
 				$this->db->insert($this->table, $record);
 			} else {
@@ -166,6 +185,8 @@
 			$user = $this->db->get('users')->result()[0];
 			$article->author = $user->first_name." ".$user->last_name;
 		}
-
 	}
-?>
+
+// End of Articles_Model class
+/* End of file article_model.php */
+/* Location: ./application/models/article_model.php */

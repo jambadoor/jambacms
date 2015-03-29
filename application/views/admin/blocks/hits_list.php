@@ -6,4 +6,4 @@
 		<div>IP: <?=$hit->ip?></div>
 		<div>User Agent: <?=$hit->user_agent?></div>
 	</div>
-<?php endforeach;?>
+<?php endforeach;

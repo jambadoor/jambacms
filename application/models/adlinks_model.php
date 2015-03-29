@@ -1,10 +1,21 @@
 <?php
+
+/*
+ * Author: Jason Benford
+ * File: ./application/models/adlinks_model.php
+ * Description: This is the model for the adlinks table
+ */
+
 	class Adlinks_Model extends MY_Model {
 		public function __construct() {
+			//set the table and then construct run MY_Model->__construct
 			$this->table = 'adlinks';
 			parent::__construct();
 		}
 
+		/*
+		 * get all active rows
+		 */
 		public function get_all_active($cols='') {
 			$adlinks = $this->_get_all_active($cols);
 
@@ -30,6 +41,9 @@
 			return $adlinks;
 		}
 
+		/*
+		 * get the redirect for the link provided
+		 */
 		public function get_redirect_url($link_url) {
 			$query = $this->db->select('redirect_url')->where('link_url', $link_url)->get($this->table);
 			if ($query->num_rows === 1) {
@@ -45,6 +59,9 @@
 			return $redirect_url;
 		}
 
+		/*
+		 * get the row from the link_url
+		 */
 		public function get_by_link_url($link_url) {
 			$query = $this->db->where('link_url', $link_url)->get($this->table);
 			if ($query->num_rows === 1) {
@@ -60,6 +77,9 @@
 			return $adlink;
 		}
 
+		/*
+		 * log a hit to the link_url in the adlink_hits table
+		 */
 		public function log($link_url) {
 			$query = $this->db->where('link_url', $link_url)->get($this->table);
 			if ($query->num_rows === 1) {
@@ -91,4 +111,7 @@
 			$this->db->insert('adhits', $hit);
 		}
 	}
-?>
+
+// End of Adlinks_Model class
+/* End of file adlinks_model.php */
+/* Location: ./application/models/adlinks_model.php */

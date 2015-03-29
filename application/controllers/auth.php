@@ -56,4 +56,3 @@
 			redirect('/'.$redirect);
 		}
 	}
-?>

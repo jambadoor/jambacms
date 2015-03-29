@@ -1,19 +1,14 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class UI_Form {
-	var $CI;
-	var $html;
+/*
+ * Author: Jason Benford
+ * File: ./application/libraries/UI_Form.php
+ * Description: This is a helpful little library for creating SemanticUI forms.  
+ * 	With perfect indentation withing the form.
+ */
 
-	/*
-	 * CONSTRUCTOR
-	 * set up our ci instance and load in the required semantic files
-	 */
-	public function __construct() {
-		$CI =& get_instance();
-		$this->CI =& $CI;
-		if (!in_array('semantic-ui/form.css', $CI->view_data['css_plugins'])) $CI->view_data['css_plugins'][] = 'semantic-ui/form.css';
-		if (!in_array('semantic-ui/form.js', $CI->view_data['js_plugins'])) $CI->view_data['js_plugins'][] = 'semantic-ui/form.js';
-	}
+class UI_Form {
+	var $html;
 
 	/*
 	 * starts the form, takes a config array to get it started
@@ -32,7 +27,7 @@ class UI_Form {
 
 		//reset our html
 		$this->html = "\n";
-		$this->indent();
+		$this->_indent();
 
 		//open up our tag
 		$this->html .= '<form class="';
@@ -52,7 +47,7 @@ class UI_Form {
 
 		//move our indent up a level and indent
 		$this->indent_level++;
-		$this->indent();
+		$this->_indent();
 
 		if (isset($header)) {
 			$this->html .= '<h3>'.$header.'</h3>';
@@ -60,16 +55,25 @@ class UI_Form {
 		$this->html .= "\n";
 	}
 
+	/*
+	 * close out the whole form
+	 */
 	public function close() {
 		$this->indent_level--;
-		$this->indent();
+		$this->_indent();
 		$this->html .= "</form>\n";
 	}
 
+	/*
+	 * render the form to the buffer
+	 */
 	public function render() {
 		echo $this->html;
 	}
 
+	/*
+	 * open up a group of fields
+	 */
 	public function open_group($num_fields = 0) {
 		$this->html .= '<div class="';
 
@@ -94,77 +98,96 @@ class UI_Form {
 		}
 		$this->html .= 'fields">'."\n";
 		$this->indent_level++;
-		$this->indent();
+		$this->_indent();
 	}
 
+	/*
+	 * close out the group
+	 */
 	public function close_group() {
 		$this->indent_level--;
-		$this->indent();
+		$this->_indent();
 		$this->html .= "</div>\n";
 	}
 
+	/*
+	 * create an text input
+	 */
 	public function add_input_field($name, $label='', $value='') {
-		$this->indent();
+		$this->_indent();
 		$this->html .= '<div class="field">'."\n";
 		$this->indent_level++;
-		$this->indent();
+		$this->_indent();
 		$this->html .= '<label>'.$label.'</label>'."\n";
-		$this->indent();
+		$this->_indent();
 		$this->html .= '<input type="text" name="'.$name.'" value="'.$value.'">'."\n";
 		$this->indent_level--;
-		$this->indent();
+		$this->_indent();
 		$this->html .= '</div>'."\n";
 	}
 
+	/*
+	 * add a tinyeditor instance wysiwyg
+	 */
 	public function add_tinyeditor($name, $label='', $value='') {
-		$this->indent();
+		$this->_indent();
 		$this->html .= '<div class="field">'."\n";
 		$this->indent_level++;
-		$this->indent();
+		$this->_indent();
 		$this->html .= '<label>'.$label.'</label>'."\n";
-		$this->indent();
+		$this->_indent();
 		$this->html .= '<textarea id="input" name="'.$name.'" label="'.$label.'">'."\n";
 		$this->indent_level++;
-		$this->indent();
+		$this->_indent();
 		$this->html .= $value."\n";
 		$this->indent_level--;
-		$this->indent();
+		$this->_indent();
 		$this->html .= '</textarea>'."\n";
-		$this->indent();
+		$this->_indent();
 		$this->html .= '<script type="text/javascript" src="/assets/js/init_tinyeditor.js"></script>'."\n";
 		$this->indent_level--;
-		$this->indent();
+		$this->_indent();
 		$this->html .= '</div>'."\n";
 	}
 
-
+	/*
+	 * add a simple textarea
+	 */
 	public function add_textarea($name, $label='', $value='') {
-		$this->indent();
+		$this->_indent();
 		$this->html .= '<div class="field">'."\n";
 		$this->indent_level++;
-		$this->indent();
+		$this->_indent();
 		$this->html .= '<label>'.$label.'</label>'."\n";
-		$this->indent();
+		$this->_indent();
 		$this->html .= '<textarea name="'.$name.'" label="'.$label.'">'."\n";
 		$this->html .= $value."\n";
 		$this->html .= '</textarea>'."\n";
 		$this->indent_level--;
-		$this->indent();
+		$this->_indent();
 		$this->html .= '</div>'."\n";
 
 	}
 
+	/*
+	 * add in a submit button
+	 */
 	public function add_submit($label = "Submit") {
-		$this->indent();
+		$this->_indent();
 		$this->html .= '<input type="submit" value="'.$label.'" class="ui button">'."\n";
 
 	}
 
-	private function indent() {
+	/*
+	 * a utility function for perfect indentation
+	 */
+	private function _indent() {
 		for ($i = 0; $i < $this->indent_level; $i++) {
 			$this->html .= "\t";
 		}
 	}
-	
 }
- ?>
+
+// End of UI_Form class
+/* End of file UI_Form.php */
+/* Location: ./application/libraries/UI_Form.php */

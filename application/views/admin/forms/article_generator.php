@@ -12,4 +12,3 @@
 	$this->ui_form->add_submit();
 	$this->ui_form->close();
 	$this->ui_form->render();
-?>

@@ -1,5 +1,11 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/*
+ * Author: Jason Benford
+ * File: /application/libraries/UI.php
+ * Description: This was meant to be a library to make creating SemanticUI elements simple.  It got really messy, currently not in use.
+ */
+
 class UI {
 	var $CI;
 	var $html;
@@ -7,8 +13,6 @@ class UI {
 
 	/*
 	 * CONSTRUCTOR
-	 * if this is being used in ci,
-	 * set up our ci instance and load in the required semantic files
 	 */
 	public function __construct($CI = true) {
 		if ($CI) {
@@ -245,4 +249,6 @@ class UI {
 	}
 }
 
-?>
+// End of UI class
+/* End of file UI.php */
+/* Location: ./application/libraries/UI.php */

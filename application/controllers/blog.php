@@ -19,4 +19,3 @@
 			$this->load->view('master', $this->view_data);
 		}
 	}
-?>

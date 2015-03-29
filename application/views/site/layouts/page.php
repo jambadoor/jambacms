@@ -1,1 +1,2 @@
-<?php $this->load->view("pages/$page"); ?>
+<?php 
+	$this->load->view("pages/$page");

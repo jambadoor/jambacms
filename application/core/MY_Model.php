@@ -1,7 +1,14 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+/*
+ * Author: Jason Benford
+ * File: /application/core/MY_Model.php
+ * Description: Extension of CI_Model for more functionality.
+ */
+
 	class MY_Model extends CI_Model {
-		protected $columns;
-		protected $table='users';
+		protected $columns;			//simply a list of the columns in the table that the model is primarily for
+		protected $table;			//the name of the table that the model is primarily for
 
 		public function __construct() {
 			parent::__construct();
@@ -72,11 +79,13 @@
 		/*
 		 * DELETE (SOFT)
 		 */
-
 		public function del($id) {
 			if (!$this->db->where('id', $id)->update($this->table, array('active' => 0))) {
 				exit("Soft delete failed at DB for $table id $id");
 			}
 		}
 	}
-?>
+
+// End of MY_Model class
+/* End of file MY_Model.php */
+/* Location: ./application/core/MY_Model.php */

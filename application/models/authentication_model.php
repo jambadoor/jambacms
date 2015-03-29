@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * Author: Jason Benford
+ * File: ./application/models/authentication_model.php
+ * Description: the model for the authentication table
+ */
+
 	class Authentication_Model extends CI_Model {
 
 		public function __construct() {
@@ -119,4 +126,7 @@
 			}
 		}
 	}
-?>
+
+// End of Authentication_Model class
+/* End of file authentication_model.php */
+/* Location: ./application/models/authentication_model.php */

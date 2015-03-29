@@ -1,4 +1,3 @@
-
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 	class Forum extends Admin_Controller {
 		public function __construct() {
@@ -12,4 +11,3 @@
 			$this->load->view('master', $this->view_data);
 		}
 	}
-?>

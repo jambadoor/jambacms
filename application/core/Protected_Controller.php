@@ -3,9 +3,12 @@
 /*
  * Author: Jason Benford
  * File: /application/core/Protected_Controller
- * Description: require login, permission, no view_data
- * 
+ * Description: This is the controller from which all other controllers that require authentication inherit.
+ * 	We check if a user is logged in, create the controller's user object if so, otherwise redirect to login.
+ * 	TODO: we need to have public protected and admin protected that have different login screens, so rethinking
+ * 	the auth controller is probably a good idea.
  */
+
 abstract class Protected_Controller extends Base_Controller {
 	protected $user;			//the currently logged in user
 	protected $login_redirect;	//after a login, where do we redirect?
@@ -13,12 +16,12 @@ abstract class Protected_Controller extends Base_Controller {
 	public function __construct() {
 		parent::__construct();
 
-		//load up our models, manually to give better names
+		//load up our models with better names
 		$this->load->model('authentication_model', 'auth');
 
-		//if so, load up the user
+		//check if logged in
 		if ($this->session->userdata('is_logged_in') === true) {
-			//if there is a user_id
+			//if there is a user_id (always should be if is_logged_in)
 			if (!empty($this->session->userdata('user_id'))) {
 				//get the user
 				$this->user = $this->auth->get_user_object($this->session->userdata('user_id'));
@@ -32,3 +35,7 @@ abstract class Protected_Controller extends Base_Controller {
 		}
 	}
 }
+
+// End of Protected_Controller class
+/* End of file Protected_Controller.php */
+/* Location: ./application/core/Protected_Controller.php */

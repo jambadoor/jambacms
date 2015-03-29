@@ -23,4 +23,4 @@
 	</a>
 <?php endif; ?>
 </div>
-<?php endforeach; ?>
+<?php endforeach;

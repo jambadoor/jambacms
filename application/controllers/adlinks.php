@@ -16,4 +16,3 @@
 			redirect($redirect_url);
 		}
 	}
-?>

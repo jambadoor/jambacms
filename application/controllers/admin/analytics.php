@@ -50,4 +50,3 @@
 			$this->analytics->log($hit);
 		}
 	}
-?>

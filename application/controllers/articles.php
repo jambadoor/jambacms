@@ -8,6 +8,7 @@
 			$this->view_data['layout'] = 'main';
 
 			$this->view_data['site_header'] = $this->articles->get_by_name('site-header');
+			
 		}
 
 		public function index() {
@@ -38,4 +39,3 @@
 			$this->load->view('master', $this->view_data);
 		}
 	}
-?>

@@ -94,4 +94,3 @@ class CI_Autoloader {
 
 /* End of file CI_Autoloader.php */
 /* Location: ./application/hooks/CI_Autoloader.php */
-?>
